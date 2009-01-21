@@ -268,6 +268,28 @@
         <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.5/junit-4.5-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: hsqldb:hsqldb:1.8.0.7">
+      <CLASSES>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.google.code.guice:guice:1.0">
+      <CLASSES>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/com/google/code/guice/guice/1.0/guice-1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/com/google/code/guice/guice/1.0/guice-1.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$APPLICATION_HOME_DIR$/bin/H:/.m2/com/google/code/guice/guice/1.0/guice-1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
   <UsedPathMacros>
     <macro name="MAVEN_REPOSITORY" description="Maven Local Repostiry" />
