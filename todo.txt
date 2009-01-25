@@ -15,3 +15,5 @@ WHERE |____v| = |___v|
       |____v| < |___v| 
       |____v| > |___v| 
 
+mvn org.glassfish:maven-glassfish-plugin:run
+mvn org.glassfish:maven-glassfish-plugin:run
