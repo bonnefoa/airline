@@ -1,0 +1,17 @@
+amelioration demandee
+
+inspector recupere metadata a partir du lien
+reponses sur la structure des tables de la bdd
+
+log -> mode administration ~ phpmyadmin
+listing dyn des tables et choix
+listing dyn des champs choisies
+construction de la query
+
+
+SELECT |____v| |____v| |____v| ...
+FROM |____v| |____v| |____v| ...
+WHERE |____v| = |___v| 
+      |____v| < |___v| 
+      |____v| > |___v| 
+
