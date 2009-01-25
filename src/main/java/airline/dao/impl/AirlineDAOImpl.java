@@ -18,7 +18,7 @@ import java.sql.ResultSet;
 public class AirlineDAOImpl implements AirlineDAO {
     private Connection connection;
 
-    @Inject
+//    @Inject
     public AirlineDAOImpl(Connector connector) {
         connection = connector.getConnection();
     }
