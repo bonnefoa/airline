@@ -6,10 +6,7 @@ import airline.model.TablesColumns;
 import airline.model.Tables;
 import airline.model.TablesRow;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,20 +69,24 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     public List<TablesRow> getTablesRows(String nomTables) {
         List<TablesRow> res = new ArrayList<TablesRow>();
-        TablesRow tablesRow;/*
+        Map<String, TablesColumns> tablesColumns = getTablesColumns(nomTables);
+        TablesRow tablesRow;
         try {
-            DatabaseMetaData metas = connection.getMetaData();
-            ResultSet results = metas.get(null, null, tableName, null);
-            while (results.next()) {
-                tablesColumns = new TablesColumns();
-                tablesColumns.setName(results.getString(TablesColumns.NAME));
-                tablesColumns.setType(results.getString(TablesColumns.TYPE));
-                res.add(tablesColumns);
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(String.format(
+                    "SELECT * FROM %s", nomTables));
+            while (result.next()) {
+                tablesRow = new TablesRow();
+                for (Map.Entry<String, TablesColumns> columnsEntry : tablesColumns.entrySet()) {
+                    Object obj = result.getObject(columnsEntry.getKey());
+                    tablesRow.put(columnsEntry.getKey(), obj);
+                }
+                res.add(tablesRow);
             }
             return res;
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
         return null;
     }
 }
