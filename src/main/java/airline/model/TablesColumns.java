@@ -7,7 +7,7 @@ public class TablesColumns {
     public static final String NAME = "name";
     public static final String TYPE = "type";
 
-    private TablesEntity tablesEntity;
+    private Tables tablesEntity;
 
     private String name;
 
@@ -29,11 +29,16 @@ public class TablesColumns {
         this.type = type;
     }
 
-    public TablesEntity getTablesEntity() {
+    public Tables getTablesEntity() {
         return tablesEntity;
     }
 
-    public void setTablesEntity(TablesEntity tablesEntity) {
+    public void setTablesEntity(Tables tablesEntity) {
         this.tablesEntity = tablesEntity;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + type;
     }
 }

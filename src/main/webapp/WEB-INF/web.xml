@@ -12,7 +12,7 @@
 
     <servlet-mapping>
             <servlet-name>Accueil</servlet-name>
-            <url-pattern>/Accueil</url-pattern>
+            <url-pattern>/AccueilServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>
