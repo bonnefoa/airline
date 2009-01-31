@@ -9,6 +9,10 @@
         <display-name>Accueil</display-name>
         <servlet-class>airline.servlet.Accueil</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>airline.servlet.admin.Index</servlet-class>
+    </servlet>
 
     <servlet-mapping>
             <servlet-name>Accueil</servlet-name>
