@@ -12,12 +12,19 @@ import java.io.IOException;
  */
 public class Accueil extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("Response.jsp");			
-        dispatcher.forward(request,response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("GRA");
+//        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("Response.jsp");
+//        try {
+//            dispatcher.forward(request, response);
+//        } catch (ServletException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("GRA");
     }
 }

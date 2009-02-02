@@ -57,7 +57,7 @@ public class AirlineDAOImpl implements AirlineDAO {
                 String name = results.getString(TablesColumns.NAME);
                 tablesColumns.setName(name);
                 tablesColumns.setType(results.getString(TablesColumns.TYPE));
-                tablesColumns.setTables(tables);
+                tablesColumns.setTable(tables);
                 res.put(name, tablesColumns);
             }
             return res;

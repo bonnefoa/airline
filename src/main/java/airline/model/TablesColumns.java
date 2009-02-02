@@ -7,21 +7,11 @@ public class TablesColumns {
     public static final String NAME = "COLUMN_NAME";
     public static final String TYPE = "TYPE_NAME";
 
-    private Table tablesEntity;
+    private Table table;
 
     private String name;
 
     private String type;
-
-    private Table tables;
-
-    public Table getTables() {
-        return tables;
-    }
-
-    public void setTables(Table tables) {
-        this.tables = tables;
-    }
 
     public String getName() {
         return name;
@@ -39,12 +29,12 @@ public class TablesColumns {
         this.type = type;
     }
 
-    public Table getTablesEntity() {
-        return tablesEntity;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTablesEntity(Table tablesEntity) {
-        this.tablesEntity = tablesEntity;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     @Override

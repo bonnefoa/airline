@@ -51,7 +51,14 @@ public class AirlineDAOTest extends BaseClass {
         Map<String, Table> tablesEntityMap = airlineDAO.getTablesEntities();
         Table table = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         Map<String, TablesColumns> cols = airlineDAO.getTablesColumns(table);
-        assertEquals(3,cols.size());
+        assertEquals(3, cols.size());
+        String[] names = {ConnectorTestImpl.IDENTIFIANT,
+                ConnectorTestImpl.NAME,
+                ConnectorTestImpl.TIME};
+        int i = 0;
+        for (TablesColumns tablesColumns : cols.values()) {
+            assertEquals(names[i], tablesColumns.getName());
+        }
     }
 
     @Test
