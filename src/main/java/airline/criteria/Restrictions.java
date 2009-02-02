@@ -1,11 +1,10 @@
 package airline.criteria;
 
+import airline.criteria.enumeration.SqlConstraints;
 import airline.model.TablesColumns;
 
 /**
- * User: sora
- * Date: 31 janv. 2009
- * Time: 11:48:46
+ * Restrictions for where clauses
  */
 public class Restrictions {
 

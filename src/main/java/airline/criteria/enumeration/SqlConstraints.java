@@ -1,4 +1,4 @@
-package airline.criteria;
+package airline.criteria.enumeration;
 
 /**
  * User: sora
