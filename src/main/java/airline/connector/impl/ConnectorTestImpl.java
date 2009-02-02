@@ -12,17 +12,17 @@ import java.sql.Statement;
  */
 public class ConnectorTestImpl implements Connector {
     private Connection connection;
-    public static final String IDENTIFIANT = "id";
-    public static final String NAME = "nom";
-    public static final String TIME = "date";
+    public static final String IDENTIFIANT = "ID";
+    public static final String NAME = "NOM";
+    public static final String TIME = "DATE";
     public static final String TABLE1 = "TABLE1";
     public static final String TABLE2 = "TABLE2";
-    public static final String MESSAGE = "mess";
+    public static final String MESSAGE = "MESS";
 
     public ConnectorTestImpl() {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
-            connection = DriverManager.getConnection("jdbc:hsqldb:file:forumBDD", "sa", "");
+            connection = DriverManager.getConnection("jdbc:hsqldb:mem:forumBDD", "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -57,6 +57,11 @@ public class ConnectorTestImpl implements Connector {
                 NAME, MESSAGE, TIME,
                 "name", "message", "2009-01-01 12:00:00")
         );
+        statement.executeUpdate(String.format("INSERT INTO %s (%s, %s,%s) VALUES ('%s','%s','%s')", TABLE2,
+                NAME, MESSAGE, TIME,
+                "name2", "message2", "2009-01-01 12:00:01")
+        );
+
         connection.commit();
     }
 
