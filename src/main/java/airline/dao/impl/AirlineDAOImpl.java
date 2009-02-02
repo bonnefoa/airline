@@ -8,10 +8,7 @@ import airline.model.TablesRow;
 import com.google.inject.Inject;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Dao implementation
@@ -25,8 +22,8 @@ public class AirlineDAOImpl implements AirlineDAO {
     }
 
 
-    public Map<String, Table> getTablesEntities() {
-        Map<String, Table> res = new HashMap<String, Table>();
+    public Map<String, Table> getTables() {
+        Map<String, Table> res = new LinkedHashMap<String, Table>();
         Table tablesEntity;
         try {
             DatabaseMetaData metas = connection.getMetaData();
@@ -47,7 +44,7 @@ public class AirlineDAOImpl implements AirlineDAO {
     }
 
     public Map<String, TablesColumns> getTablesColumns(Table tables) {
-        Map<String, TablesColumns> res = new HashMap<String, TablesColumns>();
+        Map<String, TablesColumns> res = new LinkedHashMap<String, TablesColumns>();
         TablesColumns tablesColumns;
         try {
             DatabaseMetaData metas = connection.getMetaData();
@@ -68,18 +65,18 @@ public class AirlineDAOImpl implements AirlineDAO {
     }
 
     public List<TablesRow> getTablesRows(Table tables) {
-        List<TablesRow> res = new ArrayList<TablesRow>();
+        List<TablesRow> res = new LinkedList<TablesRow>();
         Map<String, TablesColumns> tablesColumns = getTablesColumns(tables);
         TablesRow tablesRow;
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(String.format(
-                    "SELECT * FROM %s", new Table[]{tables}));
+                    "SELECT * FROM %s", tables.getName()));
             while (result.next()) {
                 tablesRow = new TablesRow();
                 for (Map.Entry<String, TablesColumns> columnsEntry : tablesColumns.entrySet()) {
                     Object obj = result.getObject(columnsEntry.getKey());
-                    tablesRow.put(columnsEntry.getKey(), obj);
+                    tablesRow.put(columnsEntry.getValue(), obj.toString());
                 }
                 res.add(tablesRow);
             }

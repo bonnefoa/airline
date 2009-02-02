@@ -17,7 +17,7 @@ public interface AirlineDAO {
      *
      * @return Map of tables name and the tables entity
      */
-    Map<String, Table> getTablesEntities();
+    Map<String, Table> getTables();
 
     /**
      * Get the list of tablesColumns
