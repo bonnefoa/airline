@@ -4,14 +4,24 @@ package airline.model;
  * Entities representing the columns of a table
  */
 public class TablesColumns {
-    public static final String NAME = "name";
-    public static final String TYPE = "type";
+    public static final String NAME = "COLUMN_NAME";
+    public static final String TYPE = "TYPE_NAME";
 
-    private Tables tablesEntity;
+    private Table tablesEntity;
 
     private String name;
 
     private String type;
+
+    private Table tables;
+
+    public Table getTables() {
+        return tables;
+    }
+
+    public void setTables(Table tables) {
+        this.tables = tables;
+    }
 
     public String getName() {
         return name;
@@ -29,11 +39,11 @@ public class TablesColumns {
         this.type = type;
     }
 
-    public Tables getTablesEntity() {
+    public Table getTablesEntity() {
         return tablesEntity;
     }
 
-    public void setTablesEntity(Tables tablesEntity) {
+    public void setTablesEntity(Table tablesEntity) {
         this.tablesEntity = tablesEntity;
     }
 
