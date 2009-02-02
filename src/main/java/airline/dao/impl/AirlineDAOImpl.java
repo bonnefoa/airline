@@ -2,17 +2,16 @@ package airline.dao.impl;
 
 import airline.connector.Connector;
 import airline.dao.AirlineDAO;
+import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.Tables;
 import airline.model.TablesRow;
+import com.google.inject.Inject;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-
-import com.google.inject.Inject;
 
 /**
  * Dao implementation
@@ -26,18 +25,18 @@ public class AirlineDAOImpl implements AirlineDAO {
     }
 
 
-    public Map<String, Tables> getTablesEntities() {
-        Map<String, Tables> res = new HashMap<String, Tables>();
-        Tables tablesEntity;
+    public Map<String, Table> getTablesEntities() {
+        Map<String, Table> res = new HashMap<String, Table>();
+        Table tablesEntity;
         try {
             DatabaseMetaData metas = connection.getMetaData();
             ResultSet results = metas.getTables(null, null, null, null);
             while (results.next()) {
-                tablesEntity = new Tables();
-                String name = results.getString(Tables.NAME);
+                tablesEntity = new Table();
+                String name = results.getString(Table.NAME);
                 tablesEntity.setName(name);
-                tablesEntity.setType(results.getString(Tables.TYPE));
-                tablesEntity.setSchema(results.getString(Tables.SCHEMA));
+                tablesEntity.setType(results.getString(Table.TYPE));
+                tablesEntity.setSchema(results.getString(Table.SCHEMA));
                 res.put(name, tablesEntity);
             }
             return res;
@@ -47,17 +46,18 @@ public class AirlineDAOImpl implements AirlineDAO {
         return null;
     }
 
-    public Map<String, TablesColumns> getTablesColumns(String tableName) {
+    public Map<String, TablesColumns> getTablesColumns(Table tables) {
         Map<String, TablesColumns> res = new HashMap<String, TablesColumns>();
         TablesColumns tablesColumns;
         try {
             DatabaseMetaData metas = connection.getMetaData();
-            ResultSet results = metas.getColumns(null, null, tableName, null);
+            ResultSet results = metas.getColumns(null, null, tables.getName(), null);
             while (results.next()) {
                 tablesColumns = new TablesColumns();
                 String name = results.getString(TablesColumns.NAME);
                 tablesColumns.setName(name);
                 tablesColumns.setType(results.getString(TablesColumns.TYPE));
+                tablesColumns.setTables(tables);
                 res.put(name, tablesColumns);
             }
             return res;
@@ -67,14 +67,14 @@ public class AirlineDAOImpl implements AirlineDAO {
         return null;
     }
 
-    public List<TablesRow> getTablesRows(String nomTables) {
+    public List<TablesRow> getTablesRows(Table tables) {
         List<TablesRow> res = new ArrayList<TablesRow>();
-        Map<String, TablesColumns> tablesColumns = getTablesColumns(nomTables);
+        Map<String, TablesColumns> tablesColumns = getTablesColumns(tables);
         TablesRow tablesRow;
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(String.format(
-                    "SELECT * FROM %s", nomTables));
+                    "SELECT * FROM %s", new Table[]{tables}));
             while (result.next()) {
                 tablesRow = new TablesRow();
                 for (Map.Entry<String, TablesColumns> columnsEntry : tablesColumns.entrySet()) {

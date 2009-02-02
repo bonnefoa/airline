@@ -1,6 +1,6 @@
 package airline.dao;
 
-import airline.model.Tables;
+import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TablesRow;
 
@@ -17,16 +17,16 @@ public interface AirlineDAO {
      *
      * @return Map of tables name and the tables entity
      */
-    Map<String, Tables> getTablesEntities();
+    Map<String, Table> getTablesEntities();
 
     /**
      * Get the list of tablesColumns
      *
-     * @param nomTables Name of the tables
+     * @param tables table to identify
      *
      * @return Map of columns name and the tables Columns
      */
-    Map<String, TablesColumns> getTablesColumns(String nomTables);
+    Map<String, TablesColumns> getTablesColumns(Table tables);
 
-    List<TablesRow> getTablesRows(String nomTables);
+    List<TablesRow> getTablesRows(Table nomTables);
 }

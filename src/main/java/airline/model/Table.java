@@ -3,7 +3,7 @@ package airline.model;
 /**
  * Entity of a table
  */
-public class Tables {
+public class Table {
 
     public static final String NAME = "TABLE_NAME";
     public static final String TYPE = "TABLE_TYPE";

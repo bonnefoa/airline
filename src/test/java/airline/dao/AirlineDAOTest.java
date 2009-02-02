@@ -3,8 +3,10 @@ package airline.dao;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 import airline.BaseClass;
-import airline.model.Tables;
+import airline.model.Table;
+import airline.model.TablesColumns;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import com.google.inject.Inject;
@@ -38,7 +40,7 @@ public class AirlineDAOTest extends BaseClass {
 
     @Test
     public void testGetTablesEntities() {
-        Map<String, Tables> tablesEntityMap = airlineDAO.getTablesEntities();
+        Map<String, Table> tablesEntityMap = airlineDAO.getTablesEntities();
         Assert.assertTrue(tablesEntityMap.size() > 0);
         assertTrue(tablesEntityMap.containsKey(ConnectorTestImpl.TABLE1));
         assertTrue(tablesEntityMap.containsKey(ConnectorTestImpl.TABLE2));
@@ -46,7 +48,10 @@ public class AirlineDAOTest extends BaseClass {
 
     @Test
     public void testGetTablesColumns() {
-        // Add your code here
+        Map<String, Table> tablesEntityMap = airlineDAO.getTablesEntities();
+        Table table = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
+        Map<String, TablesColumns> cols = airlineDAO.getTablesColumns(table);
+        assertEquals(3,cols.size());
     }
 
     @Test
