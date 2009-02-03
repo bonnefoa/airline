@@ -3,9 +3,11 @@ package airline.dao;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TablesRow;
+import airline.criteria.impl.SelectRequest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * DAO interface for the dao
@@ -26,7 +28,9 @@ public interface AirlineDAO {
      *
      * @return Map of columns name and the tables Columns
      */
-    Map<String, TablesColumns> getTablesColumns(Table tables);
+    List<TablesColumns> getTablesColumns(Table tables);
 
     List<TablesRow> getTablesRows(Table nomTables);
+
+    Set<TablesRow> executeRequest(SelectRequest selectRequest);
 }

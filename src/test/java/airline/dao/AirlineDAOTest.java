@@ -54,13 +54,13 @@ public class AirlineDAOTest extends BaseClass {
 
     @Test
     public void testGetTablesColumns() {
-        Map<String, TablesColumns> cols = airlineDAO.getTablesColumns(table1);
+        List<TablesColumns> cols = airlineDAO.getTablesColumns(table1);
         assertEquals(3, cols.size());
         String[] names = {ConnectorTestImpl.IDENTIFIANT,
                 ConnectorTestImpl.NAME,
                 ConnectorTestImpl.TIME};
         int i = 0;
-        for (TablesColumns tablesColumns : cols.values()) {
+        for (TablesColumns tablesColumns : cols) {
             assertEquals(names[i++], tablesColumns.getName());
         }
     }
@@ -68,12 +68,14 @@ public class AirlineDAOTest extends BaseClass {
     @Test
     public void testGetTablesRows() {
         List<TablesRow> tablesRows = airlineDAO.getTablesRows(table2);
-        String[][] values = new String[2][2];
+        String[][] values = new String[4][2];
         values[0] = new String[]{"1","name", "message", "2009-01-01 12:00:00.0"};
         values[1] = new String[]{"2","name2", "message2", "2009-01-01 12:00:01.0"};
+        values[2] = new String[]{"3","name3", "message3", "2009-01-01 12:00:03.0"};
+        values[3] = new String[]{"4","name4", "message4", "2009-01-01 12:00:04.0"};
 
-        assertEquals(2, tablesRows.size());
-        for (int numRow = 0; numRow < 2; numRow++) {
+        assertEquals(4, tablesRows.size());
+        for (int numRow = 0; numRow < tablesRows.size(); numRow++) {
             TablesRow row = tablesRows.get(numRow);
             int i = 0;
             for (String s : row.values()) {
@@ -81,6 +83,7 @@ public class AirlineDAOTest extends BaseClass {
             }
         }
     }
+    
 
     @Inject
     public void setConnector(Connector connector) {

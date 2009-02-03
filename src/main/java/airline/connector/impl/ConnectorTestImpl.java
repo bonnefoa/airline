@@ -61,6 +61,14 @@ public class ConnectorTestImpl implements Connector {
                 NAME, MESSAGE, TIME,
                 "name2", "message2", "2009-01-01 12:00:01")
         );
+        statement.executeUpdate(String.format("INSERT INTO %s (%s, %s,%s) VALUES ('%s','%s','%s')", TABLE2,
+                NAME, MESSAGE, TIME,
+                "name3", "message3", "2009-01-01 12:00:03")
+        );
+        statement.executeUpdate(String.format("INSERT INTO %s (%s, %s,%s) VALUES ('%s','%s','%s')", TABLE2,
+                NAME, MESSAGE, TIME,
+                "name4", "message4", "2009-01-01 12:00:04")
+        );
 
         connection.commit();
     }
