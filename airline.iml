@@ -25,10 +25,6 @@
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
           </containerElement>
-          <containerElement type="library" name="Maven: org.apache.felix:javax.servlet:1.0.0" level="project">
-            <attribute name="method" value="1" />
-            <attribute name="URI" value="/WEB-INF/lib/" />
-          </containerElement>
           <containerElement type="library" name="Maven: javax.servlet:servlet-api:2.4" level="project">
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
@@ -55,7 +51,6 @@
     <orderEntry type="library" name="Maven: junit:junit:4.5" level="project" />
     <orderEntry type="library" exported="" name="Maven: hsqldb:hsqldb:1.8.0.7" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.google.code.guice:guice:1.0" level="project" />
-    <orderEntry type="library" exported="" name="Maven: org.apache.felix:javax.servlet:1.0.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: javax.servlet:servlet-api:2.4" level="project" />
   </component>
 </module>
