@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: sora
@@ -6,18 +7,39 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="accueil" class="airline.beans.Accueil"/>
+<!--jsp:useBean id="accueil" class="airline.servlet.Accueil" /-->
 <html>
-  <head><title>Simple jsp page</title></head>
-  <body>
-  <p>
-      Accueil , welcome , angfd Place your content here
-  </p>
-  <p>
+<head><title>Simple jsp page</title></head>
+<body>
+<div id="connectionBar">
+    <a href="/admin/">partie admin</a>
+</div>
 
-    <form action="/AccueilServlet" method="Post" >
-      <input type="submit" name="GRAOU"/>
-    <!-- éléments du formulaire et autres éléments dans le formulaire -->
+<div>
+    <form action="/Accueil" method="post">
+        Rechercher un avion : <br/>
+        <input name="q"/><br/>
+        <input type="submit"/>
     </form>
-  </p>
-  </body>
+    <%
+        List<String> list = accueil.getList();
+        if (list.size() != 0) {
+            out.println("<ul>");
+            for (String s : list) {
+                out.println("<li>" + s + "</li>");
+            }
+            out.println("</ul>");
+        }
+
+    %>
+</div>
+<p>
+
+<form action="/AccueilServlet" method="Post">
+    <input type="submit" name="GRAOU"/>
+    <!-- éléments du formulaire et autres éléments dans le formulaire -->
+</form>
+</p>
+</body>
 </html>
