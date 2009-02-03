@@ -21,7 +21,6 @@ public class Accueil extends HttpServlet {
     private AirlineDAO airlineDAO;
 
     public Accueil() {
-
         Injector injector = Guice.createInjector(new Servlet());
         injector.injectMembers(this);
     }
