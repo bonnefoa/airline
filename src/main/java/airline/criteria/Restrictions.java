@@ -33,7 +33,9 @@ public class Restrictions {
         res.append(' ');
         res.append(sqlComparator.getSqlValue());
         if (tablesColumns2 == null) {
+            res.append('\'');
             res.append(value);
+            res.append('\'');
         } else {
             res.append(tablesColumns2.getTable().getName());
             res.append('.');
