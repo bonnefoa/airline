@@ -1,8 +1,7 @@
 package airline.criteria.impl;
 
-import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.criteria.Restrictions;
+import airline.criteria.Restriction;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -17,12 +16,12 @@ import java.util.Set;
 public class SelectRequest extends Request {
     private List<TablesColumns> columnList;
 
-    private List<Restrictions> restrictionsList;
+    private List<Restriction> restrictionList;
     private Set<String> setTables;
 
     public SelectRequest() {
         columnList = new LinkedList<TablesColumns>();
-        restrictionsList = new LinkedList<Restrictions>();
+        restrictionList = new LinkedList<Restriction>();
         setTables = new HashSet<String>();
     }
 
@@ -31,8 +30,8 @@ public class SelectRequest extends Request {
         setTables.add(column.getTable().getName());
     }
 
-    public void addRestriction(Restrictions restrictions) {
-        restrictionsList.add(restrictions);
+    public void addRestriction(Restriction restriction) {
+        restrictionList.add(restriction);
     }
 
     public String buildQuery() {
@@ -52,11 +51,15 @@ public class SelectRequest extends Request {
             builder.append(",");
         }
         builder.setCharAt(builder.length() - 1, ' ');
-        if (restrictionsList.size() > 0) {
+        if (restrictionList.size() > 0) {
             builder.append("where ");
-            for (Restrictions restrictions : restrictionsList) {
-                builder.append(restrictions.toString());
+            for (Restriction restriction : restrictionList) {
+                builder.append(restriction.toString());
             }
+            builder.append(" or");
+        }
+        if (builder.charAt(builder.length() - 1) == 'r') {
+            return builder.substring(0, builder.length() - 3);
         }
         return builder.toString();
     }

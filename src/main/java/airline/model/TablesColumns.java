@@ -6,12 +6,15 @@ package airline.model;
 public class TablesColumns {
     public static final String NAME = "COLUMN_NAME";
     public static final String TYPE = "TYPE_NAME";
+    public static final String DATA_TYPE = "DATA_TYPE";
 
     private Table table;
 
     private String name;
 
     private String type;
+
+    private short dataType;
 
     public String getName() {
         return name;
@@ -37,8 +40,16 @@ public class TablesColumns {
         this.table = table;
     }
 
+    public short getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(short dataType) {
+        this.dataType = dataType;
+    }
+
     @Override
     public String toString() {
-        return name + " " + type;
+        return table.getName() + "." + name;
     }
 }
