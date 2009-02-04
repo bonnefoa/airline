@@ -69,8 +69,15 @@ public class AirlineDAOImpl implements AirlineDAO {
     public void executeRequest(Request request) {
         try {
             Statement statement = connection.createStatement();
+            System.out.println("Request :"+ request.buildQuery());
             statement.execute(request.buildQuery());
+            connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
@@ -80,6 +87,7 @@ public class AirlineDAOImpl implements AirlineDAO {
         TablesRow tablesRow;
         try {
             Statement statement = connection.createStatement();
+            System.out.println("Request :"+ selectRequest.buildQuery());
             ResultSet result = statement.executeQuery(selectRequest.buildQuery());
             while (result.next()) {
                 tablesRow = new TablesRow();

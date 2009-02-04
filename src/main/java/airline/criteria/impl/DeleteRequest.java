@@ -1,13 +1,40 @@
 package airline.criteria.impl;
 
+import airline.criteria.Restriction;
+import airline.model.Table;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * User: sora
- * Date: 2 févr. 2009
- * Time: 19:35:39
+ * Object for deleteRequest
  */
 public class DeleteRequest extends Request {
-    
+
+    private Table table;
+
+    private List<Restriction> restrictionList;
+
+    public void addRestriction(Restriction restriction) {
+        restrictionList.add(restriction);
+    }
+
+    public DeleteRequest(Table table) {
+        restrictionList = new ArrayList<Restriction>();
+    }
+
     public String buildQuery() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        StringBuilder res = new StringBuilder();
+        res.append("DELETE FROM ");
+        res.append(table.getName());
+        res.append(' ');
+
+        if (restrictionList.size() > 0) {
+            res.append("WHERE ");
+            for (Restriction restriction : restrictionList) {
+                res.append(restriction.toString());
+            }
+        }
+        return res.toString();
     }
 }

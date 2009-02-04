@@ -4,6 +4,7 @@ import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TablesRow;
 import airline.criteria.impl.SelectRequest;
+import airline.criteria.impl.Request;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,6 @@ public interface AirlineDAO {
     List<TablesRow> getTablesRows(Table nomTables);
 
     Set<TablesRow> executeRequest(SelectRequest selectRequest);
+
+    void executeRequest(Request request);
 }

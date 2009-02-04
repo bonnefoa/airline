@@ -27,11 +27,11 @@ public class SelectRequest extends Request {
 
     public void addColumn(TablesColumns column) {
         columnList.add(column);
-        setTables.add(column.getTable().getName());
     }
 
     public void addRestriction(Restriction restriction) {
         restrictionList.add(restriction);
+        setTables.addAll(restriction.getSetTables());
     }
 
     public String buildQuery() {
