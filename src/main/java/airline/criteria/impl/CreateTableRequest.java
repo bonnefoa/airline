@@ -26,6 +26,7 @@ public class CreateTableRequest extends Request {
         StringBuilder res = new StringBuilder();
         res.append("CREATE TABLE ");
         res.append(table.getName());
+        res.append(" (");
         for (TablesColumns tablesColumnse : tablesColumnses) {
             res.append(tablesColumnse.getName());
             res.append(' ');
@@ -43,6 +44,7 @@ public class CreateTableRequest extends Request {
             res.append(',');
         }
         res.deleteCharAt(res.length() - 1);
+        res.append(" )");
         return res.toString();
     }
 }

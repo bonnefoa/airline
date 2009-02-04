@@ -70,6 +70,28 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         assertEquals("newName",row.get(listColumns.get(1)));
     }
 
+
+    @Test
+    public void testUpdateRequestMultiple() {
+        UpdateRequest updateRequest = new UpdateRequest(table2);
+        List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
+        updateRequest.addUpdateSetter(new UpdateSetter(listColumns.get(1), "newName"));
+        airlineDAO.executeRequest(updateRequest);
+        
+        Restriction restriction = new Restriction();
+        restriction.constraint(listColumns.get(1), "newName", SqlConstraints.EQ);
+        SelectRequest request = new SelectRequest();
+        request.addColumn(listColumns.get(0));
+        request.addColumn(listColumns.get(1));
+        request.addRestriction(restriction);
+        Set<TablesRow> result = airlineDAO.executeRequest(request);
+        assertEquals(4,result.size());
+        for (TablesRow tablesRow : result) {
+            assertEquals("newName",tablesRow.get(listColumns.get(1)));
+        }
+    }
+
+
     @Inject
     public void setConnector(Connector connector) {
         this.connector = connector;
