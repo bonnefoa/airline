@@ -26,13 +26,23 @@ public interface AirlineDAO {
      * Get the list of tablesColumns
      *
      * @param tables table to identify
-     *
      * @return Map of columns name and the tables Columns
      */
     List<TablesColumns> getTablesColumns(Table tables);
 
+    /**
+     * Get all the rows of the given table
+     *
+     * @param nomTables Table to search
+     * @return List of tableRows
+     */
     List<TablesRow> getTablesRows(Table nomTables);
 
+    /**
+     * Execute the given select request
+     * @param selectRequest Select request to execute
+     * @return Set of tableRows
+     */
     Set<TablesRow> executeRequest(SelectRequest selectRequest);
 
     void executeRequest(Request request);
