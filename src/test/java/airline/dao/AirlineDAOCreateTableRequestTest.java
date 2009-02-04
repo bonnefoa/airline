@@ -73,6 +73,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
     @Test
     public void testCreateTableTwoColumns() {
+        Map<String, Table> listTables;
         Table table = new Table();
         table.setName("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
@@ -86,9 +87,14 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
         columns.setDataType(Types.VARCHAR);
         columnsList.add(columns);
 
+        listTables = airlineDAO.getTables();
+        if (listTables.containsKey("UGUU")) {
+            airlineDAO.executeRequest(new DropTableRequest(listTables.get("UGUU")));
+        }
+
         airlineDAO.executeRequest(new CreateTableRequest(table, columnsList));
 
-        Map<String, Table> listTables = airlineDAO.getTables();
+        listTables = airlineDAO.getTables();
         assertTrue(listTables.containsKey("UGUU"));
         columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
