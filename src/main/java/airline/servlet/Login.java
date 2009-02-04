@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
         user.setPasswd(request.getParameter("passwd"));
 
         if (auth.logIn(user)) {
+            request.getSession().setAttribute("user", user);
             response.sendRedirect("admin/");
         } else {
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
