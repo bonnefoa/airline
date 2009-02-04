@@ -1,3 +1,4 @@
+<%@ page import="airline.model.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -8,5 +9,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head><title>Simple jsp page</title></head>
-  <body>Place your content here</body>
+  <body>
+  <div id="menu">
+      <ul>
+          <li><a href="..">retour à l'accueil</a></li>
+          <li><a href="sfw">requête SFW</a></li>
+          <li><a href="tables">aficher les tables</a></li>
+      </ul>
+  </div>
+  <% User user = (User) request.getSession().getAttribute("user");%>
+  <div>
+      bienvenue, <%= user.getLogin() %><br />
+      voici la partie admin. Ne casse pas tout !
+  </div>
+  </body>
 </html>

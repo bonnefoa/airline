@@ -27,6 +27,14 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>airline.servlet.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SFW</servlet-name>
+        <servlet-class>airline.servlet.admin.SFW</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Tables</servlet-name>
+        <servlet-class>airline.servlet.admin.Tables</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
@@ -41,6 +49,16 @@
     <servlet-mapping>
         <servlet-name>adminIndex</servlet-name>
         <url-pattern>/admin/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SFW</servlet-name>
+        <url-pattern>/admin/sfw</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Tables</servlet-name>
+        <url-pattern>/admin/tables</url-pattern>
     </servlet-mapping>
 
 </web-app>
