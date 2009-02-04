@@ -35,6 +35,11 @@ public class SelectRequest extends Request {
     }
 
     public String buildQuery() {
+        if(setTables.size()==0){
+            for (TablesColumns columns : columnList) {
+                setTables.add(columns.getTable().getName());
+            }
+        }
         StringBuilder builder = new StringBuilder();
         builder.append("Select ");
         for (TablesColumns columns : columnList) {
