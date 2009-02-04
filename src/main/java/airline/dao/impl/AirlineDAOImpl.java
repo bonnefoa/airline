@@ -47,16 +47,25 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     public List<TablesColumns> getTablesColumns(Table tables) {
         List<TablesColumns> res = new LinkedList<TablesColumns>();
+        List<String> primaryKeys = new ArrayList<String>();
         TablesColumns tablesColumns;
         try {
             DatabaseMetaData metas = connection.getMetaData();
-            ResultSet results = metas.getColumns(null, null, tables.getName(), null);
+            ResultSet results;
+            results = metas.getPrimaryKeys(null, null, tables.getName());
+            while (results.next()) {
+                primaryKeys.add(results.getString(TablesColumns.NAME));
+            }
+
+            results = metas.getColumns(null, null, tables.getName(), null);
             while (results.next()) {
                 tablesColumns = new TablesColumns();
-                tablesColumns.setName(results.getString(TablesColumns.NAME));
+                String name = results.getString(TablesColumns.NAME);
+                tablesColumns.setName(name);
                 tablesColumns.setType(results.getString(TablesColumns.TYPE));
                 tablesColumns.setDataType(results.getShort(TablesColumns.DATA_TYPE));
                 tablesColumns.setTable(tables);
+                tablesColumns.setPrimaryKey(primaryKeys.contains(name));
                 res.add(tablesColumns);
             }
             return res;
@@ -69,7 +78,7 @@ public class AirlineDAOImpl implements AirlineDAO {
     public void executeRequest(Request request) {
         try {
             Statement statement = connection.createStatement();
-            System.out.println("Request :"+ request.buildQuery());
+            System.out.println("Request :" + request.buildQuery());
             statement.execute(request.buildQuery());
             connection.commit();
         } catch (SQLException e) {
@@ -87,7 +96,7 @@ public class AirlineDAOImpl implements AirlineDAO {
         TablesRow tablesRow;
         try {
             Statement statement = connection.createStatement();
-            System.out.println("Request :"+ selectRequest.buildQuery());
+            System.out.println("Request :" + selectRequest.buildQuery());
             ResultSet result = statement.executeQuery(selectRequest.buildQuery());
             while (result.next()) {
                 tablesRow = new TablesRow();

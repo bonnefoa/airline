@@ -35,21 +35,24 @@ public class SelectRequest extends Request {
     }
 
     public String buildQuery() {
-        if(setTables.size()==0){
+        if (setTables.size() == 0) {
             for (TablesColumns columns : columnList) {
                 setTables.add(columns.getTable().getName());
             }
         }
         StringBuilder builder = new StringBuilder();
         builder.append("Select ");
-        for (TablesColumns columns : columnList) {
-            builder.append(columns.getTable().getName());
-            builder.append('.');
-            builder.append(columns.getName());
-            builder.append(',');
+        if (columnList.size() == 0) {
+            builder.append('*');
+        } else {
+            for (TablesColumns columns : columnList) {
+                builder.append(columns.getTable().getName());
+                builder.append('.');
+                builder.append(columns.getName());
+                builder.append(',');
+            }
+            builder.setCharAt(builder.length() - 1, ' ');
         }
-        builder.setCharAt(builder.length() - 1, ' ');
-
         builder.append("from ");
         for (String table : setTables) {
             builder.append(table);

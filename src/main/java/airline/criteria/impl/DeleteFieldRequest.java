@@ -22,13 +22,12 @@ public class DeleteFieldRequest extends Request {
 
     public String buildQuery() {
         StringBuilder res = new StringBuilder();
-        res.append("ALTER TABLE ");
-        res.append(table.getName());
-        res.append(" DROP ");
         for (TablesColumns tablesColumnse : tablesColumnses) {
+            res.append("ALTER TABLE ");
+            res.append(table.getName());
+            res.append(" DROP ");
             res.append(tablesColumnse.getName());
-            res.append(' ');
-            res.append(',');
+            res.append(';');
         }
         res.deleteCharAt(res.length() - 1);
         return res.toString();

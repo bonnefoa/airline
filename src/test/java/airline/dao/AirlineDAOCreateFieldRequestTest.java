@@ -1,10 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.CreateTableRequest;
-import airline.criteria.impl.DropTableRequest;
-import airline.criteria.impl.DeleteFieldRequest;
+import airline.criteria.impl.*;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.Restriction;
 import airline.connector.Connector;
@@ -33,7 +30,7 @@ import java.sql.SQLException;
  * Date: 26 janv. 2009
  * Time: 14:02:21
  */
-public class AirlineDAODeleteFieldRequestTest extends BaseClass {
+public class AirlineDAOCreateFieldRequestTest extends BaseClass {
     private Connector connector;
 
     private AirlineDAO airlineDAO;
@@ -55,14 +52,18 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
         connector.dropTables();
     }
 
-
     @Test
-    public void testDeleteFieldTable() {
-        List<TablesColumns> columnsList=airlineDAO.getTablesColumns(table2);
-        DeleteFieldRequest deleteField = new DeleteFieldRequest(table2,columnsList.subList(0,2));
-        airlineDAO.executeRequest(deleteField);
-        columnsList=airlineDAO.getTablesColumns(table2);
-        assertEquals(2,columnsList.size());
+    public void testCreateFieldTable() {
+        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
+        TablesColumns col = new TablesColumns();
+        col.setName("GRA");
+        col.setDataType(Types.INTEGER);
+        col.setPrimaryKey(true);
+        columnsList.add(col);
+        CreateFieldRequest createFieldRequest = new CreateFieldRequest(table2, columnsList);
+        airlineDAO.executeRequest(createFieldRequest);
+        columnsList = airlineDAO.getTablesColumns(table2);
+        assertEquals(5, columnsList.size());
     }
 
     @Inject
