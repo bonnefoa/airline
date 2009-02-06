@@ -22,10 +22,10 @@ public class CreateFieldRequest extends Request {
 
     public String buildQuery() {
         StringBuilder res = new StringBuilder();
-        res.append("ALTER TABLE ");
-        res.append(table.getName());
-        res.append(" (");
         for (TablesColumns tablesColumnse : tablesColumnses) {
+            res.append("ALTER TABLE ");
+            res.append(table.getName());
+            res.append(" ADD ");
             res.append(tablesColumnse.getName());
             res.append(' ');
             switch (tablesColumnse.getDataType()) {
@@ -39,10 +39,8 @@ public class CreateFieldRequest extends Request {
                     res.append("Varchar");
                     break;
             }
-            res.append(',');
+            res.append(';');
         }
-        res.deleteCharAt(res.length() - 1);
-        res.append(" )");
         return res.toString();
     }
 }
