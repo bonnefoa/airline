@@ -2,7 +2,7 @@ package airline.servlet.admin;
 
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import airline.dao.AirlineDAO;
 import airline.guiceBindings.Servlet;
 import airline.criteria.impl.SelectRequest;
@@ -76,7 +76,7 @@ public class SFW extends HttpServlet {
     }
 
     private void doRequest(SelectRequest selectRequest, HttpServletRequest request) {
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         request.setAttribute("rows", result);
     }
 

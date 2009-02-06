@@ -5,25 +5,25 @@
   Time: 21:40:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head><title>Simple jsp page</title></head>
-<body>
-<div>
-    <%
-        Boolean failed = (Boolean) request.getAttribute("loginFailed");
-        if (failed != null && failed) {
-    %>
-    <div>LOGIN FAILED !</div>
-    <%
-        }
-    %>
-    <form action="<%= request.getAttribute("baseURL") %>/login" method="post">
+
+<%
+    request.setAttribute("title", "login");
+%>
+<jsp:include page="header.jsp"/>
+<%
+    Boolean failed = (Boolean) request.getAttribute("loginFailed");
+    if (failed != null && failed) {
+%>
+<div class="errorMessage">la connexion a échoué !</div>
+<%
+    }
+%>
+<form action="<%= request.getAttribute("baseURL") %>/login" method="post">
+    <div>
         login : <input name="login"/><br/>
         password : <input type="password" name="passwd"/><br/>
         <br/>
         <input type="submit"/>
-    </form>
-</div>
-</body>
-</html>
+    </div>
+</form>
+<jsp:include page="footer.jsp"/>

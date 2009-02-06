@@ -31,12 +31,14 @@ public class AirlineDAOImpl implements AirlineDAO {
             DatabaseMetaData metas = connection.getMetaData();
             ResultSet results = metas.getTables(null, null, null, null);
             while (results.next()) {
-                tablesEntity = new Table();
-                String name = results.getString(Table.NAME);
-                tablesEntity.setName(name);
-                tablesEntity.setType(results.getString(Table.TYPE));
-                tablesEntity.setSchema(results.getString(Table.SCHEMA));
-                res.put(name, tablesEntity);
+                if (!results.getString(Table.TYPE).contains("SYSTEM")) {
+                    tablesEntity = new Table();
+                    String name = results.getString(Table.NAME);
+                    tablesEntity.setName(name);
+                    tablesEntity.setType(results.getString(Table.TYPE));
+                    tablesEntity.setSchema(results.getString(Table.SCHEMA));
+                    res.put(name, tablesEntity);
+                }
             }
             return res;
         } catch (SQLException e) {

@@ -16,12 +16,12 @@ import java.io.IOException;
  */
 public class Tables extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tables.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
         dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tables.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
         dispatcher.forward(request, response);
     }
 }

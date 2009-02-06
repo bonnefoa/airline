@@ -5,7 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
 <%@ page import="java.util.Set" %>
-<%@ page import="airline.model.TablesRow" %>
+<%@ page import="airline.model.TableRow" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -13,17 +13,13 @@
   Time: 4:59:42 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Select From Where</title>
-    <script type="text/javascript" src="script/jquery.js"></script>
-    <script type="text/javascript" src="script/sfw.js"></script>
-</head>
-<body>
+<%
+    request.setAttribute("title", "SELECT FROM WHERE");
+%>
 <jsp:include page="header.jsp"/>
-<div>
-    <form action="<%= request.getAttribute("baseURL") %>/admin/sfw" method="get">
+<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/sfw.js"></script>
+<form action="<%= request.getAttribute("baseURL") %>/admin/sfw" method="get">
+    <div>
         <%
             List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
             Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
@@ -32,22 +28,33 @@
             TablesColumns whereField = (TablesColumns) request.getAttribute("whereField");
             SqlConstraints whereCond = (SqlConstraints) request.getAttribute("whereCond");
             String whereVal = (String) request.getAttribute("whereVal");
-            Set<TablesRow> rows = (Set<TablesRow>) request.getAttribute("rows");
+            Set<TableRow> rows = (Set<TableRow>) request.getAttribute("rows");
         %>
         SELECT
+        <%
+            if (columns != null) {
+        %>
         <select name="select" id="select" multiple="multiple">
             <%
-                if (columns != null) {
-                    for (TablesColumns column : columns) {
-                        boolean selected = (selectedFields != null && selectedFields.contains(column));
+                for (TablesColumns column : columns) {
+                    boolean selected = (selectedFields != null && selectedFields.contains(column));
             %>
             <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>
             </option>
             <%
-                    }
                 }
             %>
-        </select><br/>
+        </select>
+        <%
+        } else {
+        %>
+        <select name="select" id="select" multiple="multiple" size="1" disabled="disabled">
+            <option>choisissez d'abord une table</option>
+        </select>
+        <%
+            }
+        %>
+        <br/>
         FROM
         <select name="from" id="from">
             <%
@@ -90,8 +97,8 @@
         <input name="whereVal" id="whereVal" value="<%= (whereVal == null) ? "" : whereVal %>"/><br/>
         <br/>
         <input type="submit"/>
-    </form>
-</div>
+    </div>
+</form>
 
 <%
     if (rows != null) {
@@ -112,7 +119,7 @@
         </tr>
         </thead>
         <%
-            for (TablesRow row : rows) {
+            for (TableRow row : rows) {
         %>
         <tr>
             <%
@@ -132,6 +139,4 @@
 <%
     }
 %>
-</div>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

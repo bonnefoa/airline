@@ -7,19 +7,16 @@
     </title>
     <script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/jquery-1.3.1.min.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut" href="<%= request.getAttribute("baseURL") %>/css/default.css" />
-    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut" href="<%= request.getAttribute("baseURL") %>/css/admin.css" />    
 </head>
 <body>
 
 <div id="banniere">
-	<img src="<%= request.getAttribute("baseURL") %>/img/banniere_admin.jpg" alt="" /><h1><%= request.getAttribute("title") %></h1>
+	<img src="<%= request.getAttribute("baseURL") %>/img/banniere.jpg" alt="" /><h1><%= request.getAttribute("title") %></h1>
 </div>
 
 <div id="menu">
     <ul>
-        <li><a href="<%= request.getAttribute("baseURL") %>/">retour à l'accueil</a></li>
-        <li><a href="<%= request.getAttribute("baseURL") %>/admin/sfw">requête SFW</a></li>
-        <li><a href="<%= request.getAttribute("baseURL") %>/admin/tables">aficher les tables</a></li>
+        <li><a href="<%= request.getAttribute("baseURL") %>/admin/">partie admin</a></li>
     </ul>
 </div>
 <div id="contenu">

@@ -1,0 +1,89 @@
+body {
+    font-family: arial, sans-serif;
+    text-align: justify;
+    padding: 0;
+    margin: 0;
+    background: white;
+    min-width: 700px;
+    font-size: 0.9em;
+    color: black;
+}
+
+/* pas de bordure sur les images avec liens */
+a img {
+    border: none;
+}
+
+#banniere {
+    height: 110px;
+    z-index: 3;
+    background: #4b87c6;
+}
+
+#banniere img {
+    float: left;
+}
+
+#banniere h1 {
+    margin: 0;
+    padding: 30px;
+}
+
+#menu ul {
+    margin: 0 0 0.8em;
+    padding: 0;
+    list-style-type: none;
+    line-height: 16px;
+}
+
+#menu ul li {
+    height: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+#menu {
+    float: left;
+    list-style-type: none;
+    margin: 10px 0 0;
+    padding: 10px;
+    width: 127px;
+    left: 0;
+    z-index: 5;
+    font-size: 0.8em;
+    background-color: white;
+    top: 110px;
+    bottom: 0;
+    overflow: auto;
+}
+
+#menu h2 {
+    margin: 0;
+    line-height: 1em;
+    font-size: 1.3em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+#contenu {
+    margin-top: 10px;
+    padding: 10px;
+    margin-left: 147px;
+    z-index: 4;
+    min-height: 370px;
+}
+
+#footer {
+    font-size: 0.9em;
+    padding: 10px;
+    text-align: center;
+    clear: both;
+    z-index: 6;
+    margin-left: 207px;
+}
+
+h1 {
+    text-align: center;
+}
