@@ -7,15 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head><title>Simple jsp page</title></head>
-  <body>
-  <div>
-      <form action="<%= request.getAttribute("baseURL") %>/login" method="post">
-          login : <input name="login" /><br /><%= application.getRealPath("/WEB-INF") %><br />
-          password : <input name="passwd" /><br />
-          <br />
-          <input type="submit" />
-      </form>
-  </div>
-  </body>
+<head><title>Simple jsp page</title></head>
+<body>
+<div>
+    <%
+        Boolean failed = (Boolean) request.getAttribute("loginFailed");
+        if (failed != null && failed) {
+    %>
+    <div>LOGIN FAILED !</div>
+    <%
+        }
+    %>
+    <form action="<%= request.getAttribute("baseURL") %>/login" method="post">
+        login : <input name="login"/><br/>
+        password : <input type="password" name="passwd"/><br/>
+        <br/>
+        <input type="submit"/>
+    </form>
+</div>
+</body>
 </html>

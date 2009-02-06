@@ -16,12 +16,12 @@ import java.io.IOException;
  */
 public class Index extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/login.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/index.jsp");
         dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/login.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/index.jsp");
         dispatcher.forward(request, response);
     }
 }

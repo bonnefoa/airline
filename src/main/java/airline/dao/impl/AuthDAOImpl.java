@@ -14,14 +14,20 @@ import javax.servlet.http.HttpSession;
  */
 public class AuthDAOImpl implements AuthDAO {
     public boolean isLoggedIn(User user) {
-        if(user == null) {
-            return false;
-        }
-        return user.isLogged();
+        return (user != null);
     }
 
     public boolean logIn(User user) {
-        user.setLogged(true);
-        return true;
+        if(user == null || user.getLogin() == null || user.getPasswd() == null) {
+            return false;
+        }
+
+        if ("admin".equals(user.getLogin()) && "adminadmin".equals(user.getPasswd())) {
+            user.setLogged(true);
+            return true;
+        } else {
+            user.setLogged(false);
+            return false;
+        }
     }
 }

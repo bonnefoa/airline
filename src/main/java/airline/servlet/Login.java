@@ -2,6 +2,7 @@ package airline.servlet;
 
 import airline.model.User;
 import airline.dao.AuthDAO;
+import airline.guiceBindings.Servlet;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Guice;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,6 +30,11 @@ public class Login extends HttpServlet {
         this.auth = auth;
     }
 
+    public Login() {
+        Injector injector = Guice.createInjector(new Servlet());
+        injector.injectMembers(this);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
 
@@ -37,6 +45,7 @@ public class Login extends HttpServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("admin/");
         } else {
+            request.setAttribute("loginFailed", new Boolean(true));
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }

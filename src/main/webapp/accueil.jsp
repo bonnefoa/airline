@@ -14,11 +14,11 @@
 <head><title>Simple jsp page</title></head>
 <body>
 <div id="connectionBar">
-    <a href="admin/">partie admin</a>
+    <a href="<%= request.getAttribute("baseURL") %>/admin/">partie admin</a>
 </div>
 
 <div>
-    <form action="accueil" method="post">
+    <form action="<%= request.getAttribute("baseURL") %>/accueil" method="post">
         Rechercher un avion : <br/>
         <input name="q"/><br/>
         <input type="submit"/>

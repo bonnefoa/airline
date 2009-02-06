@@ -12,9 +12,9 @@
   <body>
   <div id="menu">
       <ul>
-          <li><a href="..">retour à l'accueil</a></li>
-          <li><a href="sfw">requête SFW</a></li>
-          <li><a href="tables">aficher les tables</a></li>
+          <li><a href="<%= request.getAttribute("baseURL") %>/">retour à l'accueil</a></li>
+          <li><a href="<%= request.getAttribute("baseURL") %>/admin/sfw">requête SFW</a></li>
+          <li><a href="<%= request.getAttribute("baseURL") %>/admin/tables">aficher les tables</a></li>
       </ul>
   </div>
   <% User user = (User) request.getSession().getAttribute("user");%>
