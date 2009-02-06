@@ -10,8 +10,8 @@
   <head><title>Simple jsp page</title></head>
   <body>
   <div>
-      <form action="login" method="post">
-          login : <input name="login" /><br />
+      <form action="<%= request.getAttribute("baseURL") %>/login" method="post">
+          login : <input name="login" /><br /><%= application.getRealPath("/WEB-INF") %><br />
           password : <input name="passwd" /><br />
           <br />
           <input type="submit" />

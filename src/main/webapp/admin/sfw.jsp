@@ -27,6 +27,16 @@
       <input id="whereVal" />
   </div>
   <div>
+      <%
+          Object o = request.getAttribute("graou");
+          if(o == null) {
+              out.println("o est null");
+          } else {
+              out.println("o est : " + o);
+          }
+      %>
+  </div>
+  <div>
 
   </div>
   </body>

@@ -23,4 +23,5 @@ public class Tables extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tables.jsp");
         dispatcher.forward(request, response);
+    }
 }

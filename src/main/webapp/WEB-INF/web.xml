@@ -7,15 +7,23 @@
         <filter-name>admin-filter</filter-name>
         <filter-class>airline.filter.AdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>BaseURLFilter</filter-name>
+        <filter-class>airline.filter.BaseURLFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>admin-filter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>BaseURLFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     
     <servlet>
         <servlet-name>Accueil</servlet-name>
-        <display-name>Accueil</display-name>
         <servlet-class>airline.servlet.Accueil</servlet-class>
     </servlet>
 
@@ -39,6 +47,11 @@
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
         <url-pattern>/accueil</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
