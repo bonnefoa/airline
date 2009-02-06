@@ -15,7 +15,6 @@ import java.util.Set;
  */
 public class SelectRequest extends Request {
     private List<TablesColumns> columnList;
-
     private List<Restriction> restrictionList;
     private Set<String> setTables;
 
@@ -29,6 +28,10 @@ public class SelectRequest extends Request {
         columnList.add(column);
     }
 
+    public void addTable(String table) {
+        setTables.add(table);
+    }
+
     public void addRestriction(Restriction restriction) {
         restrictionList.add(restriction);
         setTables.addAll(restriction.getSetTables());
@@ -36,6 +39,9 @@ public class SelectRequest extends Request {
 
     public String buildQuery() {
         if (setTables.size() == 0) {
+            if (columnList.size() == 0) {
+                throw new IllegalArgumentException("No table selected");
+            }
             for (TablesColumns columns : columnList) {
                 setTables.add(columns.getTable().getName());
             }
@@ -44,6 +50,7 @@ public class SelectRequest extends Request {
         builder.append("Select ");
         if (columnList.size() == 0) {
             builder.append('*');
+            builder.append(' ');
         } else {
             for (TablesColumns columns : columnList) {
                 builder.append(columns.getTable().getName());

@@ -8,7 +8,7 @@ import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
 import org.junit.After;
@@ -58,13 +58,13 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
         selectRequest.addColumn(listColumns.get(0));
         selectRequest.addColumn(listColumns.get(1));
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
 
-        List<TablesRow> tablesRows = airlineDAO.getTablesRows(table2);
+        List<TableRow> tableRows = airlineDAO.getTablesRows(table2);
 
-        for (int numRow = 0; numRow < tablesRows.size(); numRow++) {
-            TablesRow row = tablesRows.get(numRow);
+        for (int numRow = 0; numRow < tableRows.size(); numRow++) {
+            TableRow row = tableRows.get(numRow);
             int i = 0;
             for (String s : row.values()) {
                 assertEquals(values[numRow][i++], s);
@@ -89,9 +89,9 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
                 SqlConstraints.EQ);
         selectRequest.addRestriction(restriction);
         System.out.println(selectRequest.buildQuery());
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(1, result.size());
-        TablesRow row = result.iterator().next();
+        TableRow row = result.iterator().next();
         assertEquals("1", row.get(listColumns1.get(0)));
         assertEquals("present", row.get(listColumns1.get(1)));
         assertEquals("1", row.get(listColumns2.get(0)));
@@ -111,7 +111,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
                 SqlConstraints.GT);
         selectRequest.addRestriction(restriction);
         System.out.println(selectRequest.buildQuery());
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(2, result.size());
     }
 
@@ -135,7 +135,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         res3.and(restriction1,restriction2);
         selectRequest.addRestriction(res3);
         System.out.println(selectRequest.buildQuery());
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(1, result.size());
     }
 
@@ -159,11 +159,15 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         res3.or(restriction1,restriction2);
         selectRequest.addRestriction(res3);
         System.out.println(selectRequest.buildQuery());
-        Set<TablesRow> result = airlineDAO.executeRequest(selectRequest);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
     }
 
-
+    @Test(expected = IllegalArgumentException.class)
+    public void testThrowIllegalArgument() {
+        SelectRequest request = new SelectRequest();
+        airlineDAO.executeRequest(request);
+    }
 
     @Inject
     public void setConnector(Connector connector) {

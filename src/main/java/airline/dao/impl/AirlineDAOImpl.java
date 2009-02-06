@@ -4,7 +4,7 @@ import airline.connector.Connector;
 import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import airline.criteria.impl.SelectRequest;
 import airline.criteria.impl.Request;
 import com.google.inject.Inject;
@@ -91,20 +91,20 @@ public class AirlineDAOImpl implements AirlineDAO {
         }
     }
 
-    public Set<TablesRow> executeRequest(SelectRequest selectRequest) {
-        Set<TablesRow> res = new LinkedHashSet<TablesRow>();
-        TablesRow tablesRow;
+    public Set<TableRow> executeRequest(SelectRequest selectRequest) {
+        Set<TableRow> res = new LinkedHashSet<TableRow>();
+        TableRow tableRow;
         try {
             Statement statement = connection.createStatement();
             System.out.println("Request :" + selectRequest.buildQuery());
             ResultSet result = statement.executeQuery(selectRequest.buildQuery());
             while (result.next()) {
-                tablesRow = new TablesRow();
+                tableRow = new TableRow();
                 for (TablesColumns tablesColumns : selectRequest.getColumnList()) {
                     Object obj = result.getObject(tablesColumns.getName());
-                    tablesRow.put(tablesColumns, obj.toString());
+                    tableRow.put(tablesColumns, obj.toString());
                 }
-                res.add(tablesRow);
+                res.add(tableRow);
             }
             return res;
         } catch (SQLException e) {
@@ -113,21 +113,21 @@ public class AirlineDAOImpl implements AirlineDAO {
         return null;
     }
 
-    public List<TablesRow> getTablesRows(Table tables) {
-        List<TablesRow> res = new LinkedList<TablesRow>();
+    public List<TableRow> getTablesRows(Table tables) {
+        List<TableRow> res = new LinkedList<TableRow>();
         List<TablesColumns> tablesColumns = getTablesColumns(tables);
-        TablesRow tablesRow;
+        TableRow tableRow;
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(String.format(
                     "SELECT * FROM %s", tables.getName()));
             while (result.next()) {
-                tablesRow = new TablesRow();
+                tableRow = new TableRow();
                 for (TablesColumns columnsEntry : tablesColumns) {
                     Object obj = result.getObject(columnsEntry.getName());
-                    tablesRow.put(columnsEntry, obj.toString());
+                    tableRow.put(columnsEntry, obj.toString());
                 }
-                res.add(tablesRow);
+                res.add(tableRow);
             }
             return res;
         } catch (SQLException e) {
@@ -135,6 +135,4 @@ public class AirlineDAOImpl implements AirlineDAO {
         }
         return null;
     }
-
-
 }

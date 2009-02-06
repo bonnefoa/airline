@@ -2,7 +2,7 @@ package airline.dao;
 
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import airline.criteria.impl.SelectRequest;
 import airline.criteria.impl.Request;
 
@@ -36,14 +36,20 @@ public interface AirlineDAO {
      * @param nomTables Table to search
      * @return List of tableRows
      */
-    List<TablesRow> getTablesRows(Table nomTables);
+    List<TableRow> getTablesRows(Table nomTables);
 
     /**
      * Execute the given select request
+     *
      * @param selectRequest Select request to execute
      * @return Set of tableRows
      */
-    Set<TablesRow> executeRequest(SelectRequest selectRequest);
+    Set<TableRow> executeRequest(SelectRequest selectRequest);
 
+    /**
+     * Execute the given request
+     *
+     * @param request Request to execute
+     */
     void executeRequest(Request request);
 }

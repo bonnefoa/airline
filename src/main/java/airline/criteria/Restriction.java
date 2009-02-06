@@ -6,6 +6,8 @@ import airline.model.TablesColumns;
 import java.util.Set;
 import java.util.HashSet;
 
+import org.junit.Assert;
+
 /**
  * Criteria of requests
  */

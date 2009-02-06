@@ -5,7 +5,7 @@ import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import com.google.inject.Inject;
 import junit.framework.Assert;
 import static junit.framework.Assert.assertTrue;
@@ -67,16 +67,16 @@ public class AirlineDAOTest extends BaseClass {
 
     @Test
     public void testGetTablesRows() {
-        List<TablesRow> tablesRows = airlineDAO.getTablesRows(table2);
+        List<TableRow> tableRows = airlineDAO.getTablesRows(table2);
         String[][] values = new String[4][2];
         values[0] = new String[]{"1","name", "message", "2009-01-01 12:00:00.0"};
         values[1] = new String[]{"2","name2", "message2", "2009-01-01 12:00:01.0"};
         values[2] = new String[]{"3","name3", "message3", "2009-01-01 12:00:03.0"};
         values[3] = new String[]{"4","name4", "message4", "2009-01-01 12:00:04.0"};
 
-        assertEquals(4, tablesRows.size());
-        for (int numRow = 0; numRow < tablesRows.size(); numRow++) {
-            TablesRow row = tablesRows.get(numRow);
+        assertEquals(4, tableRows.size());
+        for (int numRow = 0; numRow < tableRows.size(); numRow++) {
+            TableRow row = tableRows.get(numRow);
             int i = 0;
             for (String s : row.values()) {
                 assertEquals(values[numRow][i++], s);

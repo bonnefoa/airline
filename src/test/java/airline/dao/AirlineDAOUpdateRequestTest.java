@@ -10,7 +10,7 @@ import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
+import airline.model.TableRow;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
 import org.junit.After;
@@ -63,9 +63,9 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         request.addColumn(listColumns.get(0));
         request.addColumn(listColumns.get(1));
         request.addRestriction(restriction);
-        Set<TablesRow> result = airlineDAO.executeRequest(request);
+        Set<TableRow> result = airlineDAO.executeRequest(request);
         assertEquals(1,result.size());
-        TablesRow row = result.iterator().next();
+        TableRow row = result.iterator().next();
         assertEquals("1",row.get(listColumns.get(0)));
         assertEquals("newName",row.get(listColumns.get(1)));
     }
@@ -84,10 +84,10 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         request.addColumn(listColumns.get(0));
         request.addColumn(listColumns.get(1));
         request.addRestriction(restriction);
-        Set<TablesRow> result = airlineDAO.executeRequest(request);
+        Set<TableRow> result = airlineDAO.executeRequest(request);
         assertEquals(4,result.size());
-        for (TablesRow tablesRow : result) {
-            assertEquals("newName",tablesRow.get(listColumns.get(1)));
+        for (TableRow tableRow : result) {
+            assertEquals("newName", tableRow.get(listColumns.get(1)));
         }
     }
 
