@@ -1,20 +1,13 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.CreateTableRequest;
-import airline.criteria.impl.DropTableRequest;
 import airline.criteria.impl.DeleteFieldRequest;
-import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.Restriction;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
-import junit.framework.Assert;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,9 +16,6 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.ArrayList;
-import java.sql.Types;
 import java.sql.SQLException;
 
 /**
@@ -61,7 +51,6 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
         List<TablesColumns> columnsList=airlineDAO.getTablesColumns(table2);
         DeleteFieldRequest deleteField = new DeleteFieldRequest(table2,columnsList.subList(0,2));
         airlineDAO.executeRequest(deleteField);
-
         columnsList=airlineDAO.getTablesColumns(table2);
         assertEquals(2,columnsList.size());
     }

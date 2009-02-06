@@ -1,19 +1,14 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
 import airline.criteria.impl.CreateTableRequest;
 import airline.criteria.impl.DropTableRequest;
-import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.Restriction;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TablesColumns;
-import airline.model.TablesRow;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
-import junit.framework.Assert;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -21,7 +16,6 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.ArrayList;
 import java.sql.Types;
 

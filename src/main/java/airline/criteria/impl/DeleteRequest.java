@@ -20,6 +20,7 @@ public class DeleteRequest extends Request {
     }
 
     public DeleteRequest(Table table) {
+        this.table=table;
         restrictionList = new ArrayList<Restriction>();
     }
 
@@ -28,7 +29,6 @@ public class DeleteRequest extends Request {
         res.append("DELETE FROM ");
         res.append(table.getName());
         res.append(' ');
-
         if (restrictionList.size() > 0) {
             res.append("WHERE ");
             for (Restriction restriction : restrictionList) {

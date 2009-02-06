@@ -1,10 +1,11 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.DropTableRequest;
+import airline.criteria.impl.*;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
 import org.junit.After;
@@ -13,7 +14,10 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.sql.Types;
 import java.sql.SQLException;
 
 /**
@@ -21,7 +25,7 @@ import java.sql.SQLException;
  * Date: 26 janv. 2009
  * Time: 14:02:21
  */
-public class AirlineDAODropTableRequestTest extends BaseClass {
+public class AirlineDAOCreateFieldRequestTest extends BaseClass {
     private Connector connector;
 
     private AirlineDAO airlineDAO;
@@ -39,20 +43,22 @@ public class AirlineDAODropTableRequestTest extends BaseClass {
     }
 
     @After
-    public void tearDown(){
-        try {
-            connector.dropTables();
-        } catch (SQLException e) {
-            // OKAU
-        }
+    public void tearDown() throws SQLException {
+        connector.dropTables();
     }
 
-
     @Test
-    public void testDropTable() {
-        airlineDAO.executeRequest(new DropTableRequest(table2));
-        Map<String, Table> tables = airlineDAO.getTables();
-        assertFalse(tables.containsKey(table2.getName()));
+    public void testCreateFieldTable() {
+        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
+        TablesColumns col = new TablesColumns();
+        col.setName("GRA");
+        col.setDataType(Types.INTEGER);
+        col.setPrimaryKey(true);
+        columnsList.add(col);
+        CreateFieldRequest createFieldRequest = new CreateFieldRequest(table2, columnsList);
+        airlineDAO.executeRequest(createFieldRequest);
+        columnsList = airlineDAO.getTablesColumns(table2);
+        assertEquals(5, columnsList.size());
     }
 
     @Inject

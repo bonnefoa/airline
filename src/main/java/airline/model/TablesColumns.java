@@ -7,12 +7,15 @@ public class TablesColumns {
     public static final String NAME = "COLUMN_NAME";
     public static final String TYPE = "TYPE_NAME";
     public static final String DATA_TYPE = "DATA_TYPE";
+    public static final String PRIMARY_KEY = "COLUMN_NAME";
 
     private Table table;
 
     private String name;
 
     private String type;
+
+    private boolean primaryKey;
 
     private int dataType;
 
@@ -46,6 +49,14 @@ public class TablesColumns {
 
     public void setDataType(int dataType) {
         this.dataType = dataType;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     @Override
