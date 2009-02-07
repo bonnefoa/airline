@@ -25,7 +25,13 @@ public class TableURLRewritingFilter implements Filter {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        String url = ((HttpServletRequest) req).getServletPath();
+        String pathInfo = ((HttpServletRequest) req).getPathInfo();
+        String url;
+        if (pathInfo == null) {
+            url = ((HttpServletRequest) req).getServletPath();
+        } else {
+            url = ((HttpServletRequest) req).getServletPath() + pathInfo;
+        }
 
         System.out.println("Rewriting url " + url);
 
@@ -69,7 +75,6 @@ public class TableURLRewritingFilter implements Filter {
             req.setAttribute("url.table", rowEditMatcher.group(1));
             req.setAttribute("url.row", rowEditMatcher.group(2));
         } else { // 404 not found
-            System.out.println("404");
             ((HttpServletResponse) resp).sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }

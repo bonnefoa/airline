@@ -3,8 +3,6 @@ package airline.dao.impl;
 import airline.dao.AuthDAO;
 import airline.model.User;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * Created by IntelliJ IDEA.
  * User: dev

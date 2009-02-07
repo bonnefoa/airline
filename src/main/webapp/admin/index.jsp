@@ -1,3 +1,5 @@
+<%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%@ page import="airline.model.User" %>
 <%--
   Created by IntelliJ IDEA.

@@ -15,13 +15,9 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class APropos extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/accueil.jsp");
-        dispatcher.forward(request,response);
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/accueil.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/apropos.jsp");
         dispatcher.forward(request,response);
     }
 }
