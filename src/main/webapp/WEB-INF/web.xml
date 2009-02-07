@@ -8,8 +8,16 @@
         <filter-class>airline.filter.BaseURLFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>admin-filter</filter-name>
+        <filter-name>adminFilter</filter-name>
         <filter-class>airline.filter.AdminFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>TableURLRewritingFilter</filter-name>
+        <filter-class>airline.filter.TableURLRewritingFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>ExistingTablesFilter</filter-name>
+        <filter-class>airline.filter.ExistingTablesFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -18,22 +26,36 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>admin-filter</filter-name>
+        <filter-name>adminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
-    
+
+    <filter-mapping>
+        <filter-name>TableURLRewritingFilter</filter-name>
+        <url-pattern>/admin/table/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ExistingTablesFilter</filter-name>
+        <url-pattern>/admin/table/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>Accueil</servlet-name>
         <servlet-class>airline.servlet.Accueil</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>adminIndex</servlet-name>
+        <servlet-name>AdminIndex</servlet-name>
         <servlet-class>airline.servlet.admin.Index</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>airline.servlet.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>airline.servlet.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SFW</servlet-name>
@@ -43,24 +65,37 @@
         <servlet-name>Tables</servlet-name>
         <servlet-class>airline.servlet.admin.Tables</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>APropos</servlet-name>
+        <servlet-class>airline.servlet.APropos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
         <url-pattern>/accueil</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>APropos</servlet-name>
+        <url-pattern>/apropos</url-pattern>
+    </servlet-mapping>
+<!--
+    <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+-->
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>adminIndex</servlet-name>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AdminIndex</servlet-name>
         <url-pattern>/admin/</url-pattern>
     </servlet-mapping>
 
@@ -71,7 +106,17 @@
 
     <servlet-mapping>
         <servlet-name>Tables</servlet-name>
-        <url-pattern>/admin/tables</url-pattern>
+        <url-pattern>/admin/table</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Tables</servlet-name>
+        <url-pattern>/admin/table/*</url-pattern>
+    </servlet-mapping>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
 
 </web-app>
