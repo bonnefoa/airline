@@ -99,6 +99,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/airlineLauncher/pom.xml" />
       </list>
     </option>
   </component>
@@ -230,6 +231,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/airline.iml" filepath="$PROJECT_DIR$/airline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/airlineLauncher/airlineLauncher.iml" filepath="$PROJECT_DIR$/airlineLauncher/airlineLauncher.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
@@ -332,6 +334,50 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/aspectj/aspectjrt/1.5.3/aspectjrt-1.5.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.glassfish.distributions:web-all:10.0-build-20080430">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/distributions/web-all/10.0-build-20080430/web-all-10.0-build-20080430.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/distributions/web-all/10.0-build-20080430/web-all-10.0-build-20080430-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/distributions/web-all/10.0-build-20080430/web-all-10.0-build-20080430-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.glassfish.embedded:gf-embedded-api:1.0-alpha-4">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/embedded/gf-embedded-api/1.0-alpha-4/gf-embedded-api-1.0-alpha-4.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/embedded/gf-embedded-api/1.0-alpha-4/gf-embedded-api-1.0-alpha-4-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/embedded/gf-embedded-api/1.0-alpha-4/gf-embedded-api-1.0-alpha-4-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.glassfish.api:dtds:resources:9.0.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/dtds/9.0.2/dtds-9.0.2-resources.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/dtds/9.0.2/dtds-9.0.2-resources-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/dtds/9.0.2/dtds-9.0.2-resources-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.glassfish.api:schemas:resources:9.0.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/schemas/9.0.2/schemas-9.0.2-resources.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/schemas/9.0.2/schemas-9.0.2-resources-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/api/schemas/9.0.2/schemas-9.0.2-resources-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
