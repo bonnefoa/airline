@@ -60,6 +60,29 @@ public class TablesColumns {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TablesColumns columns = (TablesColumns) o;
+
+        if (name != null ? !name.equals(columns.name) : columns.name != null) return false;
+        if (table != null ? !table.equals(columns.table) : columns.table != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = table != null ? table.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (primaryKey ? 1 : 0);
+        result = 31 * result + dataType;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return table.getName() + "." + name;
     }

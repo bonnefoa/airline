@@ -32,6 +32,8 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     private Table table1;
     private Table table2;
     private String[][] values = new String[4][2];
+    private List<TablesColumns> listColumns2;
+    private List<TablesColumns> listColumns1;
 
     @Before
     public void setUp() throws Exception {
@@ -45,6 +47,8 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         values[1] = new String[]{"2", "name2", "message2", "2009-01-01 12:00:01.0"};
         values[2] = new String[]{"3", "name3", "message3", "2009-01-01 12:00:03.0"};
         values[3] = new String[]{"4", "name4", "message4", "2009-01-01 12:00:04.0"};
+        listColumns2 = airlineDAO.getTablesColumns(table2);
+        listColumns1 = airlineDAO.getTablesColumns(table1);
     }
 
     @After
@@ -55,18 +59,19 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Test
     public void testGetSelectRequest() {
         SelectRequest selectRequest = new SelectRequest();
-        List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
-        selectRequest.addColumn(listColumns.get(0));
-        selectRequest.addColumn(listColumns.get(1));
+        selectRequest.addColumn(listColumns2.get(0));
+        selectRequest.addColumn(listColumns2.get(1));
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
 
         List<TableRow> tableRows = airlineDAO.getTablesRows(table2);
 
-        for (int numRow = 0; numRow < tableRows.size(); numRow++) {
+        for (int numRow = 0; numRow < tableRows.size(); numRow++)
+        {
             TableRow row = tableRows.get(numRow);
             int i = 0;
-            for (String s : row.values()) {
+            for (String s : row.values())
+            {
                 assertEquals(values[numRow][i++], s);
             }
         }
@@ -75,10 +80,8 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Test
     public void testSelectTwoTables() {
         SelectRequest selectRequest = new SelectRequest();
-        List<TablesColumns> listColumns1 = airlineDAO.getTablesColumns(table1);
         selectRequest.addColumn(listColumns1.get(0));
         selectRequest.addColumn(listColumns1.get(1));
-        List<TablesColumns> listColumns2 = airlineDAO.getTablesColumns(table2);
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
         selectRequest.addColumn(listColumns2.get(2));
@@ -101,7 +104,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Test
     public void testSelectWithRestriction() {
         SelectRequest selectRequest = new SelectRequest();
-        List<TablesColumns> listColumns2 = airlineDAO.getTablesColumns(table2);
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
         selectRequest.addColumn(listColumns2.get(2));
@@ -119,7 +121,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Test
     public void testSelectWithTwoRestrictionsAnd() {
         SelectRequest selectRequest = new SelectRequest();
-        List<TablesColumns> listColumns2 = airlineDAO.getTablesColumns(table2);
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
         selectRequest.addColumn(listColumns2.get(2));
@@ -132,7 +133,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
                 listColumns2.get(0), "4",
                 SqlConstraints.LT);
         Restriction res3 = new Restriction();
-        res3.and(restriction1,restriction2);
+        res3.and(restriction1, restriction2);
         selectRequest.addRestriction(res3);
         System.out.println(selectRequest.buildQuery());
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
@@ -143,7 +144,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Test
     public void testSelectWithTwoRestrictionsOr() {
         SelectRequest selectRequest = new SelectRequest();
-        List<TablesColumns> listColumns2 = airlineDAO.getTablesColumns(table2);
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
         selectRequest.addColumn(listColumns2.get(2));
@@ -156,17 +156,51 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
                 listColumns2.get(0), "4",
                 SqlConstraints.LT);
         Restriction res3 = new Restriction();
-        res3.or(restriction1,restriction2);
+        res3.or(restriction1, restriction2);
         selectRequest.addRestriction(res3);
         System.out.println(selectRequest.buildQuery());
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testThrowIllegalArgument() {
-        SelectRequest request = new SelectRequest();
-        airlineDAO.executeRequest(request);
+    @Test
+    public void testSelectWithoutColums() {
+        SelectRequest selectRequest = new SelectRequest(table2);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
+        assertEquals(4, result.size());
+        int numRow = 0;
+        for (TableRow row : result)
+        {
+            assertEquals(4, row.keySet().size());
+            int i = 0;
+            for (String s : row.values())
+            {
+                assertEquals(values[numRow][i++], s);
+            }
+            numRow++;
+        }
+    }
+
+    @Test
+    public void testSelectWithoutColumsAndWithRestrictions() {
+        Restriction restriction = new Restriction();
+        restriction.constraint(
+                listColumns2.get(0), "2",
+                SqlConstraints.GT);
+        SelectRequest selectRequest = new SelectRequest(table2,restriction);
+        Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
+        assertEquals(2, result.size());
+        int numRow = 2;
+        for (TableRow row : result)
+        {
+            assertEquals(4, row.keySet().size());
+            int i = 0;
+            for (String s : row.values())
+            {
+                assertEquals(values[numRow][i++], s);
+            }
+            numRow++;
+        }
     }
 
     @Inject

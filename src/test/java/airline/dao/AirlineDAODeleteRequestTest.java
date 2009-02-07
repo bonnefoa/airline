@@ -52,11 +52,8 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
     @Test
     public void testDeleteRequest() {
         SelectRequest select;
-
-        select = new SelectRequest();
-        select.addTable(table2.getName());
+        select = new SelectRequest(table2);
         airlineDAO.executeRequest(select);
-
         DeleteRequest deleteRequest = new DeleteRequest(table2);
         List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
         Restriction restriction = new Restriction();
@@ -64,20 +61,22 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
         deleteRequest.addRestriction(restriction);
         airlineDAO.executeRequest(deleteRequest);
 
-        select = new SelectRequest();
-        select.addRestriction(restriction);
+        select = new SelectRequest(table2, restriction);
         Set<TableRow> res = airlineDAO.executeRequest(select);
         assertEquals(0, res.size());
 
-        select = new SelectRequest();
-        select.addTable(table2.getName());
+        select = new SelectRequest(table2);
 
         res = airlineDAO.executeRequest(select);
-        for (TableRow re : res) {
-            System.out.println(re.toString());
-        }
         assertEquals(3, res.size());
-        assertEquals("2", res.iterator().next().get(columnsList.get(0)));
+        int i = 2;
+        for (TableRow re : res)
+        {
+            System.out.println(re.toString());
+            System.out.println(columnsList.get(0));
+            assertEquals(i + "", re.get(columnsList.get(0)));
+            i++;
+        }
     }
 
     @Inject

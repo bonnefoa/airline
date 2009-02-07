@@ -16,6 +16,7 @@ public class TableRow extends LinkedHashMap<TablesColumns, String> {
             builder.append(':');
             builder.append(' ');
             builder.append(tablesColumnsStringEntry.getValue());
+            builder.append(' ');
         }
         return builder.toString();
     }
