@@ -1,16 +1,11 @@
 package airline.servlet;
 
 import airline.dao.AuthDAO;
-import airline.guiceBindings.Servlet;
 import airline.model.User;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,19 +17,12 @@ import java.io.IOException;
  * Time: 21:49:08
  * To change this template use File | Settings | File Templates.
  */
-public class Login extends HttpServlet {
+public class Login extends AbstractInjectableServlet {
     private AuthDAO auth;
 
     @Inject
     public void setAuth(AuthDAO auth) {
         this.auth = auth;
-    }
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        Injector injector = Guice.createInjector(new Servlet());
-        injector.injectMembers(this);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,17 +1,13 @@
 package airline;
 
-import com.google.inject.Injector;
-import com.google.inject.Guice;
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import airline.guiceBindings.ModuleTestDAO;
-import airline.model.Table;
-import airline.connector.impl.ConnectorTestImpl;
 import airline.connector.Connector;
-import org.junit.Before;
+import airline.guiceBindings.ModuleTestDAO;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.junit.After;
-
-import java.util.Map;
+import org.junit.Before;
 
 /**
  * Base class for junit

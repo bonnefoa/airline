@@ -119,8 +119,9 @@
         <%
             for (SqlConstraints constraint : SqlConstraints.values()) {
                 boolean selected = (constraint == whereCond);
+
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= constraint.getSqlValue() %>
+        <option<% if (selected) { %> selected="selected"<%}%>><%= java.net.URLEncoder.encode(constraint.getSqlValue(), "UTF-8") %>
         </option>
         <%
             }

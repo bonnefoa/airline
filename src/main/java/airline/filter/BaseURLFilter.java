@@ -3,8 +3,6 @@ package airline.filter;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 /**
  * Created by IntelliJ IDEA.

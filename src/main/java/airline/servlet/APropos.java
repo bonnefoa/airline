@@ -1,10 +1,9 @@
 package airline.servlet;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 
 /**
@@ -14,7 +13,7 @@ import java.io.IOException;
  * Time: 12:37:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class APropos extends HttpServlet {
+public class APropos extends AbstractInjectableServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/apropos.jsp");

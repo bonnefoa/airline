@@ -4,22 +4,20 @@ import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
-import airline.guiceBindings.Servlet;
 import airline.model.Table;
 import airline.model.TableRow;
 import airline.model.TablesColumns;
-import com.google.inject.Guice;
+import airline.servlet.AbstractInjectableServlet;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
+import java.net.URLDecoder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,17 +26,10 @@ import java.util.*;
  * Time: 9:21:39 AM
  * To change this template use File | Settings | File Templates.
  */
-public class SFW extends HttpServlet {
+public class SFW extends AbstractInjectableServlet {
     private Map<String, Table> tables;
     private List<TablesColumns> columns;
     private AirlineDAO airlineDAO;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        Injector injector = Guice.createInjector(new Servlet());
-        injector.injectMembers(this);
-    }
 
     @Inject
     public void setAirlineDAO(AirlineDAO airlineDAO) {
@@ -126,7 +117,12 @@ public class SFW extends HttpServlet {
             }
         }
 
-        String whereCond = request.getParameter("whereCond");
+        String whereCond = null;
+        try {
+            whereCond = URLDecoder.decode(request.getParameter("whereCond"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         SqlConstraints cond = null;
 
         if (whereCond != null) {

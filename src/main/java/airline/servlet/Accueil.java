@@ -4,18 +4,13 @@ import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
-import airline.guiceBindings.Servlet;
 import airline.model.Table;
 import airline.model.TableRow;
 import airline.model.TablesColumns;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletConfig;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,19 +21,12 @@ import java.util.Set;
 /**
  * Servlet accueil
  */
-public class Accueil extends HttpServlet {
+public class Accueil extends AbstractInjectableServlet {
     private AirlineDAO airlineDAO;
     private static final String TABLE_NAME = "AIRLINEDATA";
     private static final String FLIGHT_FIELD = "FLIGHT NUMBER";
     private static final String PILOT_FIELD = "PILOT NUMBER";
     private static final String PLANE_FIELD = "PLANE NUMBER";
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        Injector injector = Guice.createInjector(new Servlet());
-        injector.injectMembers(this);
-    }
 
     @Inject
     public void setAirlineDAO(AirlineDAO airlineDAO) {
@@ -70,6 +58,7 @@ public class Accueil extends HttpServlet {
                 request.setAttribute("rows", result);
             }
         }
+        
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/accueil.jsp");
         dispatcher.forward(request, response);
     }

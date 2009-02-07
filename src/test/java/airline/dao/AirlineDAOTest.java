@@ -1,15 +1,13 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
-import airline.model.TablesColumns;
 import airline.model.TableRow;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
 import junit.framework.Assert;
 import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;

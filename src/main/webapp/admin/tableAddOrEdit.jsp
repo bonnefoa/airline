@@ -40,6 +40,9 @@
 %>
 <form action="<%= formAction.toString() %>" method="get">
     <div>
+        Nom de la table : <input name="tableName"/><br/>
+        <br/>
+        Champs : <br/>
         <table>
             <thead>
             <tr>
@@ -53,17 +56,17 @@
                 for (TablesColumns column : columns) {
             %>
             <tr>
-                <td><input name="name[]" value="<%= (column.getName() == null) ? "" : column.getName() %>"/></td>
+                <td><input name="name" value="<%= (column.getName() == null) ? "" : column.getName() %>"/></td>
                 <td>
                     <%
                         String type = column.getType();
                     %>
-                    <select name="type[]">
+                    <select name="type">
                         <option <%if("INTEGER".equals(type)){%>selected="selected"<%}%>>INTEGER</option>
                         <option <%if("VARCHAR".equals(type)){%>selected="selected"<%}%>>VARCHAR</option>
                     </select>
                 </td>
-                <td><input name="primary[]" type="checkbox" <%if(column.isPrimaryKey()){%>checked="checked"<%}%>/></td>
+                <td><input name="primary" type="checkbox" <%if(column.isPrimaryKey()){%>checked="checked"<%}%>/></td>
             </tr>
             <%
                 }
