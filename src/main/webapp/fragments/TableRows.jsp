@@ -26,6 +26,7 @@
         %>
     </tr>
     </thead>
+    <tbody>
     <%
         for (TableRow row : rows) {
     %>
@@ -42,6 +43,7 @@
     <%
         }
     %>
+    </tbody>
 </table>
 <%
     }

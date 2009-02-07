@@ -1,25 +1,25 @@
 package airline.servlet.admin;
 
-import airline.model.Table;
-import airline.model.TablesColumns;
-import airline.model.TableRow;
+import airline.criteria.Restriction;
+import airline.criteria.enumeration.SqlConstraints;
+import airline.criteria.impl.SelectRequest;
 import airline.dao.AirlineDAO;
 import airline.guiceBindings.Servlet;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.Restriction;
+import airline.model.Table;
+import airline.model.TableRow;
+import airline.model.TablesColumns;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.util.*;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,9 +32,10 @@ public class SFW extends HttpServlet {
     private Map<String, Table> tables;
     private List<TablesColumns> columns;
     private AirlineDAO airlineDAO;
-    private HttpServletRequest ddReq;
 
-    public SFW() {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         Injector injector = Guice.createInjector(new Servlet());
         injector.injectMembers(this);
     }
@@ -46,7 +47,6 @@ public class SFW extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ddReq = request;
         tables = airlineDAO.getTables();
         SelectRequest selectRequest = new SelectRequest();
         boolean canDoRequest = true;

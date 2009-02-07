@@ -1,27 +1,27 @@
 package airline.servlet;
 
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
-import java.io.IOException;
-import java.util.Map;
-import java.util.List;
-import java.util.Set;
-
-import airline.dao.AirlineDAO;
-import airline.guiceBindings.Servlet;
-import airline.model.Table;
-import airline.model.TablesColumns;
-import airline.model.TableRow;
 import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.impl.SelectRequest;
+import airline.dao.AirlineDAO;
+import airline.guiceBindings.Servlet;
+import airline.model.Table;
+import airline.model.TableRow;
+import airline.model.TablesColumns;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Servlet accueil
@@ -33,7 +33,9 @@ public class Accueil extends HttpServlet {
     private static final String PILOT_FIELD = "PILOT NUMBER";
     private static final String PLANE_FIELD = "PLANE NUMBER";
 
-    public Accueil() {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         Injector injector = Guice.createInjector(new Servlet());
         injector.injectMembers(this);
     }

@@ -1,18 +1,15 @@
 package airline.filter;
 
 import airline.dao.AuthDAO;
-import airline.guiceBindings.*;
 import airline.model.User;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
 
 /**
  * Created by IntelliJ IDEA.

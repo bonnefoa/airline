@@ -1,8 +1,8 @@
 package airline.filter;
 
 import airline.servlet.enumeration.Action;
-import static junit.framework.Assert.*;
 import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -398,4 +398,5 @@ public class TableURLRewritingFilterTest {
             filterChain.reset();
         }
     }
+
 }

@@ -1,19 +1,19 @@
 package airline.servlet;
 
-import airline.model.User;
 import airline.dao.AuthDAO;
 import airline.guiceBindings.Servlet;
+import airline.model.User;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
 import java.io.IOException;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +30,9 @@ public class Login extends HttpServlet {
         this.auth = auth;
     }
 
-    public Login() {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         Injector injector = Guice.createInjector(new Servlet());
         injector.injectMembers(this);
     }

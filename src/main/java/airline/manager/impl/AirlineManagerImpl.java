@@ -2,17 +2,16 @@ package airline.manager.impl;
 
 import airline.criteria.impl.Request;
 import airline.criteria.impl.SelectRequest;
-import airline.model.TableRow;
-import airline.model.Table;
-import airline.model.TablesColumns;
 import airline.dao.AirlineDAO;
 import airline.manager.AirlineManager;
-
-import java.util.Set;
-import java.util.Map;
-import java.util.List;
-
+import airline.model.Table;
+import airline.model.TableRow;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Implementation for airline manager

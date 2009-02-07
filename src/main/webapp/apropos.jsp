@@ -1,3 +1,5 @@
+<%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8"%>
 <%--
   Created by IntelliJ IDEA.
   User: tetradavid
@@ -13,11 +15,11 @@
 
 <p>
     Cette application web a été réalisée dans le cardre d'un TP de troisième année à
-    l'<acronym title="Institut Supérieur d'Informatique, de Modélisation et de leurs Application">ISIMA</acronym> par
+    l'<acronym title="Institut Supérieur d'Informatique, de Modélisation et de leurs Applications">ISIMA</acronym> par
     Anthonin Bonnefoy et David Duponchel pour Mamadou K. Traore.
 </p>
 
-<p>
+<div>
     La réalisation de cette application a mise en &oelig;uvre plusieurs technologies :
 <ul>
     <li>Java comme langage principal de programmation</li>
@@ -29,11 +31,11 @@
     <li>xhtml et css pour la présentation et le rendu dans le navigateur</li>
     <li>jQuery comme framework simplifiant l'utilisation du javascript</li>
 </ul>
-</p>
+</div>
 
 <h2>images</h2>
 
-<p>
+<div>
     Les images utilisées dans cette application sont sous licence Creative Commons. Voici les images d'origine :<br/>
 <ul>
     <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere.jpg">la bannière</a> provient de <a
@@ -53,5 +55,5 @@
             href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
     </li>
 </ul>
-</p>
+</div>
 <jsp:include page="footer.jsp"/>

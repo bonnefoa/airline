@@ -2,16 +2,16 @@ package airline.servlet;
 
 import airline.dao.AuthDAO;
 import airline.guiceBindings.Servlet;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
 import java.io.IOException;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Guice;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +28,9 @@ public class Logout extends HttpServlet {
         this.auth = auth;
     }
 
-    public Logout() {
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         Injector injector = Guice.createInjector(new Servlet());
         injector.injectMembers(this);
     }
