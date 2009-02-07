@@ -1,9 +1,8 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.InsertRequest;
-import airline.criteria.impl.DeleteRequest;
+import airline.criteria.model.SelectRequest;
+import airline.criteria.model.DeleteRequest;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.Restriction;
 import airline.connector.Connector;
@@ -21,7 +20,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 /**
  * User: sora
@@ -29,7 +27,6 @@ import java.util.ArrayList;
  * Time: 14:02:21
  */
 public class AirlineDAODeleteRequestTest extends BaseClass {
-    private Connector connector;
     private AirlineDAO airlineDAO;
     private Table table1;
     private Table table2;
@@ -37,16 +34,9 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        connector.dropTables();
     }
 
     @Test
@@ -77,11 +67,6 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
             assertEquals(i + "", re.get(columnsList.get(0)));
             i++;
         }
-    }
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject

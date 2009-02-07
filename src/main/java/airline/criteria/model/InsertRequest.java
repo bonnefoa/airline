@@ -1,8 +1,7 @@
-package airline.criteria.impl;
+package airline.criteria.model;
 
 import airline.model.TablesColumns;
 
-import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;

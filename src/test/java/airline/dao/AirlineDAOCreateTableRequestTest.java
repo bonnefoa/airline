@@ -1,8 +1,8 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.CreateTableRequest;
-import airline.criteria.impl.DropTableRequest;
+import airline.criteria.model.CreateTableRequest;
+import airline.criteria.model.DropTableRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
@@ -25,7 +25,6 @@ import java.sql.Types;
  * Time: 14:02:21
  */
 public class AirlineDAOCreateTableRequestTest extends BaseClass {
-    private Connector connector;
 
     private AirlineDAO airlineDAO;
     private Table table1;
@@ -34,23 +33,14 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        connector.dropTables();
-    }
-
-
     @Test
     public void testCreateTable() {
-        Table table = new Table();
-        table.setName("UGUU");
+        Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns columns = new TablesColumns();
         columns.setName("GRAOU");
@@ -68,8 +58,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     @Test
     public void testCreateTableTwoColumns() {
         Map<String, Table> listTables;
-        Table table = new Table();
-        table.setName("UGUU");
+        Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns columns = new TablesColumns();
         columns.setName("GRAOU");
@@ -95,12 +84,6 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
         assertEquals("INTEGER", columnsList.get(0).getType());
         assertEquals("GRAOUPU", columnsList.get(1).getName());
         assertEquals("VARCHAR", columnsList.get(1).getType());
-    }
-
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject

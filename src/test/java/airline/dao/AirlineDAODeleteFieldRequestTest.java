@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.DeleteFieldRequest;
+import airline.criteria.model.DeleteFieldRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
@@ -24,7 +24,6 @@ import java.sql.SQLException;
  * Time: 14:02:21
  */
 public class AirlineDAODeleteFieldRequestTest extends BaseClass {
-    private Connector connector;
 
     private AirlineDAO airlineDAO;
     private Table table1;
@@ -33,18 +32,10 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
     }
-
-    @After
-    public void tearDown() throws SQLException {
-        connector.dropTables();
-    }
-
 
     @Test
     public void testDeleteFieldTable() {
@@ -53,11 +44,6 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
         airlineDAO.executeRequest(deleteField);
         columnsList=airlineDAO.getTablesColumns(table2);
         assertEquals(2,columnsList.size());
-    }
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject

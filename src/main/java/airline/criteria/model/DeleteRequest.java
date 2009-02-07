@@ -1,4 +1,4 @@
-package airline.criteria.impl;
+package airline.criteria.model;
 
 import airline.criteria.Restriction;
 import airline.model.Table;

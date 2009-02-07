@@ -29,6 +29,22 @@
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/lib/" />
           </containerElement>
+          <containerElement type="library" name="Maven: org.glassfish.distributions:web-all:10.0-build-20080430" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
+          <containerElement type="library" name="Maven: org.glassfish.embedded:gf-embedded-api:1.0-alpha-4" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
+          <containerElement type="library" name="Maven: org.glassfish.api:dtds:resources:9.0.2" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
+          <containerElement type="library" name="Maven: org.glassfish.api:schemas:resources:9.0.2" level="project">
+            <attribute name="method" value="1" />
+            <attribute name="URI" value="/WEB-INF/lib/" />
+          </containerElement>
           <containerElement type="module" name="airline">
             <attribute name="method" value="1" />
             <attribute name="URI" value="/WEB-INF/classes" />
@@ -42,6 +58,7 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/webapp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />

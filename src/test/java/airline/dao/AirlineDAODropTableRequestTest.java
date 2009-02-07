@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.DropTableRequest;
+import airline.criteria.model.DropTableRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
@@ -22,8 +22,6 @@ import java.sql.SQLException;
  * Time: 14:02:21
  */
 public class AirlineDAODropTableRequestTest extends BaseClass {
-    private Connector connector;
-
     private AirlineDAO airlineDAO;
     private Table table1;
     private Table table2;
@@ -31,19 +29,19 @@ public class AirlineDAODropTableRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
     }
 
     @After
-    public void tearDown(){
-        try {
-            connector.dropTables();
-        } catch (SQLException e) {
-            // OKAU
+    public void tearDown() throws Exception {
+        try
+        {
+            super.tearDown();
+        } catch (SQLException e)
+        {
+            // OKAY
         }
     }
 
@@ -53,11 +51,6 @@ public class AirlineDAODropTableRequestTest extends BaseClass {
         airlineDAO.executeRequest(new DropTableRequest(table2));
         Map<String, Table> tables = airlineDAO.getTables();
         assertFalse(tables.containsKey(table2.getName()));
-    }
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject

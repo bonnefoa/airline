@@ -24,6 +24,10 @@ public class Table {
      */
     private String schema;
 
+    public Table(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
