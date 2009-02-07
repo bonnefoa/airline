@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.DeleteFieldRequest;
+import airline.criteria.model.DeleteFieldRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;

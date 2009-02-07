@@ -1,9 +1,8 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.InsertRequest;
-import airline.criteria.impl.DeleteRequest;
+import airline.criteria.model.SelectRequest;
+import airline.criteria.model.DeleteRequest;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.Restriction;
 import airline.connector.Connector;
@@ -21,7 +20,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.ArrayList;
 
 /**
  * User: sora

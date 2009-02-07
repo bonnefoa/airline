@@ -1,8 +1,8 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.CreateTableRequest;
-import airline.criteria.impl.DropTableRequest;
+import airline.criteria.model.CreateTableRequest;
+import airline.criteria.model.DropTableRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
@@ -49,8 +49,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
     @Test
     public void testCreateTable() {
-        Table table = new Table();
-        table.setName("UGUU");
+        Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns columns = new TablesColumns();
         columns.setName("GRAOU");
@@ -68,8 +67,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     @Test
     public void testCreateTableTwoColumns() {
         Map<String, Table> listTables;
-        Table table = new Table();
-        table.setName("UGUU");
+        Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns columns = new TablesColumns();
         columns.setName("GRAOU");

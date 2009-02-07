@@ -1,8 +1,7 @@
-package airline.criteria.impl;
+package airline.criteria.model;
 
 import airline.criteria.UpdateSetter;
 import airline.criteria.Restriction;
-import airline.model.TablesColumns;
 import airline.model.Table;
 
 import java.util.List;

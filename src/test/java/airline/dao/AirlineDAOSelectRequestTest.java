@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.SelectRequest;
+import airline.criteria.model.SelectRequest;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.Restriction;
 import airline.connector.Connector;

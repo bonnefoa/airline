@@ -1,7 +1,7 @@
 package airline.manager.impl;
 
-import airline.criteria.impl.Request;
-import airline.criteria.impl.SelectRequest;
+import airline.criteria.model.Request;
+import airline.criteria.model.SelectRequest;
 import airline.model.TableRow;
 import airline.model.Table;
 import airline.model.TablesColumns;

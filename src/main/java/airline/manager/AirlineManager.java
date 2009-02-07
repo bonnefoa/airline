@@ -3,8 +3,8 @@ package airline.manager;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TableRow;
-import airline.criteria.impl.Request;
-import airline.criteria.impl.SelectRequest;
+import airline.criteria.model.Request;
+import airline.criteria.model.SelectRequest;
 
 import java.util.Map;
 import java.util.List;

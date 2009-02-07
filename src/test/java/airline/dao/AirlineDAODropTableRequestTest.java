@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.impl.DropTableRequest;
+import airline.criteria.model.DropTableRequest;
 import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;

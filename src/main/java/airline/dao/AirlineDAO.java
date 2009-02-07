@@ -3,8 +3,8 @@ package airline.dao;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TableRow;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.Request;
+import airline.criteria.model.SelectRequest;
+import airline.criteria.model.Request;
 
 import java.util.List;
 import java.util.Map;

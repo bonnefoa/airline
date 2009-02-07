@@ -5,7 +5,7 @@ import airline.model.TablesColumns;
 import airline.model.TableRow;
 import airline.dao.AirlineDAO;
 import airline.guiceBindings.Servlet;
-import airline.criteria.impl.SelectRequest;
+import airline.criteria.model.SelectRequest;
 import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.Restriction;
 

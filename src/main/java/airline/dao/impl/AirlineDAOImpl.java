@@ -5,8 +5,8 @@ import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import airline.model.TableRow;
-import airline.criteria.impl.SelectRequest;
-import airline.criteria.impl.Request;
+import airline.criteria.model.SelectRequest;
+import airline.criteria.model.Request;
 import com.google.inject.Inject;
 
 import java.sql.*;
@@ -35,9 +35,8 @@ public class AirlineDAOImpl implements AirlineDAO {
             {
                 if (!results.getString(Table.TYPE).contains("SYSTEM"))
                 {
-                    tablesEntity = new Table();
                     String name = results.getString(Table.NAME);
-                    tablesEntity.setName(name);
+                    tablesEntity = new Table(name);
                     tablesEntity.setType(results.getString(Table.TYPE));
                     tablesEntity.setSchema(results.getString(Table.SCHEMA));
                     res.put(name, tablesEntity);
