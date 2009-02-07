@@ -45,6 +45,7 @@ public class Accueil extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String query = request.getParameter("q");
         String type = request.getParameter("type");
 

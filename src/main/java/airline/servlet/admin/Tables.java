@@ -1,5 +1,9 @@
 package airline.servlet.admin;
 
+import airline.servlet.enumeration.Action;
+import airline.model.Table;
+import airline.model.TableRow;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +28,10 @@ public class Tables extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Action action = (Action) request.getAttribute("url.action");
+        Table table = (Table) request.getAttribute("url.table");
+        TableRow row = (TableRow) request.getAttribute("url.row");
+
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
         dispatcher.forward(request, response);
     }

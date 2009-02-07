@@ -37,13 +37,21 @@
     Les images utilisées dans cette application sont sous licence Creative Commons. Voici les images d'origine :<br/>
 <ul>
     <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere.jpg">la bannière</a> provient de <a
-            href="">machin</a></li>
+            href="http://flickr.com/photos/smartjunco/2592304374/">flickr</a> (licence <a
+            href="http://creativecommons.org/licenses/by-nc/2.0/deed.fr">by-nc 2.0</a>)
+    </li>
     <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere_admin.jpg">la bannière admin</a> provient de <a
-            href="">machine</a></li>
-    <li><a href="<%= request.getAttribute("baseURL") %>/img/404.jpg">l'image sur la page 404</a> provient de <a href="">bidule</a>
+            href="http://flickr.com/photos/andrei_dimofte/2540951813/">flickr</a> (licence <a
+            href="http://creativecommons.org/licenses/by/2.0/deed.fr">by 2.0</a>)
+    </li>
+    <li><a href="<%= request.getAttribute("baseURL") %>/img/404.jpg">l'image sur la page 404</a> provient de <a
+            href="http://flickr.com/photos/lifeontheedge/293346468/">flickr</a> (licence <a
+            href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
     </li>
     <li><a href="<%= request.getAttribute("baseURL") %>/img/login.jpg">l'image au login</a> provient de <a
-            href="">truc</a></li>
+            href="http://flickr.com/photos/lifeontheedge/293345792/">flickr</a> (licence <a
+            href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
+    </li>
 </ul>
 </p>
 <jsp:include page="footer.jsp"/>

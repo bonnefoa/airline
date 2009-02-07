@@ -17,9 +17,9 @@
 
 <div id="menu">
     <ul>
-        <li><a href="<%= request.getAttribute("baseURL") %>/">retour à l'accueil</a></li>
+        <li><a href="<%= request.getAttribute("baseURL") %>/accueil">retour à l'accueil</a></li>
         <li><a href="<%= request.getAttribute("baseURL") %>/admin/sfw">requête SFW</a></li>
-        <li><a href="<%= request.getAttribute("baseURL") %>/admin/tables">afficher les tables</a></li>
+        <li><a href="<%= request.getAttribute("baseURL") %>/admin/table">afficher les tables</a></li>
         <li><a href="<%= request.getAttribute("baseURL") %>/logout">déconnexion</a></li>
     </ul>
 </div>

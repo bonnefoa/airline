@@ -18,7 +18,7 @@
 <%
     }
 %>
-<form action="<%= request.getAttribute("baseURL") %>/login" method="post">
+<form class="centered" action="<%= request.getAttribute("baseURL") %>/login" method="post">
     <div>
         login : <input name="login"/><br/>
         password : <input type="password" name="passwd"/><br/>
@@ -26,4 +26,7 @@
         <input type="submit"/>
     </div>
 </form>
+<div class="centered">
+    <img src="<%= request.getAttribute("baseURL") %>/img/login.jpg" alt=""/>
+</div>
 <jsp:include page="footer.jsp"/>

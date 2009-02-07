@@ -12,13 +12,14 @@
 <form action="<%= request.getAttribute("baseURL") %>/accueil" method="get">
     <div>
         Rechercher un avion : <br/>
-        <input name="q" value="<%= request.getParameter("q") %>"/>
         <%
             String type = request.getParameter("type");
-            if(type == null) {
-                type = "";
+            String query = request.getParameter("q");
+            if (query == null) {
+                query = "";
             }
         %>
+        <input name="q" value="<%= query %>"/>
         <select name="type">
             <option value="flight"<% if ("flight".equals(type)) { %> selected="selected"<%}%>>n° de vol</option>
             <option value="pilot"<% if ("pilot".equals(type)) { %> selected="selected"<%}%>>n° de pilote</option>
