@@ -2,7 +2,7 @@ package airline.servlet.admin;
 
 import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.impl.SelectRequest;
+import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
 import airline.guiceBindings.Servlet;
 import airline.model.Table;
