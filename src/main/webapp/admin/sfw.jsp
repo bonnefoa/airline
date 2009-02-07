@@ -105,36 +105,7 @@
 %>
 <div>
     résultat :<br/>
-    <table>
-        <thead>
-        <tr>
-            <%
-                for (TablesColumns column : columns) {
-            %>
-            <th><%= column.getName() %>
-            </th>
-            <%
-                }
-            %>
-        </tr>
-        </thead>
-        <%
-            for (TableRow row : rows) {
-        %>
-        <tr>
-            <%
-                for (TablesColumns column : columns) {
-            %>
-            <td><%= row.get(column) %>
-            </td>
-            <%
-                }
-            %>
-        </tr>
-        <%
-            }
-        %>
-    </table>
+    <jsp:include page="../fragments/TableRows.jsp" />
 </div>
 <%
     }

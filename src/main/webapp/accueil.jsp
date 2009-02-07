@@ -1,7 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="airline.model.Table" %>
-<%@ page import="java.util.Map" %>
-
 <%--
   Created by IntelliJ IDEA.
   User: sora
@@ -13,27 +9,25 @@
     request.setAttribute("title", "Bienvenue");
 %>
 <jsp:include page="header.jsp"/>
-<form action="<%= request.getAttribute("baseURL") %>/accueil" method="post">
+<form action="<%= request.getAttribute("baseURL") %>/accueil" method="get">
     <div>
         Rechercher un avion : <br/>
-        <input name="q"/><br/>
+        <input name="q" value="<%= request.getParameter("q") %>"/>
+        <%
+            String type = request.getParameter("type");
+            if(type == null) {
+                type = "";
+            }
+        %>
+        <select name="type">
+            <option value="flight"<% if ("flight".equals(type)) { %> selected="selected"<%}%>>n° de vol</option>
+            <option value="pilot"<% if ("pilot".equals(type)) { %> selected="selected"<%}%>>n° de pilote</option>
+            <option value="plane"<% if ("plane".equals(type)) { %> selected="selected"<%}%>>n° d'avion</option>
+        </select><br/>
         <input type="submit"/>
     </div>
 </form>
-<%
-    try {
-        Map<String, Table> list = (Map<String, Table>) request.getAttribute("graou");
-        if (list != null && list.size() != 0) {
-            out.println("<ul>");
-            for (Table table : list.values()) {
-                out.println(table.getName());
-            }
-            out.println("</ul>");
-        } else {
-            out.println("rien a afficher");
-        }
-    } catch (NullPointerException e) {
-        e.printStackTrace();
-    }
-%>
+
+<jsp:include page="fragments/TableRows.jsp"/>
+
 <jsp:include page="footer.jsp"/>

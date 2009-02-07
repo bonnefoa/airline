@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import java.io.IOException;
 
 /**
@@ -15,13 +16,22 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class Tables extends HttpServlet {
+    ServletConfig config;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config;
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
         dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
-        dispatcher.forward(request, response);
+
+        response.getWriter().println(config.getInitParameter("action"));
+        //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/tablesList.jsp");
+        //dispatcher.forward(request, response);
     }
 }
