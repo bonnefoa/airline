@@ -26,8 +26,6 @@ import java.util.Set;
  * Test for updateRequest
  */
 public class AirlineDAOUpdateRequestTest extends BaseClass {
-
-    private Connector connector;
     private AirlineDAO airlineDAO;
     private Table table1;
     private Table table2;
@@ -35,16 +33,9 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        connector.dropTables();
     }
 
     @Test
@@ -91,11 +82,6 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         }
     }
 
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
-    }
 
     @Inject
     public void setAirlineDAO(AirlineDAO airlineDAO) {

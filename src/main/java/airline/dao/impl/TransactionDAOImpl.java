@@ -57,8 +57,7 @@ public class TransactionDAOImpl implements TransactionDAO {
                 Transaction transaction = new Transaction(
                         result.getInt(Transaction.IDENTIFIANT),
                         result.getString(Transaction.DESCRIPTION),
-                        result.getTimestamp(Transaction.TIME),
-                        TypeRequest.lookupTypeRequest(result.getInt(Transaction.TYPE)));
+                        result.getTimestamp(Transaction.TIME));
                 res.add(transaction);
             }
             return res;

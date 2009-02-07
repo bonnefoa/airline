@@ -26,8 +26,6 @@ import java.util.Set;
  * Time: 14:02:21
  */
 public class AirlineDAOSelectRequestTest extends BaseClass {
-    private Connector connector;
-
     private AirlineDAO airlineDAO;
     private Table table1;
     private Table table2;
@@ -38,8 +36,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
@@ -49,11 +45,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         values[3] = new String[]{"4", "name4", "message4", "2009-01-01 12:00:04.0"};
         listColumns2 = airlineDAO.getTablesColumns(table2);
         listColumns1 = airlineDAO.getTablesColumns(table1);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        connector.dropTables();
     }
 
     @Test
@@ -201,11 +192,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
             }
             numRow++;
         }
-    }
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject

@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 public class Transaction {
 
     public static final String IDENTIFIANT = "ID";
-    public static final String TYPE = "TYPE";
     public static final String TIME = "DATE";
     public static final String DESCRIPTION = "DESCRIPTION";
     public static final String TRANSACTION_TABLE = "TRANSACTIONS";
@@ -22,19 +21,15 @@ public class Transaction {
 
     private Date date;
 
-    private TypeRequest request;
-
-    public Transaction(Integer id, String description, Date date, TypeRequest request) {
+    public Transaction(Integer id, String description, Date date) {
         this.id = id;
         this.description = description;
         this.date = date;
-        this.request = request;
     }
 
-    public Transaction(String description, Date date, TypeRequest request) {
+    public Transaction(String description, Date date) {
         this.description = description;
         this.date = date;
-        this.request = request;
     }
 
     public Integer getId() {
@@ -49,29 +44,17 @@ public class Transaction {
         return date;
     }
 
-    public TypeRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(TypeRequest request) {
-        this.request = request;
-    }
-
     public String getInsertRequest() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Insert INTO ");
         stringBuilder.append(TRANSACTION_TABLE);
         stringBuilder.append('(');
-        stringBuilder.append(TYPE);
-        stringBuilder.append(',');
         stringBuilder.append(TIME);
         stringBuilder.append(',');
         stringBuilder.append(DESCRIPTION);
         stringBuilder.append(')');
         stringBuilder.append(" VALUES");
         stringBuilder.append('(');
-        stringBuilder.append(request.getTypeRequest());
-        stringBuilder.append(',');
         stringBuilder.append('\'');
         stringBuilder.append(new Timestamp(date.getTime()));
         stringBuilder.append('\'');
@@ -92,8 +75,6 @@ public class Transaction {
 
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (request != that.request) return false;
-
         return true;
     }
 
@@ -102,7 +83,6 @@ public class Transaction {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (request != null ? request.hashCode() : 0);
         return result;
     }
 }

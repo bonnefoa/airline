@@ -21,28 +21,13 @@ import java.util.List;
  * Time: 16:06:06
  */
 public class TransactionDAOTest extends BaseClass {
-    private Connector connector;
-
     private TransactionDAO transactionDAO;
-
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        connector.initSchema();
-        connector.fillTables();
-    }
-
-    @After
-    public void tearDown() throws SQLException {
-        connector.dropTables();
-    }
 
     @Test
     public void testAddOneTransaction() {
         Transaction transaction = new Transaction(
                 "Description",
-                new Date(),
-                TypeRequest.CREATE_TABLE);
+                new Date());
         transactionDAO.addTransaction(transaction);
         List<Transaction> list = transactionDAO.getTransactions();
         assertEquals(1, list.size());
@@ -53,12 +38,10 @@ public class TransactionDAOTest extends BaseClass {
     public void testAddTwoTransactions() {
         Transaction transaction = new Transaction(
                 "Description",
-                new Date(),
-                TypeRequest.CREATE_TABLE);
+                new Date());
         Transaction transaction2 = new Transaction(
                 "Description22",
-                new Date(),
-                TypeRequest.DROP_TABLE);
+                new Date());
         transactionDAO.addTransaction(transaction);
         transactionDAO.addTransaction(transaction2);
         List<Transaction> list = transactionDAO.getTransactions();
@@ -72,8 +55,4 @@ public class TransactionDAOTest extends BaseClass {
         this.transactionDAO = transactionDAO;
     }
 
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
-    }
 }

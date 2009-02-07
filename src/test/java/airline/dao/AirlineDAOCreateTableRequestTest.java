@@ -25,7 +25,6 @@ import java.sql.Types;
  * Time: 14:02:21
  */
 public class AirlineDAOCreateTableRequestTest extends BaseClass {
-    private Connector connector;
 
     private AirlineDAO airlineDAO;
     private Table table1;
@@ -34,18 +33,10 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        connector.initSchema();
-        connector.fillTables();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
         table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
     }
-
-    @After
-    public void tearDown() throws Exception {
-        connector.dropTables();
-    }
-
 
     @Test
     public void testCreateTable() {
@@ -93,12 +84,6 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
         assertEquals("INTEGER", columnsList.get(0).getType());
         assertEquals("GRAOUPU", columnsList.get(1).getName());
         assertEquals("VARCHAR", columnsList.get(1).getType());
-    }
-
-
-    @Inject
-    public void setConnector(Connector connector) {
-        this.connector = connector;
     }
 
     @Inject
