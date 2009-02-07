@@ -52,10 +52,8 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
     @Test
     public void testDeleteRequest() {
         SelectRequest select;
-
         select = new SelectRequest(table2);
         airlineDAO.executeRequest(select);
-
         DeleteRequest deleteRequest = new DeleteRequest(table2);
         List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
         Restriction restriction = new Restriction();
