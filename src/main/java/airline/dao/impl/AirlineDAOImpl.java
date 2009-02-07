@@ -27,11 +27,14 @@ public class AirlineDAOImpl implements AirlineDAO {
     public Map<String, Table> getTables() {
         Map<String, Table> res = new LinkedHashMap<String, Table>();
         Table tablesEntity;
-        try {
+        try
+        {
             DatabaseMetaData metas = connection.getMetaData();
             ResultSet results = metas.getTables(null, null, null, null);
-            while (results.next()) {
-                if (!results.getString(Table.TYPE).contains("SYSTEM")) {
+            while (results.next())
+            {
+                if (!results.getString(Table.TYPE).contains("SYSTEM"))
+                {
                     tablesEntity = new Table();
                     String name = results.getString(Table.NAME);
                     tablesEntity.setName(name);
@@ -41,52 +44,61 @@ public class AirlineDAOImpl implements AirlineDAO {
                 }
             }
             return res;
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return null;
     }
 
-    public List<TablesColumns> getTablesColumns(Table tables) {
+    public List<TablesColumns> getTablesColumns(Table table) {
         List<TablesColumns> res = new LinkedList<TablesColumns>();
         List<String> primaryKeys = new ArrayList<String>();
         TablesColumns tablesColumns;
-        try {
+        try
+        {
             DatabaseMetaData metas = connection.getMetaData();
             ResultSet results;
-            results = metas.getPrimaryKeys(null, null, tables.getName());
-            while (results.next()) {
+            results = metas.getPrimaryKeys(null, null, table.getName());
+            while (results.next())
+            {
                 primaryKeys.add(results.getString(TablesColumns.NAME));
             }
 
-            results = metas.getColumns(null, null, tables.getName(), null);
-            while (results.next()) {
+            results = metas.getColumns(null, null, table.getName(), null);
+            while (results.next())
+            {
                 tablesColumns = new TablesColumns();
                 String name = results.getString(TablesColumns.NAME);
                 tablesColumns.setName(name);
                 tablesColumns.setType(results.getString(TablesColumns.TYPE));
                 tablesColumns.setDataType(results.getShort(TablesColumns.DATA_TYPE));
-                tablesColumns.setTable(tables);
+                tablesColumns.setTable(table);
                 tablesColumns.setPrimaryKey(primaryKeys.contains(name));
                 res.add(tablesColumns);
             }
             return res;
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return null;
     }
 
     public void executeRequest(Request request) {
-        try {
+        try
+        {
             Statement statement = connection.createStatement();
             System.out.println("Request :" + request.buildQuery());
             statement.execute(request.buildQuery());
             connection.commit();
-        } catch (SQLException e) {
-            try {
+        } catch (SQLException e)
+        {
+            try
+            {
                 connection.rollback();
-            } catch (SQLException e1) {
+            } catch (SQLException e1)
+            {
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -96,20 +108,31 @@ public class AirlineDAOImpl implements AirlineDAO {
     public Set<TableRow> executeRequest(SelectRequest selectRequest) {
         Set<TableRow> res = new LinkedHashSet<TableRow>();
         TableRow tableRow;
-        try {
+        if (selectRequest.getColumnList().size() == 0)
+        {
+            for (TablesColumns columns : getTablesColumns(selectRequest.getTable()))
+            {
+                selectRequest.addColumn(columns);
+            }
+        }
+        try
+        {
             Statement statement = connection.createStatement();
             System.out.println("Request :" + selectRequest.buildQuery());
             ResultSet result = statement.executeQuery(selectRequest.buildQuery());
-            while (result.next()) {
+            while (result.next())
+            {
                 tableRow = new TableRow();
-                for (TablesColumns tablesColumns : selectRequest.getColumnList()) {
+                for (TablesColumns tablesColumns : selectRequest.getColumnList())
+                {
                     Object obj = result.getObject(tablesColumns.getName());
                     tableRow.put(tablesColumns, obj.toString());
                 }
                 res.add(tableRow);
             }
             return res;
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return null;
@@ -119,20 +142,24 @@ public class AirlineDAOImpl implements AirlineDAO {
         List<TableRow> res = new LinkedList<TableRow>();
         List<TablesColumns> tablesColumns = getTablesColumns(tables);
         TableRow tableRow;
-        try {
+        try
+        {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(String.format(
                     "SELECT * FROM %s", tables.getName()));
-            while (result.next()) {
+            while (result.next())
+            {
                 tableRow = new TableRow();
-                for (TablesColumns columnsEntry : tablesColumns) {
+                for (TablesColumns columnsEntry : tablesColumns)
+                {
                     Object obj = result.getObject(columnsEntry.getName());
                     tableRow.put(columnsEntry, obj.toString());
                 }
                 res.add(tableRow);
             }
             return res;
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         return null;

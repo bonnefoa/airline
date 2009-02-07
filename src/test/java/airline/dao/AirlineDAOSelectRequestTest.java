@@ -163,12 +163,6 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         assertEquals(4, result.size());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testThrowIllegalArgument() {
-        SelectRequest request = new SelectRequest();
-        airlineDAO.executeRequest(request);
-    }
-
     @Inject
     public void setConnector(Connector connector) {
         this.connector = connector;
