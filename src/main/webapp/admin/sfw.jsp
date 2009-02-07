@@ -1,13 +1,13 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
-<%@ page import="airline.model.Table" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="airline.model.TablesColumns" %>
-<%@ page import="java.util.List" %>
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
-<%@ page import="java.util.Set" %>
+<%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
+<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -121,7 +121,7 @@
                 boolean selected = (constraint == whereCond);
 
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= java.net.URLEncoder.encode(constraint.getSqlValue(), "UTF-8") %>
+        <option<% if (selected) { %> selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(constraint.getSqlValue()) %>
         </option>
         <%
             }
