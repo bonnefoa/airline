@@ -3,8 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>airline</groupId>
     <artifactId>airline</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>airlineLauncher</module>
+    </modules>
     <name>airline Maven Webapp</name>
     <dependencies>
         <dependency>
@@ -29,7 +32,6 @@
             <version>2.4</version>
         </dependency>
     </dependencies>
-
     <build>
         <finalName>airline</finalName>
         <plugins>
@@ -66,7 +68,6 @@
                         <component>
                             <name>${project.artifactId}</name>
                             <artifact>${project.build.directory}/airline</artifact>
-                            <!--<artifact>${project.build.directory}/artifacts/${project.build.finalName}.war</artifact>-->
                         </component>
                     </components>
                 </configuration>
@@ -74,6 +75,11 @@
         </plugins>
     </build>
     <repositories>
+        <repository>
+            <id>glassfish-repository</id>
+            <name>Java.net Repository for Glassfish</name>
+            <url>http://download.java.net/maven/glassfish</url>
+        </repository>
         <repository>
             <id>download.java.net</id>
             <name>Java.net Maven Repository</name>
