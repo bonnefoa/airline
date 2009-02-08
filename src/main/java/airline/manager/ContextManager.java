@@ -9,7 +9,7 @@ import javax.servlet.RequestDispatcher;
  * Gère un type de ressource en fonction de la requête de l'utilisateur.
  * On suppose une fois dans ces méthodes que les objets principaux (url.table et url.row) sont corrects.
  */
-public interface RequestManager {
+public interface ContextManager {
     /**
      * Initialise le manager.
      * @param servletContext Le contexte de la servlet utilisant ce manager.

@@ -1,16 +1,17 @@
 package airline.servlet.admin;
 
-import airline.manager.RequestManager;
-import airline.model.Table;
-import airline.model.TableRow;
+import airline.manager.ContextManager;
 import airline.servlet.AbstractInjectableServlet;
 import airline.servlet.enumeration.Action;
+import airline.servlet.enumeration.Context;
+import airline.servlet.enumeration.MessageError;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,135 +25,105 @@ import java.io.IOException;
  */
 public class Tables extends AbstractInjectableServlet {
 
-    RequestManager tableManager;
-    RequestManager rowManager;
+    private ContextManager tableContext;
+    private ContextManager rowContext;
+    private ContextManager fieldContext;
+    private ContextManager tablesContext;
 
     @Inject
-    public void setTableManager(@Named("Table") RequestManager tableManager) {
-        this.tableManager = tableManager;
+    public void setTablesContext(@Named("Tables") ContextManager tablesContext) {
+        this.tablesContext = tablesContext;
     }
 
     @Inject
-    public void setRowManager(@Named("Row") RequestManager rowManager) {
-        this.rowManager = rowManager;
+    public void setTableContext(@Named("Table") ContextManager tableContext) {
+        this.tableContext = tableContext;
     }
+
+    @Inject
+    public void setRowContext(@Named("Row") ContextManager rowContext) {
+        this.rowContext = rowContext;
+    }
+
+    @Inject
+    public void setFieldContext(@Named("Field") ContextManager fieldContext) {
+        this.fieldContext = fieldContext;
+    }
+
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        rowManager.init(this.getServletContext());
-        tableManager.init(this.getServletContext());
+        ServletContext servletContext = this.getServletContext();
+        rowContext.init(servletContext);
+        tableContext.init(servletContext);
+        fieldContext.init(servletContext);
+        tablesContext.init(servletContext);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Context context = (Context) request.getAttribute("url.context");
         Action action = (Action) request.getAttribute("url.action");
-        Table table = (Table) request.getAttribute("url.table");
-        TableRow row = (TableRow) request.getAttribute("url.row");
 
         RequestDispatcher dispatcher = null;
 
-        if (table == null && row == null) { // POST /table/(add)
-            switch (action) {
-                case ADD:
-                    dispatcher = tableManager.add(request, response);
-                    break;
-                case DELETE:
-                case EDIT:
-                case SHOW:
-                    handleErrorCase(request, response);
-                    break;
-            }
-        } else if (table != null && row == null) { // POST table/foobar/(add|edit|delete)
-            switch (action) {
-                case ADD:
-                    dispatcher = rowManager.add(request, response);
-                    break;
-                case DELETE:
-                    dispatcher = tableManager.delete(request, response);
-                    break;
-                case EDIT:
-                    dispatcher = tableManager.edit(request, response);
-                    break;
-                case SHOW:
-                    handleErrorCase(request, response);
-                    break;
-            }
-        } else if (table != null && row != null) { // POST table/foobar/row/42/(edit|delete)
-            switch (action) {
-                case DELETE:
-                    dispatcher = rowManager.delete(request, response);
-                    break;
-                case EDIT:
-                    dispatcher = rowManager.edit(request, response);
-                    break;
-                case ADD:
-                case SHOW:
-                    handleErrorCase(request, response);
-                    break;
-            }
+        switch (context) {
+            case FIELD:
+                switch (action) {
+                    case ADD: // /admin/table/---/field/add
+                        dispatcher = fieldContext.add(request, response);
+                        break;
+                    case DELETE: // /admin/table/---/field/---/delete
+                        dispatcher = fieldContext.delete(request, response);
+                        break;
+                    case EDIT: // /admin/table/---/field/---/edit
+                        dispatcher = fieldContext.edit(request, response);
+                        break;
+                }
+                break;
+            case ROW:
+                switch (action) {
+                    case ADD: // /admin/table/---/row/add
+                        dispatcher = rowContext.add(request, response);
+                        break;
+                    case DELETE: // /admin/table/---/row/---/delete
+                        dispatcher = rowContext.delete(request, response);
+                        break;
+                    case EDIT: // /admin/table/---/row/---/edit
+                        dispatcher = rowContext.edit(request, response);
+                        break;
+                }
+                break;
+            case TABLE:
+                switch (action) {
+                    case ADD: // /admin/table/add
+                        dispatcher = tableContext.add(request, response);
+                        break;
+                    case DELETE: // /admin/table/---/delete
+                        dispatcher = tableContext.delete(request, response);
+                        break;
+                    case SHOW: // /admin/table/---/
+                        dispatcher = tableContext.show(request, response);
+                        break;
+                    case EDIT: // /admin/table/---/edit
+                        dispatcher = tableContext.edit(request, response);
+                        break;
+                }
+                break;
+
+            case TABLES: // /admin/table
+                dispatcher = tablesContext.show(request, response);
+                break;
         }
 
-        if (dispatcher != null) {
-            dispatcher.forward(request, response);
+        if (dispatcher == null) {
+            request.setAttribute("error.type", MessageError.UNIMPLEMENTED_METHOD);
+            dispatcher = getServletContext().getRequestDispatcher("/error.jsp");
         }
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Action action = (Action) request.getAttribute("url.action");
-        Table table = (Table) request.getAttribute("url.table");
-        TableRow row = (TableRow) request.getAttribute("url.row");
-
-        RequestDispatcher dispatcher = null;
-
-        if (table == null && row == null) { // GET /table/(show|add)
-            switch (action) {
-                case ADD:
-                    dispatcher = tableManager.add(request, response);
-                    break;
-                case SHOW:
-                    dispatcher = tableManager.show(request, response);
-                    break;
-                case DELETE:
-                case EDIT:
-                    handleErrorCase(request, response);
-                    break;
-            }
-        } else if (table != null && row == null) { // GET table/foobar/(show|add|edit|delete)
-            switch (action) {
-                case ADD:
-                    dispatcher = rowManager.add(request, response);
-                    break;
-                case DELETE:
-                    dispatcher = tableManager.delete(request, response);
-                    break;
-                case EDIT:
-                    dispatcher = tableManager.edit(request, response);
-                    break;
-                case SHOW:
-                    dispatcher = rowManager.show(request, response);
-                    break;
-            }
-        } else if (table != null && row != null) { // GET table/foobar/row/42/(edit|delete)
-            switch (action) {
-                case DELETE:
-                    dispatcher = rowManager.delete(request, response);
-                    break;
-                case EDIT:
-                    dispatcher = rowManager.edit(request, response);
-                    break;
-                case ADD:
-                case SHOW:
-                    handleErrorCase(request, response);
-                    break;
-            }
-        }
-
-        if (dispatcher != null) {
-            dispatcher.forward(request, response);
-        }
-    }
-
-    private void handleErrorCase(HttpServletRequest request, HttpServletResponse response) {
-
+        doPost(request, response);
     }
 }

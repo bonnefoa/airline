@@ -22,6 +22,18 @@
         case EMPTY_FIELD:
             title = "Au moins un des champs n'a pas été rempli correctement !";
             break;
+        case INEXISTANT_FIELD:
+            title = "Le champ demandé n'existe pas !";
+            break;
+        case INEXISTANT_ROW:
+            title = "Le tuple spécifié n'existe pas !";
+            break;
+        case INEXISTANT_TABLE:
+            title = "La table demandée n'existe pas !";
+            break;
+        case UNIMPLEMENTED_METHOD:
+            title = "La méthode appelée n'a pas été implémentée !";
+            break;
     }
     request.setAttribute("title", title);
 

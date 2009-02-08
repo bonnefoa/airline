@@ -53,9 +53,12 @@
     <td><%=table.getType() %>
     </td>
     <td>
+        <!-- renommage : pas encore ;) -->
+        <!--
         <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit">
             <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
+        -->
         <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/delete">
             <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>

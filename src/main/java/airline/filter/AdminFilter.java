@@ -2,9 +2,7 @@ package airline.filter;
 
 import airline.dao.AuthDAO;
 import airline.model.User;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ import java.io.IOException;
  * Time: 20:55:08
  * To change this template use File | Settings | File Templates.
  */
-public class AdminFilter implements Filter {
+public class AdminFilter extends AbstractInjectableFilter {
     private AuthDAO auth;
     private FilterConfig filterConfig;
 
@@ -28,9 +26,8 @@ public class AdminFilter implements Filter {
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
+        super.init(filterConfig);
         this.filterConfig = filterConfig;
-        Injector injector = Guice.createInjector(new airline.guiceBindings.Servlet());
-        injector.injectMembers(this);
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
