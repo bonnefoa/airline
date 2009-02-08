@@ -1,13 +1,13 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
-<%@ page import="airline.model.Table" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="airline.model.TablesColumns" %>
-<%@ page import="java.util.List" %>
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
-<%@ page import="java.util.Set" %>
+<%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
+<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Set" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -68,6 +68,7 @@
         if (tables != null && tables.size() != 0) {
     %>
     <select name="from" id="from">
+        <option value="">choisissez une table ici</option>
         <%
             for (Table table : tables.values()) {
                 boolean selected = (selectedTable == table);
@@ -121,7 +122,8 @@
                 boolean selected = (constraint == whereCond);
 
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= java.net.URLEncoder.encode(constraint.getSqlValue(), "UTF-8") %>
+        <option<% if (selected) { %>
+                selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(constraint.getSqlValue()) %>
         </option>
         <%
             }
@@ -141,6 +143,10 @@
 %>
 <div>
 résultat :<br/>
+<%
+    // TableRows prend columns en paramètre, mais il doit afficher selectedFields
+    request.setAttribute("columns", selectedFields);
+%>
 <jsp:include page="/fragments/TableRows.jsp"/>
 </div>
 <%

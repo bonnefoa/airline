@@ -33,8 +33,6 @@ public class TableURLRewritingFilter implements Filter {
             url = ((HttpServletRequest) req).getServletPath() + pathInfo;
         }
 
-        System.out.println("Rewriting url " + url);
-
         Pattern tableAdd = Pattern.compile("^/admin/table(/(add)?)?$");
         Pattern tableEdit = Pattern.compile("^/admin/table/([^/]+)/(edit|delete)$");
         Pattern rowAdd = Pattern.compile("^/admin/table/([^/]+)/(row(/add)?)?$");
@@ -79,7 +77,7 @@ public class TableURLRewritingFilter implements Filter {
             return;
         }
 
-        System.out.println("rewriting : " +
+        System.out.println("TableURLRewritingFilter:: " + url + " => " +
                 " table=" + req.getAttribute("url.table") +
                 " row=" + req.getAttribute("url.row") +
                 " action=" + req.getAttribute("url.action")

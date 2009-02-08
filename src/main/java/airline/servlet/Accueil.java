@@ -7,6 +7,7 @@ import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TableRow;
 import airline.model.TablesColumns;
+import airline.servlet.enumeration.MessageError;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.sql.SQLException;
 
 /**
  * Servlet accueil
@@ -52,7 +54,16 @@ public class Accueil extends AbstractInjectableServlet {
                 Restriction restriction = new Restriction();
                 restriction.constraint(column, query, SqlConstraints.EQ);
                 selectRequest.addRestriction(restriction);
-                Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
+                Set<TableRow> result = null;
+                try {
+                    result = airlineDAO.executeRequest(selectRequest);
+                } catch (SQLException e) {
+
+                    request.setAttribute("error.type", MessageError.SQL_ERROR);
+                    request.setAttribute("error.exception", e);
+                    this.getServletContext().getRequestDispatcher("/error.jsp");
+                    return;
+                }
 
                 request.setAttribute("columns", columns);
                 request.setAttribute("rows", result);

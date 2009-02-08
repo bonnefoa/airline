@@ -1,6 +1,6 @@
 <%@ page import="airline.servlet.enumeration.MessageAction" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -14,11 +14,27 @@
     switch (actionDone) {
 
         case TABLE_CREATED:
-            title = "Table crée.";
+            title = "Table créée.";
             break;
     }
-    request.setAttribute("title",title);
+    request.setAttribute("title", title);
+    if (session.getAttribute("user") != null) {
 %>
-<jsp:include page="header.jsp"/>
-
-<jsp:include page="footer.jsp"/>
+<jsp:include page="/admin/header.jsp"/>
+<%
+} else {
+%>
+<jsp:include page="/header.jsp"/>
+<%
+    }
+%>
+<% if (session.getAttribute("user") != null) {
+%>
+<jsp:include page="/admin/footer.jsp"/>
+<%
+} else {
+%>
+<jsp:include page="/footer.jsp"/>
+<%
+    }
+%>

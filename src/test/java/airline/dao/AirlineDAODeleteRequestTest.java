@@ -1,22 +1,20 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.SelectRequest;
-import airline.criteria.model.DeleteRequest;
-import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.Restriction;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.Restriction;
+import airline.criteria.enumeration.SqlConstraints;
+import airline.criteria.model.DeleteRequest;
+import airline.criteria.model.SelectRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
 import airline.model.TableRow;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,7 +38,7 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
     }
 
     @Test
-    public void testDeleteRequest() {
+    public void testDeleteRequest() throws SQLException {
         SelectRequest select;
         select = new SelectRequest(table2);
         airlineDAO.executeRequest(select);
