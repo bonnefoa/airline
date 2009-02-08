@@ -28,6 +28,7 @@
     <li>maven pour gérer efficacement les dépendances</li>
     <li>git comme gestionnaire de version</li>
     <li>jdbc comme couche d'accès aux données</li>
+    <li>Guice comme injecteur de dépendances</li>
     <li>xhtml et css pour la présentation et le rendu dans le navigateur</li>
     <li>jQuery comme framework simplifiant l'utilisation du javascript</li>
 </ul>
@@ -36,7 +37,7 @@
 <h2>images</h2>
 
 <div>
-    Les images utilisées dans cette application sont sous licence Creative Commons. Voici les images d'origine :<br/>
+    Les "grandes" images utilisées dans cette application sont sous licence Creative Commons. Voici les images d'origine :<br/>
 <ul>
     <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere.jpg">la bannière</a> provient de <a
             href="http://flickr.com/photos/smartjunco/2592304374/">flickr</a> (licence <a
@@ -55,5 +56,6 @@
             href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
     </li>
 </ul>
+Les icones utilisées sont issus du pack <a href="http://www.everaldo.com/crystal/">Crystal Project</a>, sous licence LGPL.
 </div>
 <jsp:include page="footer.jsp"/>
