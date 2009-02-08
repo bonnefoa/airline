@@ -68,6 +68,7 @@
         if (tables != null && tables.size() != 0) {
     %>
     <select name="from" id="from">
+        <option value="">choisissez une table ici</option>
         <%
             for (Table table : tables.values()) {
                 boolean selected = (selectedTable == table);
@@ -121,7 +122,8 @@
                 boolean selected = (constraint == whereCond);
 
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(constraint.getSqlValue()) %>
+        <option<% if (selected) { %>
+                selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(constraint.getSqlValue()) %>
         </option>
         <%
             }
@@ -141,6 +143,10 @@
 %>
 <div>
 résultat :<br/>
+<%
+    // TableRows prend columns en paramètre, mais il doit afficher selectedFields
+    request.setAttribute("columns", selectedFields);
+%>
 <jsp:include page="/fragments/TableRows.jsp"/>
 </div>
 <%

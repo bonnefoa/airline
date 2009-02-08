@@ -1,22 +1,18 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.DeleteFieldRequest;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.model.DeleteFieldRequest;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.sql.SQLException;
 
 /**
  * User: sora
@@ -38,7 +34,7 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
     }
 
     @Test
-    public void testDeleteFieldTable() {
+    public void testDeleteFieldTable() throws SQLException {
         List<TablesColumns> columnsList=airlineDAO.getTablesColumns(table2);
         DeleteFieldRequest deleteField = new DeleteFieldRequest(table2,columnsList.subList(0,2));
         airlineDAO.executeRequest(deleteField);

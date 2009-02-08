@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Types;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     }
 
     @Test
-    public void testCreateTable() {
+    public void testCreateTable() throws SQLException {
         Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns columns = new TablesColumns();
@@ -51,10 +52,11 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
         columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
         assertEquals("INTEGER", columnsList.get(0).getType());
+        assertEquals(Types.INTEGER, columnsList.get(0).getDataType());
     }
 
     @Test
-    public void testCreateTableTwoColumns() {
+    public void testCreateTableTwoColumns() throws SQLException {
         Map<String, Table> listTables;
         Table table = new Table("UGUU");
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
@@ -80,8 +82,45 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
         columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
         assertEquals("INTEGER", columnsList.get(0).getType());
+        assertEquals(Types.INTEGER, columnsList.get(0).getDataType());
         assertEquals("GRAOUPU", columnsList.get(1).getName());
         assertEquals("VARCHAR", columnsList.get(1).getType());
+        assertEquals(Types.VARCHAR, columnsList.get(1).getDataType());
+    }
+
+    @Test
+    public void testCreateTableTwoColumnsPrimary() throws SQLException {
+        Map<String, Table> listTables;
+        Table table = new Table("UGUU");
+        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
+        TablesColumns columns = new TablesColumns();
+        columns.setName("GRAOU");
+        columns.setDataType(Types.INTEGER);
+        columns.setPrimaryKey(true);
+        columnsList.add(columns);
+
+        columns = new TablesColumns();
+        columns.setName("GRAOUPU");
+        columns.setDataType(Types.VARCHAR);
+        columnsList.add(columns);
+
+        listTables = airlineDAO.getTables();
+        if (listTables.containsKey("UGUU")) {
+            airlineDAO.executeRequest(new DropTableRequest(listTables.get("UGUU")));
+        }
+
+        airlineDAO.executeRequest(new CreateTableRequest(table, columnsList));
+
+        listTables = airlineDAO.getTables();
+        assertTrue(listTables.containsKey("UGUU"));
+        columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
+        assertEquals("GRAOU", columnsList.get(0).getName());
+        assertEquals("INTEGER", columnsList.get(0).getType());
+        assertEquals(Types.INTEGER, columnsList.get(0).getDataType());
+        assertTrue(columnsList.get(0).isPrimaryKey());
+        assertEquals("GRAOUPU", columnsList.get(1).getName());
+        assertEquals("VARCHAR", columnsList.get(1).getType());
+        assertEquals(Types.VARCHAR, columnsList.get(1).getDataType());
     }
 
     @Inject

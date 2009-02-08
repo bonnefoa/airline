@@ -126,7 +126,7 @@
     </pluginRepositories>
 
     <properties>
-        <glassfish.home>/home/sora/programme/glassfish</glassfish.home>
+        <glassfish.home>/home/tetradavid/glassfish</glassfish.home>
         <domain.username>admin</domain.username>
         <domain.password>adminadmin</domain.password>
     </properties>

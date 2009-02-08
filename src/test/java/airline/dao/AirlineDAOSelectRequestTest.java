@@ -1,21 +1,19 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.SelectRequest;
-import airline.criteria.enumeration.SqlConstraints;
-import airline.criteria.Restriction;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.Restriction;
+import airline.criteria.enumeration.SqlConstraints;
+import airline.criteria.model.SelectRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
 import airline.model.TableRow;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -48,7 +46,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     }
 
     @Test
-    public void testGetSelectRequest() {
+    public void testGetSelectRequest() throws SQLException {
         SelectRequest selectRequest = new SelectRequest();
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
@@ -69,7 +67,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     }
 
     @Test
-    public void testSelectTwoTables() {
+    public void testSelectTwoTables() throws SQLException {
         SelectRequest selectRequest = new SelectRequest();
         selectRequest.addColumn(listColumns1.get(0));
         selectRequest.addColumn(listColumns1.get(1));
@@ -93,7 +91,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     }
 
     @Test
-    public void testSelectWithRestriction() {
+    public void testSelectWithRestriction() throws SQLException {
         SelectRequest selectRequest = new SelectRequest();
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
@@ -110,7 +108,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
 
 
     @Test
-    public void testSelectWithTwoRestrictionsAnd() {
+    public void testSelectWithTwoRestrictionsAnd() throws SQLException {
         SelectRequest selectRequest = new SelectRequest();
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
@@ -133,7 +131,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
 
 
     @Test
-    public void testSelectWithTwoRestrictionsOr() {
+    public void testSelectWithTwoRestrictionsOr() throws SQLException {
         SelectRequest selectRequest = new SelectRequest();
         selectRequest.addColumn(listColumns2.get(0));
         selectRequest.addColumn(listColumns2.get(1));
@@ -155,7 +153,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     }
 
     @Test
-    public void testSelectWithoutColums() {
+    public void testSelectWithoutColums() throws SQLException {
         SelectRequest selectRequest = new SelectRequest(table2);
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
@@ -173,7 +171,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     }
 
     @Test
-    public void testSelectWithoutColumsAndWithRestrictions() {
+    public void testSelectWithoutColumsAndWithRestrictions() throws SQLException {
         Restriction restriction = new Restriction();
         restriction.constraint(
                 listColumns2.get(0), "2",

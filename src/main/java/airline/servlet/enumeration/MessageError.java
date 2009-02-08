@@ -8,5 +8,5 @@ package airline.servlet.enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public enum MessageError {
-    INTERNAL_ERROR
+    INTERNAL_ERROR, SQL_ERROR, EMPTY_FIELD
 }

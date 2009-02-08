@@ -1,24 +1,20 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.CreateFieldRequest;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.model.CreateFieldRequest;
 import airline.model.Table;
 import airline.model.TablesColumns;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 import java.sql.Types;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: sora
@@ -39,7 +35,7 @@ public class AirlineDAOCreateFieldRequestTest extends BaseClass {
     }
 
     @Test
-    public void testCreateFieldTable() {
+    public void testCreateFieldTable() throws SQLException {
         List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
         TablesColumns col = new TablesColumns();
         col.setName("GRA");

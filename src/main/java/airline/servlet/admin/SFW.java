@@ -8,6 +8,7 @@ import airline.model.Table;
 import airline.model.TableRow;
 import airline.model.TablesColumns;
 import airline.servlet.AbstractInjectableServlet;
+import airline.servlet.enumeration.MessageError;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -53,15 +55,21 @@ public class SFW extends AbstractInjectableServlet {
             canDoRequest = false;
         }
 
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/sfw.jsp");
         if (canDoRequest) {
-            doRequest(selectRequest, request);
+            try {
+                doRequest(selectRequest, request);
+            } catch (SQLException e) {
+                request.setAttribute("error.type", MessageError.SQL_ERROR);
+                request.setAttribute("error.exception", e);
+                dispatcher = this.getServletContext().getRequestDispatcher("/error.jsp");
+            }
         }
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/sfw.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void doRequest(SelectRequest selectRequest, HttpServletRequest request) {
+    private void doRequest(SelectRequest selectRequest, HttpServletRequest request) throws SQLException {
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         request.setAttribute("rows", result);
     }
@@ -125,7 +133,9 @@ public class SFW extends AbstractInjectableServlet {
         }
         SqlConstraints cond = null;
 
+        System.out.println("checking whereCond");
         if (whereCond != null) {
+            System.out.println("whereCond : " + whereCond);
             if (">".equals(whereCond)) {
                 cond = SqlConstraints.GT;
             } else if (">=".equals(whereCond)) {
@@ -143,6 +153,7 @@ public class SFW extends AbstractInjectableServlet {
             } else if ("ilike".equals(whereCond)) {
                 cond = SqlConstraints.ILIKE;
             }
+            System.out.println("result : " + cond);
         }
 
         String whereVal = request.getParameter("whereVal");
