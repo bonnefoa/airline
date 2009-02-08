@@ -1,19 +1,16 @@
 package airline.servlet.admin;
 
-import airline.guiceBindings.Servlet;
 import airline.manager.RequestManager;
 import airline.model.Table;
 import airline.model.TableRow;
+import airline.servlet.AbstractInjectableServlet;
 import airline.servlet.enumeration.Action;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.name.Named;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +22,7 @@ import java.io.IOException;
  * Time: 9:28:22 AM
  * To change this template use File | Settings | File Templates.
  */
-public class Tables extends HttpServlet {
+public class Tables extends AbstractInjectableServlet {
 
     RequestManager tableManager;
     RequestManager rowManager;
@@ -43,8 +40,6 @@ public class Tables extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        Injector injector = Guice.createInjector(new Servlet());
-        injector.injectMembers(this);
         rowManager.init(this.getServletContext());
         tableManager.init(this.getServletContext());
     }
@@ -97,7 +92,9 @@ public class Tables extends HttpServlet {
             }
         }
 
-        dispatcher.forward(request, response);
+        if (dispatcher != null) {
+            dispatcher.forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -150,7 +147,9 @@ public class Tables extends HttpServlet {
             }
         }
 
-        dispatcher.forward(request, response);
+        if (dispatcher != null) {
+            dispatcher.forward(request, response);
+        }
     }
 
     private void handleErrorCase(HttpServletRequest request, HttpServletResponse response) {

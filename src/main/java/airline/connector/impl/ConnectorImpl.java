@@ -1,15 +1,12 @@
 package airline.connector.impl;
 
 import airline.connector.Connector;
-import airline.model.Transaction;
 import static airline.model.Transaction.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.hsqldb.jdbc.jdbcPreparedStatement;
 
 /**
  * Implementation of the connector
@@ -20,11 +17,13 @@ public class ConnectorImpl implements Connector {
     public ConnectorImpl() {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
-            connection = DriverManager.getConnection("jdbc:hsqldb:file:forumBDD", "sa", "");
+            //connection = DriverManager.getConnection("jdbc:hsqldb:file:forumBDD;shutdown=true", "sa", "");
+            connection = DriverManager.getConnection("jdbc:hsqldb:mem:forumBDD", "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println("Tables already exist");
+            e.printStackTrace();
+            System.out.println("Error while setting the SQL connection");
         }
     }
 

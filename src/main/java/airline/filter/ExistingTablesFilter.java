@@ -3,9 +3,9 @@ package airline.filter;
 import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TableRow;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Guice;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -23,11 +23,6 @@ import java.util.Map;
 public class ExistingTablesFilter implements Filter {
     private AirlineDAO airlineDAO;
 
-    public ExistingTablesFilter() {
-        Injector injector = Guice.createInjector(new airline.guiceBindings.Servlet());
-        injector.injectMembers(this);
-    }
-
     @Inject
     public void setAirlineDAO(AirlineDAO airlineDAO) {
         this.airlineDAO = airlineDAO;
@@ -38,7 +33,7 @@ public class ExistingTablesFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
-        System.out.println("checking infos accuracy : " +
+        System.out.println("ExistingTablesFilter:: checking infos accuracy : " +
                 " table=" + req.getAttribute("url.table") +
                 " row=" + req.getAttribute("url.row") +
                 " action=" + req.getAttribute("url.action")
@@ -63,9 +58,12 @@ public class ExistingTablesFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
+    public ExistingTablesFilter() {
+        Injector injector = Guice.createInjector(new airline.guiceBindings.Servlet());
+        injector.injectMembers(this);
+    }
 
     public void init(FilterConfig config) throws ServletException {
-
     }
 
     private Table getTable(ServletRequest req) {
@@ -85,7 +83,7 @@ public class ExistingTablesFilter implements Filter {
         }
 
         List<TableRow> rows = airlineDAO.getTablesRows(table);
-        if (rows.size() < row) {
+        if (rows.size() > row) {
             return rows.get(row);
         } else {
             return null;

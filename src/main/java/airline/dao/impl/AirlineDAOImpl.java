@@ -84,7 +84,7 @@ public class AirlineDAOImpl implements AirlineDAO {
         return null;
     }
 
-    public void executeRequest(Request request) {
+    public void executeRequest(Request request) throws SQLException {
         try
         {
             Statement statement = connection.createStatement();
@@ -101,10 +101,11 @@ public class AirlineDAOImpl implements AirlineDAO {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            throw e;
         }
     }
 
-    public Set<TableRow> executeRequest(SelectRequest selectRequest) {
+    public Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException {
         Set<TableRow> res = new LinkedHashSet<TableRow>();
         TableRow tableRow;
         if (selectRequest.getColumnList().size() == 0)
@@ -114,8 +115,6 @@ public class AirlineDAOImpl implements AirlineDAO {
                 selectRequest.addColumn(columns);
             }
         }
-        try
-        {
             Statement statement = connection.createStatement();
             System.out.println("Request :" + selectRequest.buildQuery());
             ResultSet result = statement.executeQuery(selectRequest.buildQuery());
@@ -130,11 +129,6 @@ public class AirlineDAOImpl implements AirlineDAO {
                 res.add(tableRow);
             }
             return res;
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public List<TableRow> getTablesRows(Table tables) {

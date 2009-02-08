@@ -9,6 +9,7 @@ import airline.criteria.model.Request;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.sql.SQLException;
 
 /**
  * DAO interface for the dao
@@ -43,13 +44,15 @@ public interface AirlineDAO {
      *
      * @param selectRequest Select request to execute
      * @return Set of tableRows
+     * @throws java.sql.SQLException If the request gone wrong
      */
-    Set<TableRow> executeRequest(SelectRequest selectRequest);
+    Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException;
 
     /**
      * Execute the given request
      *
      * @param request Request to execute
+     * @throws java.sql.SQLException If the request gone wrong
      */
-    void executeRequest(Request request);
+    void executeRequest(Request request) throws SQLException;
 }

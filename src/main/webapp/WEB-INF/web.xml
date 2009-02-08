@@ -3,23 +3,33 @@
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+    <!--===================================================-->
+    <!--============= déclaration des filtres =============-->
+    <!--===================================================-->
     <filter>
+        <!--Ajoute l'url de la racine de l'application pour toutes les vues-->
         <filter-name>BaseURLFilter</filter-name>
         <filter-class>airline.filter.BaseURLFilter</filter-class>
     </filter>
     <filter>
+        <!--N'autorise que les personnes enregistrées-->
         <filter-name>adminFilter</filter-name>
         <filter-class>airline.filter.AdminFilter</filter-class>
     </filter>
     <filter>
+        <!--Ajoute les informations nécessaires lors d'un appel à admin/table...-->
         <filter-name>TableURLRewritingFilter</filter-name>
         <filter-class>airline.filter.TableURLRewritingFilter</filter-class>
     </filter>
     <filter>
+        <!--Vérifie la validité des informations générées par la réécriture d'url-->
         <filter-name>ExistingTablesFilter</filter-name>
         <filter-class>airline.filter.ExistingTablesFilter</filter-class>
     </filter>
 
+    <!--===================================================-->
+    <!--=============== mapping des filtres ===============-->
+    <!--===================================================-->
     <filter-mapping>
         <filter-name>BaseURLFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -40,6 +50,17 @@
         <url-pattern>/admin/table/*</url-pattern>
     </filter-mapping>
 
+    <!--===================================================-->
+    <!--============= déclaration du listener =============-->
+    <!--===================================================-->
+    <listener>
+        <!-- va permettre l'injection de dépendances dans les servlets -->
+        <listener-class>airline.listener.GuiceServletContextListener</listener-class>
+    </listener>
+
+    <!--===================================================-->
+    <!--============= déclaration des servlet =============-->
+    <!--===================================================-->
     <servlet>
         <servlet-name>Accueil</servlet-name>
         <servlet-class>airline.servlet.Accueil</servlet-class>
@@ -69,6 +90,10 @@
         <servlet-name>APropos</servlet-name>
         <servlet-class>airline.servlet.APropos</servlet-class>
     </servlet>
+
+    <!--===================================================-->
+    <!--=============== mapping des servlet ===============-->
+    <!--===================================================-->
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>
         <url-pattern>/accueil</url-pattern>
@@ -78,7 +103,7 @@
         <servlet-name>APropos</servlet-name>
         <url-pattern>/apropos</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -108,7 +133,10 @@
         <servlet-name>Tables</servlet-name>
         <url-pattern>/admin/table</url-pattern>
     </servlet-mapping>
-    
+
+    <!--====================================================-->
+    <!--== déclaration des fichiers à afficher par défaut ==-->
+    <!--====================================================-->
     <welcome-file-list>
         <welcome-file>accueil</welcome-file>
         <welcome-file>index.html</welcome-file>
@@ -116,6 +144,9 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <!--===================================================-->
+    <!--================== page d'erreur ==================-->
+    <!--===================================================-->
     <error-page>
         <error-code>404</error-code>
         <location>/404.jsp</location>

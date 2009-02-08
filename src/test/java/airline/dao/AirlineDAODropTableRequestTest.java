@@ -1,20 +1,17 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.DropTableRequest;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.model.DropTableRequest;
 import airline.model.Table;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * User: sora
@@ -47,7 +44,7 @@ public class AirlineDAODropTableRequestTest extends BaseClass {
 
 
     @Test
-    public void testDropTable() {
+    public void testDropTable() throws SQLException {
         airlineDAO.executeRequest(new DropTableRequest(table2));
         Map<String, Table> tables = airlineDAO.getTables();
         assertFalse(tables.containsKey(table2.getName()));

@@ -1,23 +1,21 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.model.SelectRequest;
-import airline.criteria.model.UpdateRequest;
-import airline.criteria.enumeration.SqlConstraints;
+import airline.connector.impl.ConnectorTestImpl;
 import airline.criteria.Restriction;
 import airline.criteria.UpdateSetter;
-import airline.connector.Connector;
-import airline.connector.impl.ConnectorTestImpl;
+import airline.criteria.enumeration.SqlConstraints;
+import airline.criteria.model.SelectRequest;
+import airline.criteria.model.UpdateRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
 import airline.model.TableRow;
+import airline.model.TablesColumns;
 import com.google.inject.Inject;
-import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,7 +37,7 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
     }
 
     @Test
-    public void testUpdateRequest() {
+    public void testUpdateRequest() throws SQLException {
         UpdateRequest updateRequest = new UpdateRequest(table2);
         List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
         updateRequest.addUpdateSetter(new UpdateSetter(listColumns.get(1), "newName"));
@@ -63,7 +61,7 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
 
 
     @Test
-    public void testUpdateRequestMultiple() {
+    public void testUpdateRequestMultiple() throws SQLException {
         UpdateRequest updateRequest = new UpdateRequest(table2);
         List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
         updateRequest.addUpdateSetter(new UpdateSetter(listColumns.get(1), "newName"));

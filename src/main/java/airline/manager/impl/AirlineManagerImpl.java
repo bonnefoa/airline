@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.sql.SQLException;
 
 /**
  * Implementation for airline manager
@@ -47,13 +48,13 @@ public class AirlineManagerImpl implements AirlineManager {
         return airlineDAO.getTablesRows(nomTables);
     }
 
-    public void executeRequest(Request request) {
+    public void executeRequest(Request request) throws SQLException {
         airlineDAO.executeRequest(request);
         Transaction transaction = new Transaction(request.buildQuery(), new Date());
         transactionDAO.addTransaction(transaction);
     }
 
-    public Set<TableRow> executeRequest(SelectRequest selectRequest) {
+    public Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException {
         return airlineDAO.executeRequest(selectRequest);
     }
 
