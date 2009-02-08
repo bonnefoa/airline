@@ -28,6 +28,11 @@
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
         </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -115,7 +120,7 @@
     </pluginRepositories>
 
     <properties>
-        <glassfish.home>/home/sora/programme/glassfish</glassfish.home>
+        <glassfish.home>/home/tetradavid/glassfish</glassfish.home>
         <domain.username>admin</domain.username>
         <domain.password>adminadmin</domain.password>
     </properties>
