@@ -1,17 +1,13 @@
 package airline.manager.impl;
 
 import airline.dao.AirlineDAO;
-import airline.manager.RequestManager;
-import airline.model.Table;
-import airline.model.TablesColumns;
-import airline.model.TableRow;
+import airline.manager.ContextManager;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +16,7 @@ import java.util.List;
  * Time: 4:18:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RowManagerImpl implements RequestManager {
+public class RowContextImpl implements ContextManager {
     private ServletContext context;
     private AirlineDAO airlineDAO;
 
@@ -34,12 +30,7 @@ public class RowManagerImpl implements RequestManager {
     }
 
     public RequestDispatcher show(HttpServletRequest request, HttpServletResponse response) {
-        Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
-        List<TableRow> rows = airlineDAO.getTablesRows(table);
-        request.setAttribute("columns", columns);
-        request.setAttribute("rows", rows);
-        return context.getRequestDispatcher("/admin/rowsList.jsp");
+        return null;
     }
 
     public RequestDispatcher add(HttpServletRequest request, HttpServletResponse response) {

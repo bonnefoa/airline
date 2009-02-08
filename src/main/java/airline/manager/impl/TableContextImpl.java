@@ -1,10 +1,12 @@
 package airline.manager.impl;
 
 import airline.criteria.model.CreateTableRequest;
+import airline.criteria.model.DropTableRequest;
 import airline.dao.AirlineDAO;
-import airline.manager.RequestManager;
+import airline.manager.ContextManager;
 import airline.model.Table;
 import airline.model.TablesColumns;
+import airline.model.TableRow;
 import airline.servlet.enumeration.MessageAction;
 import airline.servlet.enumeration.MessageError;
 import com.google.inject.Inject;
@@ -17,7 +19,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +27,7 @@ import java.util.Map;
  * Time: 4:18:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TableManagerImpl implements RequestManager {
+public class TableContextImpl implements ContextManager {
     private ServletContext context;
     private AirlineDAO airlineDAO;
     private static final int DEFAULT_DATATYPE = Types.VARCHAR;
@@ -38,19 +39,20 @@ public class TableManagerImpl implements RequestManager {
 
     public void init(ServletContext servletContext) {
         context = servletContext;
-        //Injector injector = Guice.createInjector(new Servlet());
-        //injector.injectMembers(this);
     }
 
     public RequestDispatcher show(HttpServletRequest request, HttpServletResponse response) {
-        Map<String, Table> tables = airlineDAO.getTables();
-        request.setAttribute("tables", tables);
-        return context.getRequestDispatcher("/admin/tablesList.jsp");
+        Table table = (Table) request.getAttribute("url.table");
+        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        List<TableRow> rows = airlineDAO.getTablesRows(table);
+        request.setAttribute("columns", columns);
+        request.setAttribute("rows", rows);
+        return context.getRequestDispatcher("/admin/TableShow.jsp");
     }
 
     public RequestDispatcher add(HttpServletRequest request, HttpServletResponse response) {
         if ("GET".equals(request.getMethod())) {
-            return context.getRequestDispatcher("/admin/tableAddOrEdit.jsp");
+            return context.getRequestDispatcher("/admin/TableAdd.jsp");
         } else { // POST
 
             Table table = generateTable(request);
@@ -74,11 +76,15 @@ public class TableManagerImpl implements RequestManager {
     }
 
     public RequestDispatcher edit(HttpServletRequest request, HttpServletResponse response) {
+        return null;
+        // pas de renommage de table pour l'instant
+
+        /*
         if ("GET".equals(request.getMethod())) {
             Table table = (Table) request.getAttribute("url.table");
             List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
             request.setAttribute("columns", columns);
-            return context.getRequestDispatcher("/admin/tableAddOrEdit.jsp");
+            return context.getRequestDispatcher("/admin/tableEdit.jsp");
         } else { // POST
 
             Table table = generateTable(request);
@@ -86,10 +92,24 @@ public class TableManagerImpl implements RequestManager {
 
             return null;
         }
+        */
     }
 
     public RequestDispatcher delete(HttpServletRequest request, HttpServletResponse response) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        if ("GET".equals(request.getMethod())) {
+            return context.getRequestDispatcher("/admin/TableDelete.jsp");
+        } else {
+            Table table = (Table) request.getAttribute("url.table");
+            try {
+                airlineDAO.executeRequest(new DropTableRequest(table));
+                request.setAttribute("action.done", MessageAction.TABLE_DELETED);
+                return context.getRequestDispatcher("/message.jsp");
+            } catch (SQLException e) {
+                request.setAttribute("error.type", MessageError.SQL_ERROR);
+                request.setAttribute("error.exception", e);
+                return context.getRequestDispatcher("/error.jsp");
+            }
+        }
     }
 
     private Table generateTable(HttpServletRequest request) {

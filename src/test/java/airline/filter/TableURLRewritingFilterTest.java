@@ -1,6 +1,7 @@
 package airline.filter;
 
 import airline.servlet.enumeration.Action;
+import airline.servlet.enumeration.Context;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -88,315 +89,330 @@ public class TableURLRewritingFilterTest {
         filterChain.reset();
     }
 
+    private void testFails(List<String> fails) throws IOException, ServletException {
+
+        Filter urlrewrite = new TableURLRewritingFilter();
+        for (String fail : fails) {
+            req.setServletPath(fail);
+            urlrewrite.doFilter(req, resp, filterChain);
+            assertNull(req.getAttribute("url.context"));
+            assertNull(req.getAttribute("url.action"));
+            assertNull(req.getAttribute("url.table"));
+            assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
+            assertFalse(filterChain.hasChained());
+            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
+            req.reset();
+            resp.reset();
+            filterChain.reset();
+        }
+    }
+
+
     @Test
     public void testTable() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
+
         tests.add("/admin/table/");
         tests.add("/admin/table");
+
+        //fails.add("");
+
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.SHOW);
+            assertEquals(Context.TABLES, req.getAttribute("url.context"));
+            assertEquals(Action.SHOW, req.getAttribute("url.action"));
             assertNull(req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
     public void testTableAdd() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
+
         tests.add("/admin/table/add");
 
+        fails.add("/admin/table/graou/add");
+        fails.add("/admin/table/delete");
+        fails.add("/admin/table/edit");
+
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.ADD);
+            assertEquals(Context.TABLE, req.getAttribute("url.context"));
+            assertEquals(Action.ADD, req.getAttribute("url.action"));
             assertNull(req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testTableAddFail() throws IOException, ServletException {
+    public void testTable_() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
-        tests.add("/admin/table/add ");
-        //tests.add("/admin/table/add/"); // une table s'appelant add
-        tests.add("/admin/table/add/sdf");
-        tests.add("/admin/table/tablename/add/");
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/");
+
+        fails.add("/admin/table/graou");
 
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
+            assertEquals(Context.TABLE, req.getAttribute("url.context"));
+            assertEquals(Action.SHOW, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-    @Test
-    public void testTableEdit() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/tablename/edit", "tablename");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.EDIT);
-            assertEquals(req.getAttribute("url.table"), test.getValue());
-            assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testTableEditFail() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/tablename/edit/", "tablename");
-        tests.put("/admin/table/table/name/edit", "tablename");
-        tests.put("/admin/table/table/name/edit/", "tablename");
-        tests.put("/admin/table/tablename/edit/something", "tablename");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
-            assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-    @Test
-    public void testTableDelete() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/tablename/delete", "tablename");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.DELETE);
-            assertEquals(req.getAttribute("url.table"), test.getValue());
-            assertNull(req.getAttribute("url.row"));
-            assertTrue(filterChain.hasChained());
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-    @Test
-    public void testTableDeleteFail() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/tablename/delete/", "tablename");
-        tests.put("/admin/table/table/name/delete", "tablename");
-        tests.put("/admin/table/table/name/delete/", "tablename");
-        tests.put("/admin/table/tablename/delete/something", "tablename");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
-            assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-
-    @Test
-    public void testRow() throws IOException, ServletException {
+    public void testTable_delete() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
-        tests.add("/admin/table/foobar/row");
-        tests.add("/admin/table/foobar/");
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/delete");
+
+        fails.add("/admin/table/graou/show");
+        fails.add("/admin/table/graou/add");
+
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.SHOW);
-            assertEquals(req.getAttribute("url.table"), "foobar");
+            assertEquals(Context.TABLE, req.getAttribute("url.context"));
+            assertEquals(Action.DELETE, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testRowFail() throws IOException, ServletException {
+    public void testTable_edit() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
-        tests.add("/admin/table/foobar/row/");
-        tests.add("/admin/table/foobar");
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/edit");
+
+        fails.add("/admin/table/graou/show");
+        fails.add("/admin/table/graou/add");
+
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
+            assertEquals(Context.TABLE, req.getAttribute("url.context"));
+            assertEquals(Action.EDIT, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
+            assertNull(req.getAttribute("url.field"));
+            assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testRowAdd() throws IOException, ServletException {
+    public void testTable_rowAdd() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
-        tests.add("/admin/table/foobar/row/add");
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/row/add");
+
+        fails.add("/admin/table/graou/row/1234/add");
+        fails.add("/admin/table/graou/row/edit");
+        fails.add("/admin/table/graou/row/delete");
 
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.ADD);
-            assertEquals(req.getAttribute("url.table"), "foobar");
+            assertEquals(Context.ROW, req.getAttribute("url.context"));
+            assertEquals(Action.ADD, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testRowAddFail() throws IOException, ServletException {
+    public void testTable_row_edit() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();
-        tests.add("/admin/table/foobar/row/add/");
-        tests.add("/admin/table/foobar/row/add ");
-        tests.add("/admin/table/foobar/row/add/sdf");
-        tests.add("/admin/table/foobar/row/tablename/add/");
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/row/1234/edit");
+
+        fails.add("/admin/table/graou/row/l2EA/edit");
 
         for (String test : tests) {
             req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
-            assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-    @Test
-    public void testRowEdit() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/foobar/row/1234/edit", "1234");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.EDIT);
-            assertEquals(req.getAttribute("url.table"), "foobar");
-            assertEquals(req.getAttribute("url.row"), test.getValue());
+            assertEquals(Context.ROW, req.getAttribute("url.context"));
+            assertEquals(Action.EDIT, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
+            assertEquals("1234", req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
 
     @Test
-    public void testRowEditFail() throws IOException, ServletException {
+    public void testTable_row_delete() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/foobar/row/1234/edit/", "rowid");
-        tests.put("/admin/table/foobar/row/12/34/edit", "tablename");
-        tests.put("/admin/table/foobar/row/12/34/edit/", "tablename");
-        tests.put("/admin/table/foobar/row/12/34/edit/something", "tablename");
+        List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
 
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
+        tests.add("/admin/table/graou/row/1234/delete");
+
+        fails.add("/admin/table/graou/row/l2EA/delete");
+
+        for (String test : tests) {
+            req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
-            assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
-            req.reset();
-            resp.reset();
-            filterChain.reset();
-        }
-    }
-
-    @Test
-    public void testRowDelete() throws IOException, ServletException {
-        Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/foobar/row/1234/delete", "1234");
-
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
-            urlrewrite.doFilter(req, resp, filterChain);
-            assertEquals(req.getAttribute("url.action"), Action.DELETE);
-            assertEquals(req.getAttribute("url.table"), "foobar");
-            assertEquals(req.getAttribute("url.row"), test.getValue());
+            assertEquals(Context.ROW, req.getAttribute("url.context"));
+            assertEquals(Action.DELETE, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
+            assertEquals("1234", req.getAttribute("url.row"));
+            assertNull(req.getAttribute("url.field"));
             assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
     }
-
+    
     @Test
-    public void testRowDeleteFail() throws IOException, ServletException {
+    public void testTable_fieldAdd() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
-        Map<String, String> tests = new HashMap<String, String>();
-        tests.put("/admin/table/foobar/row/1234/delete/", "rowid");
-        tests.put("/admin/table/foobar/row/12/34/delete", "tablename");
-        tests.put("/admin/table/foobar/row/12/34/delete/", "tablename");
-        tests.put("/admin/table/foobar/row/1234/delete/something", "tablename");
+        List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
 
-        for (Map.Entry<String, String> test : tests.entrySet()) {
-            req.setServletPath(test.getKey());
+        tests.add("/admin/table/graou/field/add");
+
+        fails.add("/admin/table/graou/field/1234/add");
+        fails.add("/admin/table/graou/field/edit");
+        fails.add("/admin/table/graou/field/delete");
+
+        for (String test : tests) {
+            req.setServletPath(test);
             urlrewrite.doFilter(req, resp, filterChain);
-            assertNull(req.getAttribute("url.action"));
-            assertNull(req.getAttribute("url.table"));
+            assertEquals(Context.FIELD, req.getAttribute("url.context"));
+            assertEquals(Action.ADD, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
             assertNull(req.getAttribute("url.row"));
-            assertFalse(filterChain.hasChained());
-            assertEquals(resp.getError(), HttpServletResponse.SC_NOT_FOUND);
+            assertNull(req.getAttribute("url.field"));
+            assertTrue(filterChain.hasChained());
             req.reset();
             resp.reset();
             filterChain.reset();
         }
+
+        testFails(fails);
+    }
+
+    @Test
+    public void testTable_field_edit() throws IOException, ServletException {
+        Filter urlrewrite = new TableURLRewritingFilter();
+        List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/field/fieldName/edit");
+
+        //fails.add("");
+
+        for (String test : tests) {
+            req.setServletPath(test);
+            urlrewrite.doFilter(req, resp, filterChain);
+            assertEquals(Context.FIELD, req.getAttribute("url.context"));
+            assertEquals(Action.EDIT, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
+            assertEquals("fieldName", req.getAttribute("url.field"));
+            assertNull(req.getAttribute("url.row"));
+            assertTrue(filterChain.hasChained());
+            req.reset();
+            resp.reset();
+            filterChain.reset();
+        }
+
+        testFails(fails);
+    }
+
+    @Test
+    public void testTable_field_delete() throws IOException, ServletException {
+        Filter urlrewrite = new TableURLRewritingFilter();
+        List<String> tests = new ArrayList<String>();
+        List<String> fails = new ArrayList<String>();
+
+        tests.add("/admin/table/graou/field/fieldName/delete");
+
+        //fails.add("");
+
+        for (String test : tests) {
+            req.setServletPath(test);
+            urlrewrite.doFilter(req, resp, filterChain);
+            assertEquals(Context.FIELD, req.getAttribute("url.context"));
+            assertEquals(Action.DELETE, req.getAttribute("url.action"));
+            assertEquals("graou", req.getAttribute("url.table"));
+            assertEquals("fieldName", req.getAttribute("url.field"));
+            assertNull(req.getAttribute("url.row"));
+            assertTrue(filterChain.hasChained());
+            req.reset();
+            resp.reset();
+            filterChain.reset();
+        }
+
+        testFails(fails);
     }
 
 }

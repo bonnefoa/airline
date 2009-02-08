@@ -16,6 +16,9 @@
         case TABLE_CREATED:
             title = "Table créée.";
             break;
+        case TABLE_DELETED:
+            title = "Table supprimée.";
+            break;
     }
     request.setAttribute("title", title);
     if (session.getAttribute("user") != null) {
