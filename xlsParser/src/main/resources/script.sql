@@ -23,7 +23,7 @@ INSERT INTO PILOT (LastName, Address, Salary, Premium, HiringDate, FirstName, Pi
 
 CREATE TABLE FLIGHT
 (
-FlightNumber                    VarChar (100)  PRIMARY KEY,
+Number                    VarChar (100)  PRIMARY KEY,
 Origin                    VarChar (100),
 Destination                      VarChar (100),
 DepartureHour                   Int,
@@ -37,24 +37,24 @@ CREATE TABLE APPAREL
 (
 Code                    VarChar (100) PRIMARY KEY,
 Capacity                        Int,
-TradeName                       VarChar (100)
+Name                       VarChar (100)
 );
 
 CREATE TABLE PLANE
 (
-PlaneNumber                     Int PRIMARY KEY,
-PlaneType                       VarChar (100),
-DutyYear                        Int,
-PlaneName                       VarChar (100),
+Number                     Int PRIMARY KEY,
+Type                       VarChar (100),
+OnDuty                        Int,
+Name                       VarChar (100),
 FlyingDuration                  Int
 );
 
 CREATE TABLE ASSIGNMENT
 (
-AssignmentNumber                        Int PRIMARY KEY,
+Number                        Int PRIMARY KEY,
 PilotNumber                     Int,
 PlaneNumber                     Int,
-FlightDay                       Timestamp,
-PassengersNumber                        Int,
+FlightDate                       Timestamp,
+Passengers                      Int,
 FlightNumber                    VarChar (100)
 );

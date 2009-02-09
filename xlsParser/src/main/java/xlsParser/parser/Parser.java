@@ -63,6 +63,7 @@ public class Parser {
                 row = sheet.getRow(0);
                 for (Cell cell : row) {
                     String content = cell.getContents();
+                    content = content.replaceAll(" ", "");
                     if (content.equalsIgnoreCase("From")) {
                         content = "ORIGIN";
                     } else if (content.equalsIgnoreCase("To")) {
@@ -74,28 +75,43 @@ public class Parser {
                 queryBegin.append("INSERT INTO ");
                 queryBegin.append(table);
                 queryBegin.append(" (");
+                int nbrColumns = 0;
                 for (String column : listColums) {
-//                    queryBegin.append('\'');
+                    // Cas de la colomne vide prise en compte
+                    if (column.equals("")) {
+                        continue;
+                    }
+                    nbrColumns++;
                     queryBegin.append(column);
-//                    queryBegin.append('\'');
                     queryBegin.append(',');
                 }
                 queryBegin.deleteCharAt(queryBegin.length() - 1);
-                queryBegin.append(")  VALUES (");
+                queryBegin.append(") VALUES (");
                 for (int i = 1; i < sheet.getRows(); i++) {
                     StringBuilder query = new StringBuilder(queryBegin);
                     row = sheet.getRow(i);
-                    for (Cell cell : row) {
+                    boolean isEmpty = true;
+                    for (int j = 0; j < nbrColumns; j++) {
+                        Cell cell = row[j];
+                        if (!cell.getContents().equals("")) {
+                            isEmpty = false;
+                        }
                         query.append('\'');
+                        if(cell.getContents().matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")){
+                            System.out.println("GRQ");
+                        }
                         query.append(cell.getContents());
                         query.append("',");
                     }
+                    if(isEmpty){
+                        continue;
+                    }
                     query.deleteCharAt(query.length() - 1);
+                    query.append(")");
+                    System.out.println(query.toString());
                     statement.execute(query.toString());
                 }
             }
         }
     }
 }
-
-
