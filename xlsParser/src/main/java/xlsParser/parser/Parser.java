@@ -3,18 +3,18 @@ package xlsParser.parser;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.write.DateFormat;
 import jxl.read.biff.BiffException;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 /**
  * Parser for xls
@@ -93,17 +93,22 @@ public class Parser {
                     boolean isEmpty = true;
                     for (int j = 0; j < nbrColumns; j++) {
                         Cell cell = row[j];
-                        if (!cell.getContents().equals("")) {
+                        String contentRow = cell.getContents();
+                        if (!contentRow.equals("")) {
                             isEmpty = false;
                         }
                         query.append('\'');
-                        if(cell.getContents().matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")){
-                            System.out.println("GRQ");
+                        if (contentRow.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
+                            try {
+                                contentRow = new Timestamp(new SimpleDateFormat("dd/MM/yy").parse(contentRow).getTime()).toString();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        query.append(cell.getContents());
+                        query.append(contentRow);
                         query.append("',");
                     }
-                    if(isEmpty){
+                    if (isEmpty) {
                         continue;
                     }
                     query.deleteCharAt(query.length() - 1);
