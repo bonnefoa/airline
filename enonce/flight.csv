@@ -1,0 +1,12 @@
+"NUMBER","FROM","DEPARTURE HOUR","DEPARTURE MINUTE","TO","ARRIVAL HOUR","ARRIVAL MINUTE","DAY CHANGE"
+"AF8810","Bamako",6,0,"Adis Abeba",11,45,0
+"AF8809","Adis Abeba",13,45,"Bamako",18,0,0
+"IW201","Paris",9,45,"New York",15,25,0
+"IW655","New York",19,55,"Paris",2,35,1
+"IW433","Paris",17,0,"Tokyo",2,20,1
+"IW924","Tokyo",17,25,"Rome",5,30,1
+"IT319","Rome",10,35,"Antananarive",18,45,0
+"AF3218","Antananarive",22,45,"Paris",6,10,1
+"AF3530","Rabat",8,0,"Rio",18,40,0
+"AF3538","Rio",20,35,"Delhi",5,15,1
+"AF3570","Delhi",9,35,"New York",20,20,0
