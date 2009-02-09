@@ -88,7 +88,7 @@ h1, .centered, table {
     text-align: center;
 }
 
-a.button, input {
+a.button, input[type=submit] {
     font-family: arial, sans-serif;
     text-decoration: none;
     color: black;

@@ -34,6 +34,9 @@
         case UNIMPLEMENTED_METHOD:
             title = "La méthode appelée n'a pas été implémentée !";
             break;
+        case WRONG_PARAMETER:
+            title = "Un des parametres a ete mal saisi !";
+            break;
     }
     request.setAttribute("title", title);
 

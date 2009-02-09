@@ -22,20 +22,31 @@
     List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
     TablesColumns editableField = (TablesColumns) request.getAttribute("url.field");
 
-    if (action == Action.ADD) {
+    if (columns == null) {
         columns = new ArrayList<TablesColumns>();
+    }
+
+    if (action == Action.ADD && context == Context.TABLE) {
         columns.add(new TablesColumns()); // affiche une vide
     }
+    if(action == Action.ADD && context == Context.FIELD) {
+        editableField =new TablesColumns();
+        columns.add(editableField);
+    }
 %>
-<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/tableAddOrEdit.js"></script>
+<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/TableFields.js"></script>
 
 <%
     if (action != Action.SHOW) {
 
         StringBuilder formAction = new StringBuilder((String) request.getAttribute("baseURL"));
         formAction.append("/admin/table");
-        if (action == Action.ADD) { // /admin/table/add
+        if (action == Action.ADD && context == Context.TABLE) { // /admin/table/add
             formAction.append("/add");
+        } else if (action == Action.ADD && context == Context.FIELD) { // EDIT : /admin/table/tablename/field/add
+            formAction.append('/');
+            formAction.append(table.getName());
+            formAction.append("/field/add");
         } else if (action == Action.EDIT && context == Context.FIELD) { // EDIT : /admin/table/tablename/field/fieldname/edit
             formAction.append('/');
             formAction.append(table.getName());
@@ -68,7 +79,9 @@
     %>
     <br/>
     <br/>
-    
+    <%
+        if (columns != null && columns.size() != 0) {
+    %>
     Champs : <br/>
     <table>
         <thead>
@@ -86,7 +99,7 @@
         <tbody>
         <%
             for (TablesColumns column : columns) {
-                boolean editable = (action == Action.ADD || column.equals(editableField));
+                boolean editable = ((action == Action.ADD && context == Context.TABLE) || column.equals(editableField));
         %>
         <tr>
             <td>
@@ -112,10 +125,13 @@
                     switch (type) {
                         case Types.DATE:
                             out.print("DATE");
+                            break;
                         case Types.INTEGER:
                             out.print("INTEGER");
+                            break;
                         default:
                             out.print("VARCHAR");
+                            break;
                     }
                 } %>
             </td>
@@ -129,7 +145,7 @@
                 <%= (column.isPrimaryKey()) ? "oui" : "" %>
                 <% } %>
             </td>
-            <% if (action == Action.ADD) {%>
+            <% if ((action == Action.ADD && context == Context.TABLE) || (action == Action.ADD && context == Context.FIELD && editable)) {%>
             <td>
                 <img class="deleteImg" src="<%= request.getAttribute("baseURL") %>/img/delete.png"
                      alt="supprimer le champ" title="supprimer le champ"/>
@@ -150,6 +166,14 @@
         %>
         </tbody>
     </table>
+    <%
+    } else {
+    %>
+    Aucun champ a afficher !
+    <%
+        }
+    %>
+
     <% if (action == Action.ADD) {%>
     <input type="submit" id="addField" value="Ajouter un champ"/>
     <% } %>

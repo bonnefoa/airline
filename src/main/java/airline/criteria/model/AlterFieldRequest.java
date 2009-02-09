@@ -40,22 +40,25 @@ public class AlterFieldRequest extends Request {
             }
 
             if (!oldColumns.getName().equals(newColumns.getName())) {
+                //ALTER TABLE <tablename> ALTER COLUMN <columnname> RENAME TO <newname> 
                 res.append("ALTER TABLE ");
                 res.append(table.getName());
-                res.append(" CHANGE ");
+                res.append(" ALTER COLUMN ");
                 res.append(oldColumns.getName());
-                res.append(' ');
+                res.append(" RENAME TO ");
                 res.append(newColumns.getName());
                 res.append(';');
             }
 
             if (oldColumns.getDataType() != newColumns.getDataType()) {
+                //ALTER TABLE <table> ALTER COLUMN <column> <new type>
+
                 res.append("ALTER TABLE ");
                 res.append(table.getName());
-                res.append(" MODIFY ");
+                res.append(" ALTER COLUMN ");
                 res.append(newColumns.getName());
                 res.append(' ');
-                res.append(newColumns.getSqlStringDataType());                
+                res.append(newColumns.getSqlStringDataType());
                 res.append(';');
             }
         }

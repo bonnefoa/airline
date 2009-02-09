@@ -52,7 +52,9 @@ public class Restriction {
 
     private void writeRequest(String part1, SqlConstraints sqlConstraints, String part2) {
         query.append(part1);
+        query.append(' ');
         query.append(sqlConstraints.getSqlValue());
+        query.append(' ');
         query.append(part2);
     }
 
