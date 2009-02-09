@@ -147,7 +147,7 @@ résultat :<br/>
     // TableRows prend columns en paramètre, mais il doit afficher selectedFields
     request.setAttribute("columns", selectedFields);
 %>
-<jsp:include page="/fragments/TableRows.jsp"/>
+<jsp:include page="/fragments/TableRowsList.jsp"/>
 </div>
 <%
     }

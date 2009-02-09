@@ -31,7 +31,6 @@ public class EditField extends FieldContextHandler {
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-
         Table table = (Table) request.getAttribute("url.table");
         List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
         request.setAttribute("columns", columns);

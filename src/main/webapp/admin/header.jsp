@@ -7,6 +7,7 @@
     <title><%= request.getAttribute("title") %>
     </title>
     <script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/jquery-ui.core.datepicker.min.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
           href="<%= request.getAttribute("baseURL") %>/css/default.css"/>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"

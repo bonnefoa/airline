@@ -13,10 +13,13 @@
     Affiche le contenu d'une table.
     @param columns : les colonnes de la table à afficher.
     @param rows : ses lignes.
+    @param url.table
 --%>
 <%
     Collection<TablesColumns> columns = (Collection<TablesColumns>) request.getAttribute("columns");
     Collection<TableRow> rows = (Collection<TableRow>) request.getAttribute("rows");
+    Table table = (Table) request.getAttribute("url.table");
+
     if (rows != null && rows.size() == 0) {
 %>
 Aucune ligne à afficher !<br/>
@@ -34,11 +37,13 @@ Aucune ligne à afficher !<br/>
     <%
         }
     %>
+    <th>Action</th>
 </tr>
 </thead>
 <tbody>
 <%
     for (TableRow row : rows) {
+        int nb = 0;
 %>
 <tr>
     <%
@@ -49,8 +54,17 @@ Aucune ligne à afficher !<br/>
     <%
         }
     %>
+    <td>
+        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/row/<%=nb%>/edit">
+            <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+        </a>&nbsp;
+        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/row/<%=nb%>/delete">
+            <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+        </a>
+    </td>
 </tr>
 <%
+        nb++;
     }
 %>
 </tbody>
