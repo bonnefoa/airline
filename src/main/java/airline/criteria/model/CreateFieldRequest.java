@@ -3,7 +3,6 @@ package airline.criteria.model;
 import airline.model.Table;
 import airline.model.TablesColumns;
 
-import java.sql.Types;
 import java.util.List;
 
 /**
@@ -28,17 +27,7 @@ public class CreateFieldRequest extends Request {
             res.append(" ADD ");
             res.append(tablesColumnse.getName());
             res.append(' ');
-            switch (tablesColumnse.getDataType()) {
-                case Types.INTEGER:
-                    res.append("Integer");
-                    break;
-                case Types.DATE:
-                    res.append("Date");
-                    break;
-                default:
-                    res.append("Varchar");
-                    break;
-            }
+            res.append(tablesColumnse.getSqlStringDataType());
             res.append(';');
         }
         return res.toString();
