@@ -1,5 +1,7 @@
 package airline.model;
 
+import java.sql.Types;
+
 /**
  * Entities representing the columns of a table
  */
@@ -85,5 +87,16 @@ public class TablesColumns {
     @Override
     public String toString() {
         return table.getName() + "." + name;
+    }
+
+    public String getSqlStringDataType() {
+        switch (dataType) {
+            case Types.INTEGER:
+                return "Integer";
+            case Types.DATE:
+                return "Date";
+            default:
+                return "Varchar";
+        }
     }
 }
