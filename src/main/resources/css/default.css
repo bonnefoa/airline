@@ -91,3 +91,18 @@ h1 {
 .centered {
     text-align: center;
 }
+
+a.button, input {
+    font-family: arial, sans-serif;
+    text-decoration: none;
+    color: black;
+    margin: 0;
+    padding: 0.2em;
+    background: #ddd;
+    border: solid grey 1px;
+    font-size: 1em;
+}
+
+img.deleteImg {
+    cursor: pointer;
+}

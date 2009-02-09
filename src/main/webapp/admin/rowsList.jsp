@@ -26,6 +26,7 @@
     <th>nom</th>
     <th>type</th>
     <th>clef primaire</th>
+    <th>action</th>
 </tr>
 </thead>
 <tbody>
@@ -37,32 +38,14 @@
     </td>
     <td><%
         switch (column.getDataType()) {
-            case Types.SMALLINT:
-                out.print("SMALLINT");
-                break;
             case Types.INTEGER:
                 out.print("INTEGER");
-                break;
-            case Types.BIGINT:
-                out.print("BIGINT");
-                break;
-            case Types.FLOAT:
-                out.print("FLOAT");
-                break;
-            case Types.DOUBLE:
-                out.print("DOUBLE");
-                break;
-            case Types.CHAR:
-                out.print("CHAR");
                 break;
             case Types.VARCHAR:
                 out.print("VARCHAR");
                 break;
             case Types.DATE:
                 out.print("DATE");
-                break;
-            case Types.TIMESTAMP:
-                out.print("TIMESTAMP");
                 break;
             default:
                 out.print("type inconnu");
@@ -71,6 +54,14 @@
         }
     %></td>
     <td><%=(column.isPrimaryKey()) ? "oui" : ""%>
+    </td>
+    <td>
+        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=edit">
+            <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+        </a>&nbsp;
+        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=delete">
+            <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+        </a>
     </td>
 </tr>
 <%
@@ -83,8 +74,8 @@ table</a>
 
 <h2>contenu de la table</h2>
 <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>/row/add">
-    <img src="<%= request.getAttribute("baseURL") %>/img/add.png" alt=""/>
-    Ajouter une ligne dans la table
+<img src="<%= request.getAttribute("baseURL") %>/img/add.png" alt=""/>
+Ajouter une ligne dans la table
 </a>
 
 <div>
