@@ -33,6 +33,11 @@
             <artifactId>commons-lang</artifactId>
             <version>2.3</version>
         </dependency>
+	<dependency>
+            <groupId>jexcelapi</groupId>
+	    <artifactId>jxl</artifactId>
+	     <version>2.6</version>
+	</dependency>
     </dependencies>
     <build>
         <finalName>airline</finalName>
@@ -74,6 +79,32 @@
                     </components>
                 </configuration>
             </plugin>
+	    <plugin>
+	    <artifactId>maven-dependency-plugin</artifactId>
+	    <version>2.0</version>
+	    <executions>
+	    <execution>
+	    <id>copy</id>
+	    <phase>prepare-package</phase>
+	    <goals>
+	    <goal>copy</goal>
+	    </goals>
+	    <configuration>
+	    <artifactItems>
+	    <artifactItem>
+	    <groupId>x</groupId>
+	    <artifactId>actiClient</artifactId>
+	    <version>2.1.1.1</version>
+	    <type>jar</type>
+	    <overWrite>true</overWrite>
+	    <destFileName>actiClient.jar</destFileName>
+	    </artifactItem>
+	    </artifactItems>
+	    <outputDirectory>${project.build.directory}/${name}-${version}/lib</outputDirectory>
+	    </configuration>
+	    </execution>
+	    </executions>
+	    </plugin>
         </plugins>
     </build>
     <repositories>
