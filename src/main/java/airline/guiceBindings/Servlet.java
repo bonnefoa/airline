@@ -15,11 +15,9 @@ import airline.dao.impl.AirlineDAOImpl;
 import airline.dao.impl.AuthDAOImpl;
 import airline.dao.impl.TransactionDAOImpl;
 import airline.manager.AirlineManager;
-import airline.manager.ContextManager;
-import airline.manager.impl.*;
+import airline.manager.impl.AirlineManagerImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
-import com.google.inject.name.Names;
 
 public class Servlet extends AbstractModule {
     protected void configure() {
@@ -28,9 +26,5 @@ public class Servlet extends AbstractModule {
         bind(TransactionDAO.class).to(TransactionDAOImpl.class).in(Scopes.SINGLETON);
         bind(AirlineManager.class).to(AirlineManagerImpl.class).in(Scopes.SINGLETON);
         bind(AuthDAO.class).to(AuthDAOImpl.class).in(Scopes.SINGLETON);
-        bind(ContextManager.class).annotatedWith(Names.named("Tables")).to(TablesContextImpl.class);
-        bind(ContextManager.class).annotatedWith(Names.named("Table")).to(TableContextImpl.class);
-        bind(ContextManager.class).annotatedWith(Names.named("Row")).to(RowContextImpl.class);
-        bind(ContextManager.class).annotatedWith(Names.named("Field")).to(FieldContextImpl.class);
     }
 }

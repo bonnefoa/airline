@@ -84,11 +84,7 @@ h2 {
     margin-left: 207px;
 }
 
-h1 {
-    text-align: center;
-}
-
-.centered {
+h1 ,.centered, table{
     text-align: center;
 }
 
