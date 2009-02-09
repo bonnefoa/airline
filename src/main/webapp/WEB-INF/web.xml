@@ -24,7 +24,7 @@
     <filter>
         <!--Vérifie la validité des informations générées par la réécriture d'url-->
         <filter-name>ExistingTablesFilter</filter-name>
-        <filter-class>airline.filter.ExistingTablesFilter</filter-class>
+        <filter-class>airline.filter.ContextCheckFilter</filter-class>
     </filter>
 
     <!--===================================================-->

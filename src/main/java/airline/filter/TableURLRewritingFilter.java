@@ -2,6 +2,8 @@ package airline.filter;
 
 import airline.servlet.enumeration.Action;
 import airline.servlet.enumeration.Context;
+import airline.tables.ActionHandler;
+import airline.tables.context.action.*;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -34,78 +36,93 @@ public class TableURLRewritingFilter implements Filter {
             url = ((HttpServletRequest) req).getServletPath() + pathInfo;
         }
 
+        String table = null;
+        String row = null;
+        String field = null;
+        Action action = null;
+        Context context = null;
+        ActionHandler handler = null;
+
         // /admin/table
         // /admin/table/
-        Pattern tables = Pattern.compile("^/admin/table(/)?$");
+        Pattern tablesPattern = Pattern.compile("^/admin/table(/)?$");
 
         // /admin/table/add
         // /admin/table/---/
         // /admin/table/---/edit
         // /admin/table/---/delete
-        Pattern table = Pattern.compile("^/admin/table/(add|([^/]+)/(delete|edit)?)?$");
+        Pattern tablePattern = Pattern.compile("^/admin/table/(add|([^/]+)/(delete|edit)?)$");
 
         // /admin/table/---/row/add
         // /admin/table/---/row/---/edit
         // /admin/table/---/row/---/delete
-        Pattern row = Pattern.compile("^/admin/table/([^/]+)/row/(add|(\\d+)/(edit|delete))$");
+        Pattern rowPattern = Pattern.compile("^/admin/table/([^/]+)/row/(add|(\\d+)/(edit|delete))$");
 
         // /admin/table/---/field/add
         // /admin/table/---/field/---/edit
         // /admin/table/---/field/---/delete
-        Pattern field = Pattern.compile("^/admin/table/([^/]+)/field/(add|([^/]+)/(edit|delete))$");
+        Pattern fieldPattern = Pattern.compile("^/admin/table/([^/]+)/field/(add|([^/]+)/(edit|delete))$");
 
-        Matcher tablesMatcher = tables.matcher(url);
-        Matcher tableMatcher = table.matcher(url);
-        Matcher rowMatcher = row.matcher(url);
-        Matcher fieldMatcher = field.matcher(url);
+        Matcher tablesMatcher = tablesPattern.matcher(url);
+        Matcher tableMatcher = tablePattern.matcher(url);
+        Matcher rowMatcher = rowPattern.matcher(url);
+        Matcher fieldMatcher = fieldPattern.matcher(url);
 
         if (tablesMatcher.matches()) {
-            req.setAttribute("url.context", Context.TABLES);
-            req.setAttribute("url.action", Action.SHOW);
+            context = Context.TABLES;
+            action = Action.SHOW;
+            handler = new ShowTables();
         } else if (tableMatcher.matches()) {
-            req.setAttribute("url.context", Context.TABLE);
-            if (tableMatcher.group(1) != null) { // (add|([^/]+)/(delete|edit)?)?
-                if ("add".equals(tableMatcher.group(1))) {
-                    req.setAttribute("url.action", Action.ADD);
-                } else { // ([^/]+)/(delete|edit)?
-                    req.setAttribute("url.table", tableMatcher.group(2)); // ([^/]+)
-                    if (tableMatcher.group(3) != null) { // (delete|edit)?
-                        if ("delete".equals(tableMatcher.group(3))) {
-                            req.setAttribute("url.action", Action.DELETE);
-                        } else {
-                            req.setAttribute("url.action", Action.EDIT);
-                        }
+            context = Context.TABLE;
+            if ("add".equals(tableMatcher.group(1))) {// (add|([^/]+)/(delete|edit)?)
+                action = Action.ADD;
+                handler = new AddTable();
+            } else { // ([^/]+)/(delete|edit)?
+                table = tableMatcher.group(2); // ([^/]+)
+                if (tableMatcher.group(3) != null) { // (delete|edit)?
+                    if ("delete".equals(tableMatcher.group(3))) {
+                        action = Action.DELETE;
+                        handler = new DeleteTable();
                     } else {
-                        req.setAttribute("url.action", Action.SHOW);
+                        //action = Action.EDIT;
+                        //handler = new EditTable();
                     }
+                } else {
+                    action = Action.SHOW;
+                    handler = new ShowTable();
                 }
-            } else {
-                req.setAttribute("url.action", Action.SHOW);
             }
         } else if (rowMatcher.matches()) {
-            req.setAttribute("url.context", Context.ROW);
-            req.setAttribute("url.table", rowMatcher.group(1)); // ([^/]+)
+            context = Context.ROW;
+            table = rowMatcher.group(1); // ([^/]+)
             if ("add".equals(rowMatcher.group(2))) { // (add|(\d+)/(edit|delete))
-                req.setAttribute("url.action", Action.ADD);
+                        action = Action.ADD;
+                        handler = new AddRow();
             } else { // (\d+)/(edit|delete)
-                req.setAttribute("url.row", rowMatcher.group(3)); // (\d+)
+                row = rowMatcher.group(3); // (\d+)
                 if ("edit".equals(rowMatcher.group(4))) { // (edit|delete)
-                    req.setAttribute("url.action", Action.EDIT);
+                        action = Action.EDIT;
+                        handler = new EditRow();
                 } else {
-                    req.setAttribute("url.action", Action.DELETE);
+                        action = Action.DELETE;
+                        handler = new DeleteRow();
                 }
             }
         } else if (fieldMatcher.matches()) {
-            req.setAttribute("url.context", Context.FIELD);
-            req.setAttribute("url.table", fieldMatcher.group(1)); // ([^/]+)
+            context = Context.FIELD;
+            table = fieldMatcher.group(1);  // ([^/]+)
             if ("add".equals(fieldMatcher.group(2))) { // (add|([^/]+)/(edit|delete))
                 req.setAttribute("url.action", Action.ADD);
+                        action = Action.ADD;
+                        handler = new AddField();
             } else { // ([^/]+)/(edit|delete)
-                req.setAttribute("url.field", fieldMatcher.group(3)); // ([^/]+)
+                field = fieldMatcher.group(3); // ([^/]+)
                 if ("edit".equals(fieldMatcher.group(4))) { // (edit|delete)
-                    req.setAttribute("url.action", Action.EDIT);
+                        action = Action.EDIT;
+                        handler = new EditField();
                 } else {
-                    req.setAttribute("url.action", Action.DELETE);
+                        action = Action.DELETE;
+                        handler = new DeleteField();
                 }
             }
         } else { // 404 not found
@@ -114,12 +131,19 @@ public class TableURLRewritingFilter implements Filter {
         }
 
         System.out.println("TableURLRewritingFilter:: " + url + " => " +
-                " table=" + req.getAttribute("url.table") +
-                " row=" + req.getAttribute("url.row") +
-                " field=" + req.getAttribute("url.field") +
-                " action=" + req.getAttribute("url.action") +
-                " context=" + req.getAttribute("url.context")
+                " table=" + table +
+                " row=" + row +
+                " field=" + field +
+                " action=" + action +
+                " context=" + context
         );
+
+        req.setAttribute("url.table", table);
+        req.setAttribute("url.row", row);
+        req.setAttribute("url.field", field);
+        req.setAttribute("url.action", action);
+        req.setAttribute("url.context", context);
+        req.setAttribute("url.handler", handler);
 
         chain.doFilter(req, resp);
     }
