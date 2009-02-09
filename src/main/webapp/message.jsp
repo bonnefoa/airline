@@ -10,7 +10,7 @@
 --%>
 <%
     MessageAction actionDone = (MessageAction) request.getAttribute("action.done");
-    String title = "Une erreur inconnue s'est produite.";
+    String title = "Une erreur inconnue s'est produite lors de l'affichage d'un message.";
     switch (actionDone) {
 
         case TABLE_CREATED:
@@ -18,6 +18,9 @@
             break;
         case TABLE_DELETED:
             title = "Table supprimée.";
+            break;
+        case FIELD_DELETED:
+            title = "Champ supprimé.";
             break;
     }
     request.setAttribute("title", title);

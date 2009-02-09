@@ -10,7 +10,7 @@
 --%>
 <%
     MessageError errorType = (MessageError) request.getAttribute("error.type");
-    String title = "Une erreur inconnue s'est produite.";
+    String title = "Une erreur inconnue s'est produite lors de l'affichage d'une erreur.";
     switch (errorType) {
 
         case INTERNAL_ERROR:

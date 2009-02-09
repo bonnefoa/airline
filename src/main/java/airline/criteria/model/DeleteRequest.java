@@ -20,7 +20,7 @@ public class DeleteRequest extends Request {
     }
 
     public DeleteRequest(Table table) {
-        this.table=table;
+        this.table = table;
         restrictionList = new ArrayList<Restriction>();
     }
 

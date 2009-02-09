@@ -33,13 +33,11 @@ public class TransactionDAOImpl implements TransactionDAO {
     }
 
     public void addTransaction(Transaction transaction) {
-        try
-        {
+        try {
             Connection connection = connector.getConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate(transaction.getInsertRequest());
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -47,13 +45,11 @@ public class TransactionDAOImpl implements TransactionDAO {
     public List<Transaction> getTransactions() {
         List<Transaction> res = new LinkedList<Transaction>();
         Connection connection = connector.getConnection();
-        try
-        {
+        try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(String.format(
                     "SELECT * FROM %s", Transaction.TRANSACTION_TABLE));
-            while (result.next())
-            {
+            while (result.next()) {
                 Transaction transaction = new Transaction(
                         result.getInt(Transaction.IDENTIFIANT),
                         result.getString(Transaction.DESCRIPTION),
@@ -61,8 +57,7 @@ public class TransactionDAOImpl implements TransactionDAO {
                 res.add(transaction);
             }
             return res;
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;

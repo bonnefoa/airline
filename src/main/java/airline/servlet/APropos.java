@@ -17,6 +17,6 @@ public class APropos extends AbstractInjectableServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/apropos.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
 }

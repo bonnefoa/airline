@@ -47,7 +47,7 @@ public class Restriction {
 
     public void constraint(TablesColumns columns1, String value, SqlConstraints constraints) {
         setTables.add(columns1.getTable().getName());
-        writeRequest(columns1.toString(),constraints, '\''+value+'\'');
+        writeRequest(columns1.toString(), constraints, '\'' + value + '\'');
     }
 
     private void writeRequest(String part1, SqlConstraints sqlConstraints, String part2) {

@@ -230,7 +230,8 @@ public class TableURLRewritingFilterTest {
     }
 
     @Test
-    @Ignore // pas encore implémenté
+    @Ignore
+    // pas encore implémenté
     public void testTable_edit() throws IOException, ServletException {
         Filter urlrewrite = new TableURLRewritingFilter();
         List<String> tests = new ArrayList<String>();

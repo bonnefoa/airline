@@ -14,11 +14,12 @@ import java.io.IOException;
 
 public class BaseURLFilter implements Filter {
     private FilterConfig filterConfig;
+
     public void destroy() {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        String baseURL = ((HttpServletRequest)req).getContextPath();
+        String baseURL = ((HttpServletRequest) req).getContextPath();
         req.setAttribute("baseURL", baseURL);
         chain.doFilter(req, resp);
     }

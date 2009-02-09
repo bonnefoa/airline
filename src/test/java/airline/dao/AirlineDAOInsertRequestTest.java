@@ -25,7 +25,7 @@ public class AirlineDAOInsertRequestTest extends BaseClass {
     private AirlineDAO airlineDAO;
     private Table table1;
     private Table table2;
-    
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -36,11 +36,11 @@ public class AirlineDAOInsertRequestTest extends BaseClass {
 
     @Test
     public void testInsertRequest() {
-        InsertRequest insertRequest= new InsertRequest();
+        InsertRequest insertRequest = new InsertRequest();
         List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
 
-        insertRequest.addNewEntry(columnsList.get(1),"Ggorau");
-        insertRequest.addNewEntry(columnsList.get(2),"messaged");
+        insertRequest.addNewEntry(columnsList.get(1), "Ggorau");
+        insertRequest.addNewEntry(columnsList.get(2), "messaged");
 
 
     }

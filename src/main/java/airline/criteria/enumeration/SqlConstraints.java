@@ -6,10 +6,10 @@ package airline.criteria.enumeration;
  * Time: 11:45:28
  */
 public enum SqlConstraints {
-    GT(">"),GE(">="),
-    LT("<"),LE("<="),
-    EQ("="),NEQ("!="),
-    LIKE("like"),ILIKE("ilike");
+    GT(">"), GE(">="),
+    LT("<"), LE("<="),
+    EQ("="), NEQ("!="),
+    LIKE("like"), ILIKE("ilike");
 
     private String sqlValue;
 

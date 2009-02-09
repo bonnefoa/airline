@@ -99,7 +99,7 @@ public class SFW extends AbstractInjectableServlet {
         List<String> paramList = Arrays.asList(params);
 
         for (TablesColumns col : columns) {
-            if(paramList.contains(col.getName())) {
+            if (paramList.contains(col.getName())) {
                 selected.add(col);
                 selectRequest.addColumn(col);
             }

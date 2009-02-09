@@ -1,5 +1,5 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: sora

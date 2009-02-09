@@ -7,5 +7,5 @@ import airline.dao.TransactionDAO;
  * Manager for airline.
  * Communicate with the dao
  */
-public interface AirlineManager extends AirlineDAO, TransactionDAO{
+public interface AirlineManager extends AirlineDAO, TransactionDAO {
 }

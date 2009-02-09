@@ -55,12 +55,10 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
 
         List<TableRow> tableRows = airlineDAO.getTablesRows(table2);
 
-        for (int numRow = 0; numRow < tableRows.size(); numRow++)
-        {
+        for (int numRow = 0; numRow < tableRows.size(); numRow++) {
             TableRow row = tableRows.get(numRow);
             int i = 0;
-            for (String s : row.values())
-            {
+            for (String s : row.values()) {
                 assertEquals(values[numRow][i++], s);
             }
         }
@@ -158,12 +156,10 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(4, result.size());
         int numRow = 0;
-        for (TableRow row : result)
-        {
+        for (TableRow row : result) {
             assertEquals(4, row.keySet().size());
             int i = 0;
-            for (String s : row.values())
-            {
+            for (String s : row.values()) {
                 assertEquals(values[numRow][i++], s);
             }
             numRow++;
@@ -176,16 +172,14 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         restriction.constraint(
                 listColumns2.get(0), "2",
                 SqlConstraints.GT);
-        SelectRequest selectRequest = new SelectRequest(table2,restriction);
+        SelectRequest selectRequest = new SelectRequest(table2, restriction);
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         assertEquals(2, result.size());
         int numRow = 2;
-        for (TableRow row : result)
-        {
+        for (TableRow row : result) {
             assertEquals(4, row.keySet().size());
             int i = 0;
-            for (String s : row.values())
-            {
+            for (String s : row.values()) {
                 assertEquals(values[numRow][i++], s);
             }
             numRow++;

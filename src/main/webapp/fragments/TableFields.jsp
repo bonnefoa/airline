@@ -68,6 +68,7 @@
     %>
     <br/>
     <br/>
+    
     Champs : <br/>
     <table>
         <thead>
@@ -85,7 +86,7 @@
         <tbody>
         <%
             for (TablesColumns column : columns) {
-                boolean editable = (action == Action.ADD || column == editableField);
+                boolean editable = (action == Action.ADD || column.equals(editableField));
         %>
         <tr>
             <td>
@@ -133,7 +134,7 @@
                 <img class="deleteImg" src="<%= request.getAttribute("baseURL") %>/img/delete.png"
                      alt="supprimer le champ" title="supprimer le champ"/>
             </td>
-            <% } else if(action == Action.SHOW) { %>
+            <% } else if (action == Action.SHOW) { %>
             <td>
                 <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/edit">
                     <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>

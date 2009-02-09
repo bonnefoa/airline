@@ -31,7 +31,7 @@ public class AdminFilter extends AbstractInjectableFilter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-       HttpSession session = ((HttpServletRequest) request).getSession();
+        HttpSession session = ((HttpServletRequest) request).getSession();
         if (auth.isLoggedIn((User) session.getAttribute("user"))) {
             chain.doFilter(request, response);
         } else {

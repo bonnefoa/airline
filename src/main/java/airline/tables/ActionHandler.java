@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface ActionHandler {
     void init(ServletContext servletContext);
+
     MessageError checkContext(ServletRequest request);
+
     RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response);
+
     RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response);
 }

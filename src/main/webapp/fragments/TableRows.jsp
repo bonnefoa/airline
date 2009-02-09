@@ -24,36 +24,36 @@ Aucune ligne à afficher !<br/>
 } else if (columns != null && rows != null) {
 %>
 <table>
-    <thead>
-    <tr>
-        <%
-            for (TablesColumns column : columns) {
-        %>
-        <th><%= column.getName() %>
-        </th>
-        <%
-            }
-        %>
-    </tr>
-    </thead>
-    <tbody>
+<thead>
+<tr>
     <%
-        for (TableRow row : rows) {
+        for (TablesColumns column : columns) {
     %>
-    <tr>
-        <%
-            for (TablesColumns column : columns) {
-        %>
-        <td><%= row.get(column) %>
-        </td>
-        <%
-            }
-        %>
-    </tr>
+    <th><%= column.getName() %>
+    </th>
     <%
         }
     %>
-    </tbody>
+</tr>
+</thead>
+<tbody>
+<%
+    for (TableRow row : rows) {
+%>
+<tr>
+    <%
+        for (TablesColumns column : columns) {
+    %>
+    <td><%= row.get(column) %>
+    </td>
+    <%
+        }
+    %>
+</tr>
+<%
+    }
+%>
+</tbody>
 </table>
 <%
     }

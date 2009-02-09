@@ -1,4 +1,6 @@
-$(function(){
+$(function() {
     $(":submit").remove();
-    $(":select").change(function(){$("form").submit();});
+    $(":select").change(function() {
+        $("form").submit();
+    });
 });

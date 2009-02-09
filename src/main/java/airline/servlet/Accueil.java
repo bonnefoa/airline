@@ -69,7 +69,7 @@ public class Accueil extends AbstractInjectableServlet {
                 request.setAttribute("rows", result);
             }
         }
-        
+
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/accueil.jsp");
         dispatcher.forward(request, response);
     }

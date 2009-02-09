@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
  * tandis que les éventuels verbes d'action ne le seront pas.
  */
 public class TableURLRewritingFilter implements Filter {
+    private ServletContext servletContext;
 
     public void destroy() {
     }
@@ -96,16 +97,16 @@ public class TableURLRewritingFilter implements Filter {
             context = Context.ROW;
             table = rowMatcher.group(1); // ([^/]+)
             if ("add".equals(rowMatcher.group(2))) { // (add|(\d+)/(edit|delete))
-                        action = Action.ADD;
-                        handler = new AddRow();
+                action = Action.ADD;
+                handler = new AddRow();
             } else { // (\d+)/(edit|delete)
                 row = rowMatcher.group(3); // (\d+)
                 if ("edit".equals(rowMatcher.group(4))) { // (edit|delete)
-                        action = Action.EDIT;
-                        handler = new EditRow();
+                    action = Action.EDIT;
+                    handler = new EditRow();
                 } else {
-                        action = Action.DELETE;
-                        handler = new DeleteRow();
+                    action = Action.DELETE;
+                    handler = new DeleteRow();
                 }
             }
         } else if (fieldMatcher.matches()) {
@@ -113,16 +114,16 @@ public class TableURLRewritingFilter implements Filter {
             table = fieldMatcher.group(1);  // ([^/]+)
             if ("add".equals(fieldMatcher.group(2))) { // (add|([^/]+)/(edit|delete))
                 req.setAttribute("url.action", Action.ADD);
-                        action = Action.ADD;
-                        handler = new AddField();
+                action = Action.ADD;
+                handler = new AddField();
             } else { // ([^/]+)/(edit|delete)
                 field = fieldMatcher.group(3); // ([^/]+)
                 if ("edit".equals(fieldMatcher.group(4))) { // (edit|delete)
-                        action = Action.EDIT;
-                        handler = new EditField();
+                    action = Action.EDIT;
+                    handler = new EditField();
                 } else {
-                        action = Action.DELETE;
-                        handler = new DeleteField();
+                    action = Action.DELETE;
+                    handler = new DeleteField();
                 }
             }
         } else { // 404 not found
@@ -143,13 +144,16 @@ public class TableURLRewritingFilter implements Filter {
         req.setAttribute("url.field", field);
         req.setAttribute("url.action", action);
         req.setAttribute("url.context", context);
+        if (handler != null) {
+            handler.init(servletContext);
+        }
         req.setAttribute("url.handler", handler);
 
         chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
-
+        servletContext = config.getServletContext();
     }
 
 }

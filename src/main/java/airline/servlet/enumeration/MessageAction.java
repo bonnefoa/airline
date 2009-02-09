@@ -8,5 +8,5 @@ package airline.servlet.enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public enum MessageAction {
-    TABLE_DELETED, TABLE_CREATED
+    TABLE_DELETED, FIELD_DELETED, TABLE_CREATED
 }

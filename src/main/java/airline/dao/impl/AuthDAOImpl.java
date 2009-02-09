@@ -16,7 +16,7 @@ public class AuthDAOImpl implements AuthDAO {
     }
 
     public boolean logIn(User user) {
-        if(user == null || user.getLogin() == null || user.getPasswd() == null) {
+        if (user == null || user.getLogin() == null || user.getPasswd() == null) {
             return false;
         }
 

@@ -58,8 +58,7 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
         res = airlineDAO.executeRequest(select);
         assertEquals(3, res.size());
         int i = 2;
-        for (TableRow re : res)
-        {
+        for (TableRow re : res) {
             System.out.println(re.toString());
             System.out.println(columnsList.get(0));
             assertEquals(i + "", re.get(columnsList.get(0)));

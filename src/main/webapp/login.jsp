@@ -1,5 +1,5 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -21,14 +21,14 @@
     }
 %>
 <form class="centered" action="<%= request.getAttribute("baseURL") %>/login" method="post">
-    <div>
-        login : <input name="login"/><br/>
-        password : <input type="password" name="passwd"/><br/>
-        <br/>
-        <input type="submit"/>
-    </div>
+<div>
+    login : <input name="login"/><br/>
+    password : <input type="password" name="passwd"/><br/>
+    <br/>
+    <input type="submit"/>
+</div>
 </form>
 <div class="centered">
-    <img src="<%= request.getAttribute("baseURL") %>/img/login.jpg" alt=""/>
+<img src="<%= request.getAttribute("baseURL") %>/img/login.jpg" alt=""/>
 </div>
 <jsp:include page="footer.jsp"/>

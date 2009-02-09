@@ -26,19 +26,19 @@ public class DeleteTable extends TableContextHandler {
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-            return servletContext.getRequestDispatcher("/admin/TableDelete.jsp");
+        return servletContext.getRequestDispatcher("/admin/TableDelete.jsp");
     }
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-            Table table = (Table) request.getAttribute("url.table");
-            try {
-                airlineDAO.executeRequest(new DropTableRequest(table));
-                request.setAttribute("action.done", MessageAction.TABLE_DELETED);
-                return servletContext.getRequestDispatcher("/message.jsp");
-            } catch (SQLException e) {
-                request.setAttribute("error.type", MessageError.SQL_ERROR);
-                request.setAttribute("error.exception", e);
-                return servletContext.getRequestDispatcher("/error.jsp");
-            }
+        Table table = (Table) request.getAttribute("url.table");
+        try {
+            airlineDAO.executeRequest(new DropTableRequest(table));
+            request.setAttribute("action.done", MessageAction.TABLE_DELETED);
+            return servletContext.getRequestDispatcher("/message.jsp");
+        } catch (SQLException e) {
+            request.setAttribute("error.type", MessageError.SQL_ERROR);
+            request.setAttribute("error.exception", e);
+            return servletContext.getRequestDispatcher("/error.jsp");
+        }
     }
 }

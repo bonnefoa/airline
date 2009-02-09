@@ -5,7 +5,7 @@ package airline.model;
  * Date: 26 janv. 2009
  * Time: 14:50:42
  */
-public class TablesElement <T>{
+public class TablesElement<T> {
     private T value;
 
     public TablesElement(T value) {

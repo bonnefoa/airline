@@ -31,7 +31,7 @@ public class TransactionDAOTest extends BaseClass {
         transactionDAO.addTransaction(transaction);
         List<Transaction> list = transactionDAO.getTransactions();
         assertEquals(1, list.size());
-        assertEquals(transaction,list.get(0));
+        assertEquals(transaction, list.get(0));
     }
 
     @Test
@@ -46,8 +46,8 @@ public class TransactionDAOTest extends BaseClass {
         transactionDAO.addTransaction(transaction2);
         List<Transaction> list = transactionDAO.getTransactions();
         assertEquals(2, list.size());
-        assertEquals(transaction,list.get(0));
-        assertEquals(transaction2,list.get(1));
+        assertEquals(transaction, list.get(0));
+        assertEquals(transaction2, list.get(1));
     }
 
     @Inject

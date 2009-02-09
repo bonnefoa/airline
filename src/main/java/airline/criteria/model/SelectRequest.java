@@ -28,12 +28,10 @@ public class SelectRequest extends Request {
         this.columnList = columnList;
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
-        for (Restriction restriction : restrictionList)
-        {
+        for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
-        for (TablesColumns columns : columnList)
-        {
+        for (TablesColumns columns : columnList) {
             setTables.add(columns.getTable().getName());
         }
     }
@@ -43,8 +41,7 @@ public class SelectRequest extends Request {
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
         columnList = new LinkedList<TablesColumns>();
-        for (Restriction restriction : restrictionList)
-        {
+        for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
     }
@@ -72,15 +69,11 @@ public class SelectRequest extends Request {
     public String buildQuery() {
         StringBuilder builder = new StringBuilder();
         builder.append("Select ");
-        if (columnList.size() == 0)
-        {
+        if (columnList.size() == 0) {
             builder.append('*');
             builder.append(' ');
-        }
-        else
-        {
-            for (TablesColumns columns : columnList)
-            {
+        } else {
+            for (TablesColumns columns : columnList) {
                 builder.append(columns.getTable().getName());
                 builder.append('.');
                 builder.append(columns.getName());
@@ -89,23 +82,19 @@ public class SelectRequest extends Request {
             builder.setCharAt(builder.length() - 1, ' ');
         }
         builder.append("from ");
-        for (String table : setTables)
-        {
+        for (String table : setTables) {
             builder.append(table);
             builder.append(",");
         }
         builder.setCharAt(builder.length() - 1, ' ');
-        if (restrictionList.size() > 0)
-        {
+        if (restrictionList.size() > 0) {
             builder.append("where ");
-            for (Restriction restriction : restrictionList)
-            {
+            for (Restriction restriction : restrictionList) {
                 builder.append(restriction.toString());
             }
             builder.append(" or");
         }
-        if (builder.charAt(builder.length() - 1) == 'r')
-        {
+        if (builder.charAt(builder.length() - 1) == 'r') {
             return builder.substring(0, builder.length() - 3);
         }
         return builder.toString();

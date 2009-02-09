@@ -19,12 +19,10 @@ public enum TypeRequest {
 
     private static Map<Integer, TypeRequest> lookup;
 
-    static
-    {
+    static {
         lookup = new HashMap<Integer, TypeRequest>();
         Iterator<TypeRequest> it = EnumSet.allOf(TypeRequest.class).iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             TypeRequest type = it.next();
             lookup.put(type.getTypeRequest(), type);
         }
@@ -45,8 +43,7 @@ public enum TypeRequest {
     }
 
     public static TypeRequest lookupTypeRequest(int type) {
-        if (lookup.containsKey(type))
-        {
+        if (lookup.containsKey(type)) {
             return lookup.get(type);
         }
         return null;

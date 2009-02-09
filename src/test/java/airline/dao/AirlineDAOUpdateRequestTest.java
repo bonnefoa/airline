@@ -53,10 +53,10 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         request.addColumn(listColumns.get(1));
         request.addRestriction(restriction);
         Set<TableRow> result = airlineDAO.executeRequest(request);
-        assertEquals(1,result.size());
+        assertEquals(1, result.size());
         TableRow row = result.iterator().next();
-        assertEquals("1",row.get(listColumns.get(0)));
-        assertEquals("newName",row.get(listColumns.get(1)));
+        assertEquals("1", row.get(listColumns.get(0)));
+        assertEquals("newName", row.get(listColumns.get(1)));
     }
 
 
@@ -66,7 +66,7 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         List<TablesColumns> listColumns = airlineDAO.getTablesColumns(table2);
         updateRequest.addUpdateSetter(new UpdateSetter(listColumns.get(1), "newName"));
         airlineDAO.executeRequest(updateRequest);
-        
+
         Restriction restriction = new Restriction();
         restriction.constraint(listColumns.get(1), "newName", SqlConstraints.EQ);
         SelectRequest request = new SelectRequest();
@@ -74,7 +74,7 @@ public class AirlineDAOUpdateRequestTest extends BaseClass {
         request.addColumn(listColumns.get(1));
         request.addRestriction(restriction);
         Set<TableRow> result = airlineDAO.executeRequest(request);
-        assertEquals(4,result.size());
+        assertEquals(4, result.size());
         for (TableRow tableRow : result) {
             assertEquals("newName", tableRow.get(listColumns.get(1)));
         }

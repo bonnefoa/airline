@@ -5,8 +5,10 @@ import airline.servlet.enumeration.Action;
 import airline.servlet.enumeration.Context;
 import airline.tables.ActionHandler;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +30,11 @@ public abstract class ContextHandler implements ActionHandler {
     }
 
     public void init(ServletContext servletContext) {
-        this.servletContext = servletContext;
+        if (servletContext != null) {
+            this.servletContext = servletContext;
+            Injector injector = (Injector) servletContext.getAttribute(Injector.class.getName());
+            injector.injectMembers(this);
+        }
     }
 
     protected void init(Context context, Action action) {

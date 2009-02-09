@@ -22,15 +22,12 @@ public class ConnectorTestImpl implements Connector {
     public static final String MESSAGE = "MESS";
 
     public ConnectorTestImpl() {
-        try
-        {
+        try {
             Class.forName("org.hsqldb.jdbcDriver");
             connection = DriverManager.getConnection("jdbc:hsqldb:mem:forumBDD", "sa", "");
-        } catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.out.println("Tables already exist");
         }
     }
@@ -84,16 +81,12 @@ public class ConnectorTestImpl implements Connector {
 
     public void dropTables() throws SQLException {
         Statement statement = connection.createStatement();
-        try
-        {
+        try {
             statement.executeUpdate("DROP TABLE " + TABLE1);
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
                 statement.executeUpdate("DROP TABLE " + TABLE2);
-            } finally
-            {
+            } finally {
                 statement.executeUpdate("DROP TABLE " + TRANSACTION_TABLE);
             }
         }
@@ -101,14 +94,12 @@ public class ConnectorTestImpl implements Connector {
 
     public void disconnect() {
         Statement statement;
-        try
-        {
+        try {
             statement = connection.createStatement();
             statement.executeQuery("SHUTDOWN");
             statement.close();
             connection.close();
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

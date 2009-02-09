@@ -33,11 +33,9 @@ public class AirlineDAODropTableRequestTest extends BaseClass {
 
     @After
     public void tearDown() throws Exception {
-        try
-        {
+        try {
             super.tearDown();
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             // OKAY
         }
     }
