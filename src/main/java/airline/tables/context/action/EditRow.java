@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditRow extends RowContextHandler {
     public EditRow() {
-        setAction(Action.EDIT);
+        init(Action.EDIT);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

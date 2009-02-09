@@ -1,8 +1,8 @@
 package airline.tables.context.action;
 
+import airline.model.Table;
 import airline.servlet.enumeration.Action;
 import airline.tables.context.TablesContextHandler;
-import airline.model.Table;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class ShowTables extends TablesContextHandler {
     public ShowTables() {
-        setAction(Action.SHOW);
+        init(Action.SHOW);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

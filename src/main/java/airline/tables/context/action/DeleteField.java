@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteField extends FieldContextHandler {
     public DeleteField() {
-        setAction(Action.DELETE);
+        init(Action.DELETE);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

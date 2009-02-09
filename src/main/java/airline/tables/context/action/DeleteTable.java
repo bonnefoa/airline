@@ -22,7 +22,7 @@ import java.sql.SQLException;
  */
 public class DeleteTable extends TableContextHandler {
     public DeleteTable() {
-        setAction(Action.DELETE);
+        init(Action.DELETE);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

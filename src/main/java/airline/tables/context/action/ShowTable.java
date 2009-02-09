@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class ShowTable extends TableContextHandler {
     public ShowTable() {
-        setAction(Action.SHOW);
+        init(Action.SHOW);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

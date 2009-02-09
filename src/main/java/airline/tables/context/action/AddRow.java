@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddRow extends RowContextHandler {
     public AddRow() {
-        setAction(Action.ADD);
+        init(Action.ADD);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

@@ -28,7 +28,7 @@ public class AddTable extends TableContextHandler {
     private static final int DEFAULT_DATATYPE = Types.VARCHAR;
 
     public AddTable() {
-        setAction(Action.ADD);
+        init(Action.ADD);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

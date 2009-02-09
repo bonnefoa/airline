@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddField extends FieldContextHandler {
     public AddField() {
-        setAction(Action.ADD);
+        init(Action.ADD);
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
