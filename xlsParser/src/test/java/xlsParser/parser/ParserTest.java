@@ -1,19 +1,14 @@
 package xlsParser.parser;
 
-import org.junit.Test;
+import jxl.read.biff.BiffException;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import jxl.read.biff.BiffException;
-
 /**
- * Created by IntelliJ IDEA.
- * User: sora
- * Date: Feb 9, 2009
- * Time: 8:24:57 PM
- * To change this template use File | Settings | File Templates.
+ * Test of parser
  */
 public class ParserTest {
     private Parser parser;

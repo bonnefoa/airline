@@ -1,3 +1,4 @@
+DROP TABLE PILOT IF EXISTS;
 CREATE TABLE PILOT
 (
 PilotNumber                     Int PRIMARY KEY,
@@ -21,6 +22,7 @@ INSERT INTO PILOT (LastName, Address, Salary, Premium, HiringDate, FirstName, Pi
 INSERT INTO PILOT (LastName, Address, Salary, Premium, HiringDate, FirstName, PilotNumber) VALUES ('Pilot10',' ',17600,NULL,'1992-11-20 00:00:00.0','fN10',8843);
 INSERT INTO PILOT (LastName, Address, Salary, Premium, HiringDate, FirstName, PilotNumber) VALUES ('Pilot11',' ',18650,NULL,'1993-07-15 00:00:00.0','fN11',3465);
 
+DROP TABLE FLIGHT IF EXISTS;
 CREATE TABLE FLIGHT
 (
 Number                    VarChar (100)  PRIMARY KEY,
@@ -33,6 +35,7 @@ ArrivalMinute                   Int,
 DayChange                       Boolean
 );
 
+DROP TABLE APPAREL IF EXISTS;
 CREATE TABLE APPAREL
 (
 Code                    VarChar (100) PRIMARY KEY,
@@ -40,6 +43,7 @@ Capacity                        Int,
 Name                       VarChar (100)
 );
 
+DROP TABLE PLANE IF EXISTS;
 CREATE TABLE PLANE
 (
 Number                     Int PRIMARY KEY,
@@ -49,6 +53,7 @@ Name                       VarChar (100),
 FlyingDuration                  Int
 );
 
+DROP TABLE ASSIGNMENT IF EXISTS;
 CREATE TABLE ASSIGNMENT
 (
 Number                        Int PRIMARY KEY,

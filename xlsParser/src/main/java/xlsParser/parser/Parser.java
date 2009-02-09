@@ -3,7 +3,6 @@ package xlsParser.parser;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
-import jxl.write.DateFormat;
 import jxl.read.biff.BiffException;
 
 import java.io.BufferedReader;
@@ -11,19 +10,30 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 /**
  * Parser for xls
  */
 public class Parser {
+    /**
+     * Workbook of the xsl
+     */
     private Workbook workbook;
 
+    /**
+     * Database connection
+     */
     private Connection connection;
 
+    /**
+     * Constructor initialising the database connection
+     *
+     * @param databaseName
+     */
     public Parser(String databaseName) {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
@@ -35,6 +45,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Initialise the creation of the tables with the sql file
+     *
+     * @param fileName name of the sql file
+     * @throws IOException
+     * @throws SQLException
+     */
     public void initTables(String fileName) throws IOException, SQLException {
         StringBuilder fileData = new StringBuilder(1000);
         BufferedReader reader = new BufferedReader(
@@ -49,6 +66,14 @@ public class Parser {
         statement.execute(fileData.toString());
     }
 
+    /**
+     * Parse the xsl file and fill the databse
+     *
+     * @param filename xsl file
+     * @throws BiffException
+     * @throws IOException
+     * @throws SQLException
+     */
     public void parseXls(String filename) throws BiffException, IOException, SQLException {
         Statement statement = connection.createStatement();
         StringBuilder queryBegin;

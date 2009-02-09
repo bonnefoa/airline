@@ -13,7 +13,11 @@ public class App {
     private static Handler handler;
 
     public static void main(String[] args) throws BiffException, IOException, SQLException {
-        handler = new Handler(args[0], args[1]);
+        if(args.length<3){
+            System.out.println("Usage :");
+            System.out.println("Usage :");
+        }
+        handler = new Handler(args[0], args[1],args[2]);
         handler.execute();
     }
 }
