@@ -41,6 +41,11 @@ public class ConnectorImpl implements Connector {
             e.printStackTrace();
             System.out.println("Error while setting the SQL connection");
         }
+        try {
+            initSchema();
+        } catch (SQLException e) {
+            System.out.println("Transaction table already existing");
+        }
     }
 
     public Connection getConnection() {
