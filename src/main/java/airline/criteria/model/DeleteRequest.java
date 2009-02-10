@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Object for deleteRequest
  */
-public class DeleteRequest extends Request {
+public class DeleteRequest implements IRequest {
 
     private Table table;
 

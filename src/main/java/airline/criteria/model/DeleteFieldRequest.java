@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Request to create field
  */
-public class DeleteFieldRequest extends Request {
+public class DeleteFieldRequest implements IRequest {
 
     private Table table;
 

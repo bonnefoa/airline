@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * User: sora
- * Date: 2 févr. 2009
- * Time: 19:35:31
+ * Object to create sql update request. 
  */
-public class UpdateRequest extends Request {
+public class UpdateRequest implements IRequest {
 
     private Table table;
 

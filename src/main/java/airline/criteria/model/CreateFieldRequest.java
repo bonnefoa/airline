@@ -22,9 +22,10 @@ import airline.model.TableColumn;
 import java.util.List;
 
 /**
- * Request to create field
+ * Request to create field.
+ * Create a sql request to create field.
  */
-public class CreateFieldRequest extends Request {
+public class CreateFieldRequest implements IRequest {
 
     private Table table;
 

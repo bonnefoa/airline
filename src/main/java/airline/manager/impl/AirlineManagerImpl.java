@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +16,8 @@
 
 package airline.manager.impl;
 
-import airline.criteria.model.Request;
 import airline.criteria.model.SelectRequest;
+import airline.criteria.model.IRequest;
 import airline.dao.AirlineDAO;
 import airline.dao.TransactionDAO;
 import airline.manager.AirlineManager;
@@ -64,7 +64,7 @@ public class AirlineManagerImpl implements AirlineManager {
         return airlineDAO.getTablesRows(nomTables);
     }
 
-    public void executeRequest(Request request) throws SQLException {
+    public void executeRequest(IRequest request) throws SQLException {
         airlineDAO.executeRequest(request);
         Transaction transaction = new Transaction(request.buildQuery(), new Date());
         transactionDAO.addTransaction(transaction);

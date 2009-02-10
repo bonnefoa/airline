@@ -27,7 +27,7 @@ import java.util.*;
  * Take a list of columns or a table. In the last case, it will take all columns of the table.
  * Restrictions are used to construct the where conditions.
  */
-public class SelectRequest extends Request {
+public class SelectRequest implements IRequest {
     private List<TableColumn> columnList;
     private List<Restriction> restrictionList;
     private Set<String> setTables;

@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * Object request for insert request
  */
-public class InsertRequest extends Request {
+public class InsertRequest implements IRequest {
 
     private Map<TableColumn, String> columnsStringMap;
 

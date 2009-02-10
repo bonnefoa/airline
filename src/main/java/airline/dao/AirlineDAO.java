@@ -20,7 +20,7 @@ import airline.model.Table;
 import airline.model.TableColumn;
 import airline.model.TableRow;
 import airline.criteria.model.SelectRequest;
-import airline.criteria.model.Request;
+import airline.criteria.model.IRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -42,18 +42,18 @@ public interface AirlineDAO {
     /**
      * Get the list of tablesColumns
      *
-     * @param tables table to identify
+     * @param table table to identify
      * @return Map of columns name and the tables Columns
      */
-    List<TableColumn> getTableColumns(Table tables);
+    List<TableColumn> getTableColumns(Table table);
 
     /**
      * Get all the rows of the given table
      *
-     * @param nomTables Table to search
+     * @param table Table to search
      * @return List of tableRows
      */
-    List<TableRow> getTablesRows(Table nomTables);
+    List<TableRow> getTablesRows(Table table);
 
     /**
      * Execute the given select request
@@ -70,5 +70,5 @@ public interface AirlineDAO {
      * @param request Request to execute
      * @throws java.sql.SQLException If the request gone wrong
      */
-    void executeRequest(Request request) throws SQLException;
+    void executeRequest(IRequest request) throws SQLException;
 }

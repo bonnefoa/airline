@@ -22,7 +22,7 @@ import airline.model.Table;
 import airline.model.TableColumn;
 import airline.model.TableRow;
 import airline.criteria.model.SelectRequest;
-import airline.criteria.model.Request;
+import airline.criteria.model.IRequest;
 import com.google.inject.Inject;
 
 import java.sql.*;
@@ -92,7 +92,7 @@ public class AirlineDAOImpl implements AirlineDAO {
         return null;
     }
 
-    public void executeRequest(Request request) throws SQLException {
+    public void executeRequest(IRequest request) throws SQLException {
         try {
             Statement statement = connection.createStatement();
             System.out.println("Request :" + request.buildQuery());
