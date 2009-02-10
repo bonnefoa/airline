@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.servlet.admin;
 
 import airline.criteria.Restriction;
@@ -6,9 +22,10 @@ import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.servlet.AbstractInjectableServlet;
 import airline.servlet.enumeration.MessageError;
+import airline.manager.AirlineManager;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
@@ -30,11 +47,11 @@ import java.sql.SQLException;
  */
 public class SFW extends AbstractInjectableServlet {
     private Map<String, Table> tables;
-    private List<TablesColumns> columns;
+    private List<TableColumn> columns;
     private AirlineDAO airlineDAO;
 
     @Inject
-    public void setAirlineDAO(AirlineDAO airlineDAO) {
+    public void setAirlineDAO(AirlineManager airlineDAO) {
         this.airlineDAO = airlineDAO;
     }
 
@@ -47,7 +64,7 @@ public class SFW extends AbstractInjectableServlet {
         Table from = handleFrom(request);
 
         if (from != null) {
-            columns = airlineDAO.getTablesColumns(from);
+            columns = airlineDAO.getTableColumns(from);
             request.setAttribute("columns", columns);
             canDoRequest = handleSelect(selectRequest, request) && canDoRequest;
             canDoRequest = handleWhere(selectRequest, request) && canDoRequest;
@@ -95,10 +112,10 @@ public class SFW extends AbstractInjectableServlet {
             return false;
         }
 
-        List<TablesColumns> selected = new ArrayList<TablesColumns>();
+        List<TableColumn> selected = new ArrayList<TableColumn>();
         List<String> paramList = Arrays.asList(params);
 
-        for (TablesColumns col : columns) {
+        for (TableColumn col : columns) {
             if (paramList.contains(col.getName())) {
                 selected.add(col);
                 selectRequest.addColumn(col);
@@ -113,12 +130,12 @@ public class SFW extends AbstractInjectableServlet {
     private boolean handleWhere(SelectRequest selectRequest, HttpServletRequest request) {
 
         String whereField = request.getParameter("whereField");
-        TablesColumns column = null;
+        TableColumn column = null;
 
         if (whereField != null) {
-            Iterator<TablesColumns> iterator = columns.iterator();
+            Iterator<TableColumn> iterator = columns.iterator();
             while (column == null && iterator.hasNext()) {
-                TablesColumns current = iterator.next();
+                TableColumn current = iterator.next();
                 if (current.getName().equals(whereField)) {
                     column = current;
                 }

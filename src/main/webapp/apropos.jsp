@@ -1,3 +1,21 @@
+<%--
+
+    Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+            http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+--%>
+
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%--
@@ -40,19 +58,19 @@ La réalisation de cette application a mise en &oelig;uvre plusieurs technologie
 Les "grandes" images utilisées dans cette application sont sous licence Creative Commons. Voici les images d'origine
 :<br/>
 <ul>
-    <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere.jpg">la bannière</a> provient de <a
+    <li><a href="<%= request.getContextPath() %>/img/banniere.jpg">la bannière</a> provient de <a
             href="http://flickr.com/photos/smartjunco/2592304374/">flickr</a> (licence <a
             href="http://creativecommons.org/licenses/by-nc/2.0/deed.fr">by-nc 2.0</a>)
     </li>
-    <li><a href="<%= request.getAttribute("baseURL") %>/img/banniere_admin.jpg">la bannière admin</a> provient de <a
+    <li><a href="<%= request.getContextPath() %>/img/banniere_admin.jpg">la bannière admin</a> provient de <a
             href="http://flickr.com/photos/andrei_dimofte/2540951813/">flickr</a> (licence <a
             href="http://creativecommons.org/licenses/by/2.0/deed.fr">by 2.0</a>)
     </li>
-    <li><a href="<%= request.getAttribute("baseURL") %>/img/404.jpg">l'image sur la page 404</a> provient de <a
+    <li><a href="<%= request.getContextPath() %>/img/404.jpg">l'image sur la page 404</a> provient de <a
             href="http://flickr.com/photos/lifeontheedge/293346468/">flickr</a> (licence <a
             href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
     </li>
-    <li><a href="<%= request.getAttribute("baseURL") %>/img/login.jpg">l'image au login</a> provient de <a
+    <li><a href="<%= request.getContextPath() %>/img/login.jpg">l'image au login</a> provient de <a
             href="http://flickr.com/photos/lifeontheedge/293345792/">flickr</a> (licence <a
             href="http://creativecommons.org/licenses/by-sa/2.0/deed.fr">by-sa 2.0</a>)
     </li>

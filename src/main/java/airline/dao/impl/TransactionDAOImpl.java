@@ -1,20 +1,28 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.dao.impl;
 
-import airline.criteria.model.SelectRequest;
-import airline.criteria.enumeration.TypeRequest;
-import airline.dao.AirlineDAO;
 import airline.dao.TransactionDAO;
 import airline.model.Transaction;
-import airline.model.Table;
-import airline.model.TableRow;
-import airline.model.TablesColumns;
 import airline.connector.Connector;
 import com.google.inject.Inject;
 
 import java.util.List;
-import java.util.Set;
 import java.util.LinkedList;
-import java.util.Date;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

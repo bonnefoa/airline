@@ -27,16 +27,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>jexcelapi</groupId>
-            <artifactId>jxl</artifactId>
-            <version>2.6</version>
         </dependency>
     </dependencies>
     <build>
@@ -79,6 +75,26 @@
                     </components>
                 </configuration>
             </plugin>
+        <plugin>
+            <groupId>com.mathieucarbou.mojo</groupId>
+            <artifactId>maven-license-plugin</artifactId>
+            <configuration>
+                <header>src/main/etc/header.txt</header>
+                <includes>
+                    <include>src/**</include>
+                    <include>**/test/**</include>
+                </includes>
+                <excludes>
+                    <exclude>target/**</exclude>
+                </excludes>
+                <useDefaultExcludes>true</useDefaultExcludes>
+                <properties>
+                    <year>${project.inceptionYear}</year>
+                    <email>my@email.com</email>
+                </properties>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
         </plugins>
     </build>
     <repositories>
@@ -129,7 +145,18 @@
         </repository>
     </repositories>
     <pluginRepositories>
-        <pluginRepository>
+<pluginRepository>
+    <id>mc-release</id>
+    <name>Local Maven repository of releases</name>
+    <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+    <snapshots>
+        <enabled>false</enabled>
+    </snapshots>
+    <releases>
+        <enabled>true</enabled>
+    </releases>
+</pluginRepository>    
+    <pluginRepository>
             <id>maven.java.net</id>
             <name>Java.net Maven2 Repository</name>
             <url>http://download.java.net/maven/2</url>

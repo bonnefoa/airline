@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.model;
 
 import java.sql.Types;
@@ -5,20 +21,35 @@ import java.sql.Types;
 /**
  * Entities representing the columns of a table
  */
-public class TablesColumns {
+public class TableColumn {
     public static final String NAME = "COLUMN_NAME";
     public static final String TYPE = "TYPE_NAME";
     public static final String DATA_TYPE = "DATA_TYPE";
     public static final String PRIMARY_KEY = "COLUMN_NAME";
 
+    /**
+     * Owner table of the column
+     */
     private Table table;
 
+    /**
+     * Name of the column
+     */
     private String name;
 
+    /**
+     * Type of the column
+     */
     private String type;
 
+    /**
+     * field for primary key of the column
+     */
     private boolean primaryKey;
 
+    /**
+     * Type of the column following java.sql.Types
+     */
     private int dataType;
 
     public String getName() {
@@ -65,13 +96,9 @@ public class TablesColumns {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        TablesColumns columns = (TablesColumns) o;
-
+        TableColumn columns = (TableColumn) o;
         if (name != null ? !name.equals(columns.name) : columns.name != null) return false;
-        if (table != null ? !table.equals(columns.table) : columns.table != null) return false;
-
-        return true;
+        return !(table != null ? !table.equals(columns.table) : columns.table != null);
     }
 
     @Override
@@ -89,6 +116,11 @@ public class TablesColumns {
         return table.getName() + "." + name;
     }
 
+    /**
+     * Return the sql type to write in request
+     *
+     * @return Sql type for sql request
+     */
     public String getSqlStringDataType() {
         switch (dataType) {
             case Types.INTEGER:

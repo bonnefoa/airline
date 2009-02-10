@@ -1,6 +1,22 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.criteria.model;
 
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.model.Table;
 import airline.criteria.Restriction;
 
@@ -11,27 +27,27 @@ import java.util.*;
  * Take a list of columns or a table. In the last case, it will take all columns of the table.
  * Restrictions are used to construct the where conditions.
  */
-public class SelectRequest extends Request {
-    private List<TablesColumns> columnList;
+public class SelectRequest implements IRequest {
+    private List<TableColumn> columnList;
     private List<Restriction> restrictionList;
     private Set<String> setTables;
     private Table table;
 
     public SelectRequest() {
-        columnList = new LinkedList<TablesColumns>();
+        columnList = new LinkedList<TableColumn>();
         restrictionList = new LinkedList<Restriction>();
         setTables = new HashSet<String>();
     }
 
 
-    public SelectRequest(List<TablesColumns> columnList, List<Restriction> restrictionList) {
+    public SelectRequest(List<TableColumn> columnList, List<Restriction> restrictionList) {
         this.columnList = columnList;
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
         for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
-        for (TablesColumns columns : columnList) {
+        for (TableColumn columns : columnList) {
             setTables.add(columns.getTable().getName());
         }
     }
@@ -40,7 +56,7 @@ public class SelectRequest extends Request {
         this.table = table;
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
-        columnList = new LinkedList<TablesColumns>();
+        columnList = new LinkedList<TableColumn>();
         for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
@@ -56,7 +72,7 @@ public class SelectRequest extends Request {
         this.table = table2;
     }
 
-    public void addColumn(TablesColumns column) {
+    public void addColumn(TableColumn column) {
         columnList.add(column);
         setTables.add(column.getTable().getName());
     }
@@ -73,7 +89,7 @@ public class SelectRequest extends Request {
             builder.append('*');
             builder.append(' ');
         } else {
-            for (TablesColumns columns : columnList) {
+            for (TableColumn columns : columnList) {
                 builder.append(columns.getTable().getName());
                 builder.append('.');
                 builder.append(columns.getName());
@@ -100,7 +116,7 @@ public class SelectRequest extends Request {
         return builder.toString();
     }
 
-    public List<TablesColumns> getColumnList() {
+    public List<TableColumn> getColumnList() {
         return columnList;
     }
 
