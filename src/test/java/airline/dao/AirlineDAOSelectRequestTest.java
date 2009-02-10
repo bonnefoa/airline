@@ -41,7 +41,6 @@ import java.util.Set;
  */
 public class AirlineDAOSelectRequestTest extends BaseClass {
     private AirlineDAO airlineDAO;
-    private Table table1;
     private Table table2;
     private String[][] values = new String[4][2];
     private List<TableColumn> listColumns2;
@@ -51,7 +50,7 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     public void setUp() throws Exception {
         super.setUp();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
-        table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
+        Table table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
         table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
         values[0] = new String[]{"1", "name", "message", "2009-01-01 12:00:00.0"};
         values[1] = new String[]{"2", "name2", "message2", "2009-01-01 12:00:01.0"};
