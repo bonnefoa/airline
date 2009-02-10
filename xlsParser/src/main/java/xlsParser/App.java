@@ -22,5 +22,6 @@ public class App {
             handler.execute();
             System.out.println("Parse finit");
         }
+        System.exit(0);
     }
 }

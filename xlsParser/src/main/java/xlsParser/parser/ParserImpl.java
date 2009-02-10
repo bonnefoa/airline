@@ -37,7 +37,7 @@ public class ParserImpl implements Parser {
     public ParserImpl(String databaseName) {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
-            connection = DriverManager.getConnection("jdbc:hsqldb:mem:db/" + databaseName, "sa", "");
+            connection = DriverManager.getConnection("jdbc:hsqldb:file:db/" + databaseName, "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -150,7 +150,6 @@ public class ParserImpl implements Parser {
                     }
                     query.deleteCharAt(query.length() - 1);
                     query.append(")");
-                    System.out.println(query.toString());
                     statement.execute(query.toString());
                 }
             }
