@@ -1,7 +1,7 @@
 package airline.tables.context;
 
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.servlet.enumeration.Action;
 import airline.servlet.enumeration.Context;
 import airline.servlet.enumeration.MessageError;
@@ -44,8 +44,8 @@ public abstract class FieldContextHandler extends ContextHandler {
             return null;
         } else {
             String fieldName = (String) req.getAttribute("url.field");
-            List<TablesColumns> fields = airlineDAO.getTablesColumns(table);
-            for (TablesColumns field : fields) {
+            List<TableColumn> fields = airlineDAO.getTableColumns(table);
+            for (TableColumn field : fields) {
                 if (fieldName.equals(field.getName())) {
                     req.setAttribute("url.field", field);
                     return null;

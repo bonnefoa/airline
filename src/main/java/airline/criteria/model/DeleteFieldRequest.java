@@ -1,7 +1,7 @@
 package airline.criteria.model;
 
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import java.util.List;
 
@@ -12,16 +12,16 @@ public class DeleteFieldRequest extends Request {
 
     private Table table;
 
-    private List<TablesColumns> tablesColumnses;
+    private List<TableColumn> tablesColumnses;
 
-    public DeleteFieldRequest(Table table, List<TablesColumns> tablesColumnses) {
+    public DeleteFieldRequest(Table table, List<TableColumn> tablesColumnses) {
         this.table = table;
         this.tablesColumnses = tablesColumnses;
     }
 
     public String buildQuery() {
         StringBuilder res = new StringBuilder();
-        for (TablesColumns tablesColumnse : tablesColumnses) {
+        for (TableColumn tablesColumnse : tablesColumnses) {
             res.append("ALTER TABLE ");
             res.append(table.getName());
             res.append(" DROP ");

@@ -1,20 +1,12 @@
 package airline.dao.impl;
 
-import airline.criteria.model.SelectRequest;
-import airline.criteria.enumeration.TypeRequest;
-import airline.dao.AirlineDAO;
 import airline.dao.TransactionDAO;
 import airline.model.Transaction;
-import airline.model.Table;
-import airline.model.TableRow;
-import airline.model.TablesColumns;
 import airline.connector.Connector;
 import com.google.inject.Inject;
 
 import java.util.List;
-import java.util.Set;
 import java.util.LinkedList;
-import java.util.Date;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

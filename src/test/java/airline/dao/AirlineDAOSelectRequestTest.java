@@ -7,7 +7,7 @@ import airline.criteria.enumeration.SqlConstraints;
 import airline.criteria.model.SelectRequest;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -28,8 +28,8 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
     private Table table1;
     private Table table2;
     private String[][] values = new String[4][2];
-    private List<TablesColumns> listColumns2;
-    private List<TablesColumns> listColumns1;
+    private List<TableColumn> listColumns2;
+    private List<TableColumn> listColumns1;
 
     @Before
     public void setUp() throws Exception {
@@ -41,8 +41,8 @@ public class AirlineDAOSelectRequestTest extends BaseClass {
         values[1] = new String[]{"2", "name2", "message2", "2009-01-01 12:00:01.0"};
         values[2] = new String[]{"3", "name3", "message3", "2009-01-01 12:00:03.0"};
         values[3] = new String[]{"4", "name4", "message4", "2009-01-01 12:00:04.0"};
-        listColumns2 = airlineDAO.getTablesColumns(table2);
-        listColumns1 = airlineDAO.getTablesColumns(table1);
+        listColumns2 = airlineDAO.getTableColumns(table2);
+        listColumns1 = airlineDAO.getTableColumns(table1);
     }
 
     @Test

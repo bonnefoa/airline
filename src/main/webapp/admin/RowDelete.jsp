@@ -1,7 +1,7 @@
 <%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
@@ -17,7 +17,7 @@
         Voulez-vous vraiment supprimer cette ligne ?<br/>
         <ul>
             <%
-                for (Map.Entry<TablesColumns, String> entry : row.entrySet()) {
+                for (Map.Entry<TableColumn, String> entry : row.entrySet()) {
             %>
             <li>
                 <%=entry.getKey().getName() %> : <%= entry.getValue() %>

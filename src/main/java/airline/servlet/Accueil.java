@@ -6,7 +6,7 @@ import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.servlet.enumeration.MessageError;
 import com.google.inject.Inject;
 
@@ -44,9 +44,9 @@ public class Accueil extends AbstractInjectableServlet {
         if (query != null && type != null && query.length() != 0 && type.length() != 0) {
 
             Map<String, Table> tables = airlineDAO.getTables();
-            List<TablesColumns> columns = airlineDAO.getTablesColumns(tables.get(TABLE_NAME));
+            List<TableColumn> columns = airlineDAO.getTableColumns(tables.get(TABLE_NAME));
 
-            TablesColumns column = getCorrespondingCol(type, columns);
+            TableColumn column = getCorrespondingCol(type, columns);
 
             if (column != null) {
 
@@ -74,7 +74,7 @@ public class Accueil extends AbstractInjectableServlet {
         dispatcher.forward(request, response);
     }
 
-    private TablesColumns getCorrespondingCol(String type, List<TablesColumns> columns) {
+    private TableColumn getCorrespondingCol(String type, List<TableColumn> columns) {
         String field = null;
 
         if ("flight".equals(type)) {
@@ -85,7 +85,7 @@ public class Accueil extends AbstractInjectableServlet {
             field = PLANE_FIELD;
         }
 
-        for (TablesColumns column : columns) {
+        for (TableColumn column : columns) {
             if (column.getName().equals(field)) {
                 return column;
             }

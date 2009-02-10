@@ -5,7 +5,7 @@ import airline.servlet.enumeration.MessageError;
 import airline.servlet.enumeration.MessageAction;
 import airline.tables.context.TableContextHandler;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.criteria.model.CreateTableRequest;
 
 import javax.servlet.RequestDispatcher;
@@ -38,7 +38,7 @@ public class AddTable extends TableContextHandler {
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
 
         Table table = generateTable(request);
-        List<TablesColumns> columns = generateColumns(request);
+        List<TableColumn> columns = generateColumns(request);
 
         if (table == null || columns == null) {
             request.setAttribute("error.type", MessageError.EMPTY_FIELD);
@@ -65,7 +65,7 @@ public class AddTable extends TableContextHandler {
         }
     }
 
-    private List<TablesColumns> generateColumns(HttpServletRequest request) {
+    private List<TableColumn> generateColumns(HttpServletRequest request) {
         String[] names = request.getParameterValues("name");
         String[] types = request.getParameterValues("type");
         String[] primarys = request.getParameterValues("primary");
@@ -77,10 +77,10 @@ public class AddTable extends TableContextHandler {
                 names.length == types.length && types.length == primarys.length
                 ) {
 
-            List<TablesColumns> columns = new ArrayList<TablesColumns>();
+            List<TableColumn> columns = new ArrayList<TableColumn>();
 
             boolean allNotEmpty = true;
-            TablesColumns primaryKey = null;
+            TableColumn primaryKey = null;
 
             for (int i = 0; i < primarys.length && allNotEmpty; i++) {
 
@@ -88,7 +88,7 @@ public class AddTable extends TableContextHandler {
                 allNotEmpty = allNotEmpty && types[i] != null && types[i].length() != 0;
                 allNotEmpty = allNotEmpty && primarys[i] != null && primarys[i].length() != 0;
 
-                TablesColumns column = new TablesColumns();
+                TableColumn column = new TableColumn();
                 column.setName(names[i]);
                 try {
                     column.setDataType(Integer.parseInt(types[i]));

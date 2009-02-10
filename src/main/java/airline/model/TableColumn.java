@@ -5,20 +5,35 @@ import java.sql.Types;
 /**
  * Entities representing the columns of a table
  */
-public class TablesColumns {
+public class TableColumn {
     public static final String NAME = "COLUMN_NAME";
     public static final String TYPE = "TYPE_NAME";
     public static final String DATA_TYPE = "DATA_TYPE";
     public static final String PRIMARY_KEY = "COLUMN_NAME";
 
+    /**
+     * Owner table of the column
+     */
     private Table table;
 
+    /**
+     * Name of the column
+     */
     private String name;
 
+    /**
+     * Type of the column
+     */
     private String type;
 
+    /**
+     * field for primary key of the column
+     */
     private boolean primaryKey;
 
+    /**
+     * Type of the column following java.sql.Types
+     */
     private int dataType;
 
     public String getName() {
@@ -65,13 +80,9 @@ public class TablesColumns {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        TablesColumns columns = (TablesColumns) o;
-
+        TableColumn columns = (TableColumn) o;
         if (name != null ? !name.equals(columns.name) : columns.name != null) return false;
-        if (table != null ? !table.equals(columns.table) : columns.table != null) return false;
-
-        return true;
+        return !(table != null ? !table.equals(columns.table) : columns.table != null);
     }
 
     @Override
@@ -89,6 +100,11 @@ public class TablesColumns {
         return table.getName() + "." + name;
     }
 
+    /**
+     * Return the sql type to write in request
+     *
+     * @return Sql type for sql request
+     */
     public String getSqlStringDataType() {
         switch (dataType) {
             case Types.INTEGER:

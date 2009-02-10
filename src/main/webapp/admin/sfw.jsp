@@ -3,7 +3,7 @@
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
 <%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -23,11 +23,11 @@
 <form action="<%= request.getAttribute("baseURL") %>/admin/sfw" method="get">
 <div>
     <%
-        List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
+        List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
         Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
         Table selectedTable = (Table) request.getAttribute("selectedTable");
-        List<TablesColumns> selectedFields = (List<TablesColumns>) request.getAttribute("selectedFields");
-        TablesColumns whereField = (TablesColumns) request.getAttribute("whereField");
+        List<TableColumn> selectedFields = (List<TableColumn>) request.getAttribute("selectedFields");
+        TableColumn whereField = (TableColumn) request.getAttribute("whereField");
         SqlConstraints whereCond = (SqlConstraints) request.getAttribute("whereCond");
         String whereVal = (String) request.getAttribute("whereVal");
         Set<TableRow> rows = (Set<TableRow>) request.getAttribute("rows");
@@ -41,7 +41,7 @@
     %>
     <select name="select" id="select" multiple="multiple">
         <%
-            for (TablesColumns column : columns) {
+            for (TableColumn column : columns) {
                 boolean selected = (selectedFields != null && selectedFields.contains(column));
         %>
         <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>
@@ -98,7 +98,7 @@
     %>
     <select name="whereField" id="whereField">
         <%
-            for (TablesColumns column : columns) {
+            for (TableColumn column : columns) {
                 boolean selected = (column == whereField);
         %>
         <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>

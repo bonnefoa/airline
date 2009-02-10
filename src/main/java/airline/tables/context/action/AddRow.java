@@ -3,7 +3,7 @@ package airline.tables.context.action;
 import airline.servlet.enumeration.Action;
 import airline.tables.context.RowContextHandler;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -25,7 +25,7 @@ public class AddRow extends RowContextHandler {
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
         return servletContext.getRequestDispatcher("/admin/RowAdd.jsp");
     }

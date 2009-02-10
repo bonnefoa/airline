@@ -1,7 +1,7 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="airline.model.Table" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="java.sql.Types" %>
 <%@ page import="java.util.List" %>
 <%--
@@ -13,7 +13,7 @@
 --%>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
+    List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
     request.setAttribute("title", "Détail de la table " + table.getName());
 %>
 <jsp:include page="/admin/header.jsp"/>
@@ -31,7 +31,7 @@
 </thead>
 <tbody>
 <%
-    for (TablesColumns column : columns) {
+    for (TableColumn column : columns) {
 %>
 <tr>
     <td><%=column.getName()%>

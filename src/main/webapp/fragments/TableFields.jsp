@@ -1,7 +1,7 @@
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="airline.model.Table" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="airline.servlet.enumeration.Action" %>
 <%@ page import="airline.servlet.enumeration.Context" %>
 <%@ page import="java.sql.Types" %>
@@ -19,18 +19,18 @@
     Action action = (Action) request.getAttribute("url.action");
     Table table = (Table) request.getAttribute("url.table");
     Context context = (Context) request.getAttribute("url.context");
-    List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
-    TablesColumns editableField = (TablesColumns) request.getAttribute("url.field");
+    List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
+    TableColumn editableField = (TableColumn) request.getAttribute("url.field");
 
     if (columns == null) {
-        columns = new ArrayList<TablesColumns>();
+        columns = new ArrayList<TableColumn>();
     }
 
     if (action == Action.ADD && context == Context.TABLE) {
-        columns.add(new TablesColumns()); // affiche une vide
+        columns.add(new TableColumn()); // affiche une vide
     }
     if(action == Action.ADD && context == Context.FIELD) {
-        editableField =new TablesColumns();
+        editableField =new TableColumn();
         columns.add(editableField);
     }
 %>
@@ -98,7 +98,7 @@
         </thead>
         <tbody>
         <%
-            for (TablesColumns column : columns) {
+            for (TableColumn column : columns) {
                 boolean editable = ((action == Action.ADD && context == Context.TABLE) || column.equals(editableField));
         %>
         <tr>

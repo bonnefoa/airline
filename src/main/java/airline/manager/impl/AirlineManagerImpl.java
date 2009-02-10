@@ -7,7 +7,7 @@ import airline.dao.TransactionDAO;
 import airline.manager.AirlineManager;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.model.Transaction;
 import com.google.inject.Inject;
 
@@ -40,8 +40,8 @@ public class AirlineManagerImpl implements AirlineManager {
         return airlineDAO.getTables();
     }
 
-    public List<TablesColumns> getTablesColumns(Table tables) {
-        return airlineDAO.getTablesColumns(tables);
+    public List<TableColumn> getTableColumns(Table tables) {
+        return airlineDAO.getTableColumns(tables);
     }
 
     public List<TableRow> getTablesRows(Table nomTables) {

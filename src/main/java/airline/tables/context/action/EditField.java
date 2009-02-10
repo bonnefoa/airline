@@ -5,9 +5,8 @@ import airline.servlet.enumeration.MessageAction;
 import airline.servlet.enumeration.MessageError;
 import airline.tables.context.FieldContextHandler;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.criteria.model.AlterFieldRequest;
-import airline.criteria.model.CreateTableRequest;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -32,16 +31,16 @@ public class EditField extends FieldContextHandler {
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
         return servletContext.getRequestDispatcher("/admin/FieldEdit.jsp");
     }
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        Map<TablesColumns, TablesColumns> columnsMap = new HashMap<TablesColumns, TablesColumns>();
-        TablesColumns oldField = (TablesColumns) request.getAttribute("url.field");
-        TablesColumns newField = new TablesColumns();
+        Map<TableColumn, TableColumn> columnsMap = new HashMap<TableColumn, TableColumn>();
+        TableColumn oldField = (TableColumn) request.getAttribute("url.field");
+        TableColumn newField = new TableColumn();
 
         try {
             int dataType = Integer.parseInt(request.getParameter("type"));

@@ -5,7 +5,7 @@ import airline.connector.impl.ConnectorTestImpl;
 import airline.criteria.model.CreateTableRequest;
 import airline.criteria.model.DropTableRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -40,8 +40,8 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     @Test
     public void testCreateTable() throws SQLException {
         Table table = new Table("UGUU");
-        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
-        TablesColumns columns = new TablesColumns();
+        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+        TableColumn columns = new TableColumn();
         columns.setName("GRAOU");
         columns.setDataType(Types.INTEGER);
         columnsList.add(columns);
@@ -49,7 +49,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
         Map<String, Table> listTables = airlineDAO.getTables();
         assertTrue(listTables.containsKey("UGUU"));
-        columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
+        columnsList = airlineDAO.getTableColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
         assertEquals("INTEGER", columnsList.get(0).getType());
         assertEquals(Types.INTEGER, columnsList.get(0).getDataType());
@@ -59,13 +59,13 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     public void testCreateTableTwoColumns() throws SQLException {
         Map<String, Table> listTables;
         Table table = new Table("UGUU");
-        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
-        TablesColumns columns = new TablesColumns();
+        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+        TableColumn columns = new TableColumn();
         columns.setName("GRAOU");
         columns.setDataType(Types.INTEGER);
         columnsList.add(columns);
 
-        columns = new TablesColumns();
+        columns = new TableColumn();
         columns.setName("GRAOUPU");
         columns.setDataType(Types.VARCHAR);
         columnsList.add(columns);
@@ -79,7 +79,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
         listTables = airlineDAO.getTables();
         assertTrue(listTables.containsKey("UGUU"));
-        columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
+        columnsList = airlineDAO.getTableColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
         assertEquals("INTEGER", columnsList.get(0).getType());
         assertEquals(Types.INTEGER, columnsList.get(0).getDataType());
@@ -92,14 +92,14 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
     public void testCreateTableTwoColumnsPrimary() throws SQLException {
         Map<String, Table> listTables;
         Table table = new Table("UGUU");
-        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
-        TablesColumns columns = new TablesColumns();
+        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+        TableColumn columns = new TableColumn();
         columns.setName("GRAOU");
         columns.setDataType(Types.INTEGER);
         columns.setPrimaryKey(true);
         columnsList.add(columns);
 
-        columns = new TablesColumns();
+        columns = new TableColumn();
         columns.setName("GRAOUPU");
         columns.setDataType(Types.VARCHAR);
         columnsList.add(columns);
@@ -113,7 +113,7 @@ public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
         listTables = airlineDAO.getTables();
         assertTrue(listTables.containsKey("UGUU"));
-        columnsList = airlineDAO.getTablesColumns(listTables.get("UGUU"));
+        columnsList = airlineDAO.getTableColumns(listTables.get("UGUU"));
         assertEquals("GRAOU", columnsList.get(0).getName());
         assertEquals("INTEGER", columnsList.get(0).getType());
         assertEquals(Types.INTEGER, columnsList.get(0).getDataType());

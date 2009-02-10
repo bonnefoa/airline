@@ -1,7 +1,7 @@
 package airline.criteria;
 
 import airline.criteria.enumeration.SqlConstraints;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -39,13 +39,13 @@ public class Restriction {
         query.append(" ) ");
     }
 
-    public void constraint(TablesColumns columns1, TablesColumns columns2, SqlConstraints constraints) {
+    public void constraint(TableColumn columns1, TableColumn columns2, SqlConstraints constraints) {
         setTables.add(columns1.getTable().getName());
         setTables.add(columns2.getTable().getName());
         writeRequest(columns1.toString(), constraints, columns2.toString());
     }
 
-    public void constraint(TablesColumns columns1, String value, SqlConstraints constraints) {
+    public void constraint(TableColumn columns1, String value, SqlConstraints constraints) {
         setTables.add(columns1.getTable().getName());
         writeRequest(columns1.toString(), constraints, '\'' + value + '\'');
     }

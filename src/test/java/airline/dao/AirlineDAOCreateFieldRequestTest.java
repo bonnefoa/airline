@@ -4,7 +4,7 @@ import airline.BaseClass;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.criteria.model.CreateFieldRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -36,15 +36,15 @@ public class AirlineDAOCreateFieldRequestTest extends BaseClass {
 
     @Test
     public void testCreateFieldTable() throws SQLException {
-        List<TablesColumns> columnsList = new ArrayList<TablesColumns>();
-        TablesColumns col = new TablesColumns();
+        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+        TableColumn col = new TableColumn();
         col.setName("GRA");
         col.setDataType(Types.INTEGER);
         col.setPrimaryKey(true);
         columnsList.add(col);
         CreateFieldRequest createFieldRequest = new CreateFieldRequest(table2, columnsList);
         airlineDAO.executeRequest(createFieldRequest);
-        columnsList = airlineDAO.getTablesColumns(table2);
+        columnsList = airlineDAO.getTableColumns(table2);
         assertEquals(5, columnsList.size());
     }
 

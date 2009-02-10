@@ -1,7 +1,7 @@
 package airline.criteria.model;
 
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import java.sql.Types;
 import java.util.List;
@@ -15,9 +15,9 @@ public class CreateTableRequest extends Request {
 
     private Table table;
 
-    private List<TablesColumns> tablesColumnses;
+    private List<TableColumn> tablesColumnses;
 
-    public CreateTableRequest(Table table, List<TablesColumns> tablesColumnses) {
+    public CreateTableRequest(Table table, List<TableColumn> tablesColumnses) {
         this.table = table;
         this.tablesColumnses = tablesColumnses;
     }
@@ -28,9 +28,9 @@ public class CreateTableRequest extends Request {
         res.append(table.getName());
         res.append(" (");
 
-        TablesColumns primaryKey = null;
+        TableColumn primaryKey = null;
 
-        for (TablesColumns tablesColumnse : tablesColumnses) {
+        for (TableColumn tablesColumnse : tablesColumnses) {
             res.append(tablesColumnse.getName());
             res.append(' ');
             switch (tablesColumnse.getDataType()) {

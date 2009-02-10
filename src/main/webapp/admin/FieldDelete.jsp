@@ -1,10 +1,10 @@
 <%@ page import="airline.model.Table" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    TablesColumns column = (TablesColumns) request.getAttribute("url.field");
+    TableColumn column = (TableColumn) request.getAttribute("url.field");
     request.setAttribute("title", "Suppression de la colonne " + column.getName() +  " de la table " + table.getName());
 %>
 <jsp:include page="/admin/header.jsp"/>

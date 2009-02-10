@@ -4,7 +4,7 @@ import airline.BaseClass;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import junit.framework.Assert;
 import static junit.framework.Assert.assertTrue;
@@ -43,14 +43,14 @@ public class AirlineDAOTest extends BaseClass {
 
     @Test
     public void testGetTablesColumns() {
-        List<TablesColumns> cols = airlineDAO.getTablesColumns(table1);
+        List<TableColumn> cols = airlineDAO.getTableColumns(table1);
         assertEquals(3, cols.size());
         String[] names = {ConnectorTestImpl.IDENTIFIANT,
                 ConnectorTestImpl.NAME,
                 ConnectorTestImpl.TIME};
         int i = 0;
-        for (TablesColumns tablesColumns : cols) {
-            assertEquals(names[i++], tablesColumns.getName());
+        for (TableColumn tableColumn : cols) {
+            assertEquals(names[i++], tableColumn.getName());
         }
     }
 

@@ -1,6 +1,6 @@
 package airline.criteria.model;
 
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -11,23 +11,23 @@ import java.util.Set;
  */
 public class InsertRequest extends Request {
 
-    private Map<TablesColumns, String> columnsStringMap;
+    private Map<TableColumn, String> columnsStringMap;
 
     public InsertRequest() {
-        columnsStringMap = new HashMap<TablesColumns, String>();
+        columnsStringMap = new HashMap<TableColumn, String>();
     }
 
-    public void addNewEntry(TablesColumns columns, String value) {
+    public void addNewEntry(TableColumn columns, String value) {
         columnsStringMap.put(columns, value);
     }
 
     public String buildQuery() {
-        Set<TablesColumns> keys = columnsStringMap.keySet();
+        Set<TableColumn> keys = columnsStringMap.keySet();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Insert INTO ");
         stringBuilder.append(keys.iterator().next().getTable().getName());
         stringBuilder.append("(");
-        for (TablesColumns columns : keys) {
+        for (TableColumn columns : keys) {
             stringBuilder.append(columns.getName());
             stringBuilder.append(",");
         }

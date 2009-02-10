@@ -1,6 +1,6 @@
 package airline.criteria.model;
 
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.model.Table;
 import airline.criteria.Restriction;
 
@@ -12,26 +12,26 @@ import java.util.*;
  * Restrictions are used to construct the where conditions.
  */
 public class SelectRequest extends Request {
-    private List<TablesColumns> columnList;
+    private List<TableColumn> columnList;
     private List<Restriction> restrictionList;
     private Set<String> setTables;
     private Table table;
 
     public SelectRequest() {
-        columnList = new LinkedList<TablesColumns>();
+        columnList = new LinkedList<TableColumn>();
         restrictionList = new LinkedList<Restriction>();
         setTables = new HashSet<String>();
     }
 
 
-    public SelectRequest(List<TablesColumns> columnList, List<Restriction> restrictionList) {
+    public SelectRequest(List<TableColumn> columnList, List<Restriction> restrictionList) {
         this.columnList = columnList;
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
         for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
-        for (TablesColumns columns : columnList) {
+        for (TableColumn columns : columnList) {
             setTables.add(columns.getTable().getName());
         }
     }
@@ -40,7 +40,7 @@ public class SelectRequest extends Request {
         this.table = table;
         this.restrictionList = restrictionList;
         setTables = new HashSet<String>();
-        columnList = new LinkedList<TablesColumns>();
+        columnList = new LinkedList<TableColumn>();
         for (Restriction restriction : restrictionList) {
             setTables.addAll(restriction.getSetTables());
         }
@@ -56,7 +56,7 @@ public class SelectRequest extends Request {
         this.table = table2;
     }
 
-    public void addColumn(TablesColumns column) {
+    public void addColumn(TableColumn column) {
         columnList.add(column);
         setTables.add(column.getTable().getName());
     }
@@ -73,7 +73,7 @@ public class SelectRequest extends Request {
             builder.append('*');
             builder.append(' ');
         } else {
-            for (TablesColumns columns : columnList) {
+            for (TableColumn columns : columnList) {
                 builder.append(columns.getTable().getName());
                 builder.append('.');
                 builder.append(columns.getName());
@@ -100,7 +100,7 @@ public class SelectRequest extends Request {
         return builder.toString();
     }
 
-    public List<TablesColumns> getColumnList() {
+    public List<TableColumn> getColumnList() {
         return columnList;
     }
 

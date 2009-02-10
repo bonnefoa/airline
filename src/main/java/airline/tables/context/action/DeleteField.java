@@ -6,7 +6,7 @@ import airline.servlet.enumeration.MessageError;
 import airline.tables.context.FieldContextHandler;
 import airline.criteria.model.DeleteFieldRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -34,8 +34,8 @@ public class DeleteField extends FieldContextHandler {
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        TablesColumns column = (TablesColumns) request.getAttribute("url.field");
-        List<TablesColumns> columns  = new ArrayList<TablesColumns>();
+        TableColumn column = (TableColumn) request.getAttribute("url.field");
+        List<TableColumn> columns  = new ArrayList<TableColumn>();
         columns.add(column);
         DeleteFieldRequest deleteField = new DeleteFieldRequest(table, columns);
         try {

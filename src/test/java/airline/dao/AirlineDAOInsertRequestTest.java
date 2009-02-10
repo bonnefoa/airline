@@ -2,13 +2,11 @@ package airline.dao;
 
 import airline.BaseClass;
 import airline.criteria.model.InsertRequest;
-import airline.connector.Connector;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static junit.framework.Assert.assertTrue;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +35,7 @@ public class AirlineDAOInsertRequestTest extends BaseClass {
     @Test
     public void testInsertRequest() {
         InsertRequest insertRequest = new InsertRequest();
-        List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
+        List<TableColumn> columnsList = airlineDAO.getTableColumns(table2);
 
         insertRequest.addNewEntry(columnsList.get(1), "Ggorau");
         insertRequest.addNewEntry(columnsList.get(2), "messaged");

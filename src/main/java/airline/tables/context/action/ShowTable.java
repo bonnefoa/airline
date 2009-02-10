@@ -3,7 +3,7 @@ package airline.tables.context.action;
 import airline.servlet.enumeration.Action;
 import airline.tables.context.TableContextHandler;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.model.TableRow;
 
 import javax.servlet.RequestDispatcher;
@@ -26,7 +26,7 @@ public class ShowTable extends TableContextHandler {
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        List<TableColumn> columns = airlineDAO.getTableColumns(table);
         List<TableRow> rows = airlineDAO.getTablesRows(table);
         request.setAttribute("columns", columns);
         request.setAttribute("rows", rows);

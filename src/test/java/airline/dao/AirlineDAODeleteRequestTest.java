@@ -8,7 +8,7 @@ import airline.criteria.model.DeleteRequest;
 import airline.criteria.model.SelectRequest;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class AirlineDAODeleteRequestTest extends BaseClass {
         select = new SelectRequest(table2);
         airlineDAO.executeRequest(select);
         DeleteRequest deleteRequest = new DeleteRequest(table2);
-        List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
+        List<TableColumn> columnsList = airlineDAO.getTableColumns(table2);
         Restriction restriction = new Restriction();
         restriction.constraint(columnsList.get(0), "1", SqlConstraints.EQ);
         deleteRequest.addRestriction(restriction);

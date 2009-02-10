@@ -1,7 +1,7 @@
 package airline.dao;
 
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.model.TableRow;
 import airline.criteria.model.SelectRequest;
 import airline.criteria.model.Request;
@@ -29,7 +29,7 @@ public interface AirlineDAO {
      * @param tables table to identify
      * @return Map of columns name and the tables Columns
      */
-    List<TablesColumns> getTablesColumns(Table tables);
+    List<TableColumn> getTableColumns(Table tables);
 
     /**
      * Get all the rows of the given table

@@ -4,7 +4,7 @@ import airline.BaseClass;
 import airline.connector.impl.ConnectorTestImpl;
 import airline.criteria.model.DeleteFieldRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import com.google.inject.Inject;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -35,10 +35,10 @@ public class AirlineDAODeleteFieldRequestTest extends BaseClass {
 
     @Test
     public void testDeleteFieldTable() throws SQLException {
-        List<TablesColumns> columnsList = airlineDAO.getTablesColumns(table2);
+        List<TableColumn> columnsList = airlineDAO.getTableColumns(table2);
         DeleteFieldRequest deleteField = new DeleteFieldRequest(table2, columnsList.subList(0, 2));
         airlineDAO.executeRequest(deleteField);
-        columnsList = airlineDAO.getTablesColumns(table2);
+        columnsList = airlineDAO.getTableColumns(table2);
         assertEquals(2, columnsList.size());
     }
 

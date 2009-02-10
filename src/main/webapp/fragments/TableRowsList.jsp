@@ -3,7 +3,7 @@
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
 <%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%@ page import="java.util.Collection" %>
 <%@ page import="java.util.List" %>
@@ -16,7 +16,7 @@
     @param url.table
 --%>
 <%
-    Collection<TablesColumns> columns = (Collection<TablesColumns>) request.getAttribute("columns");
+    Collection<TableColumn> columns = (Collection<TableColumn>) request.getAttribute("columns");
     Collection<TableRow> rows = (Collection<TableRow>) request.getAttribute("rows");
     Table table = (Table) request.getAttribute("url.table");
 
@@ -30,7 +30,7 @@ Aucune ligne à afficher !<br/>
 <thead>
 <tr>
     <%
-        for (TablesColumns column : columns) {
+        for (TableColumn column : columns) {
     %>
     <th><%= column.getName() %>
     </th>
@@ -47,7 +47,7 @@ Aucune ligne à afficher !<br/>
 %>
 <tr>
     <%
-        for (TablesColumns column : columns) {
+        for (TableColumn column : columns) {
     %>
     <td><%= row.get(column) %>
     </td>
