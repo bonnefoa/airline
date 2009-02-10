@@ -42,15 +42,11 @@ import java.util.Map;
 public class AirlineDAOCreateTableRequestTest extends BaseClass {
 
     private AirlineDAO airlineDAO;
-    private Table table1;
-    private Table table2;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         Map<String, Table> tablesEntityMap = airlineDAO.getTables();
-        table1 = tablesEntityMap.get(ConnectorTestImpl.TABLE1);
-        table2 = tablesEntityMap.get(ConnectorTestImpl.TABLE2);
     }
 
     @Test

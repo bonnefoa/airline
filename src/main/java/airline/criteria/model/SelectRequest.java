@@ -97,21 +97,21 @@ public class SelectRequest implements IRequest {
             }
             builder.setCharAt(builder.length() - 1, ' ');
         }
-        builder.append("from ");
+        builder.append(" from ");
         for (String table : setTables) {
             builder.append(table);
             builder.append(",");
         }
         builder.setCharAt(builder.length() - 1, ' ');
         if (restrictionList.size() > 0) {
-            builder.append("where ");
+            builder.append(" where ");
             for (Restriction restriction : restrictionList) {
                 builder.append(restriction.toString());
             }
-            builder.append(" or");
+            builder.append(" and");
         }
-        if (builder.charAt(builder.length() - 1) == 'r') {
-            return builder.substring(0, builder.length() - 3);
+        if (builder.charAt(builder.length() - 1) == 'd') {
+            return builder.substring(0, builder.length() - 4);
         }
         return builder.toString();
     }

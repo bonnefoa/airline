@@ -51,7 +51,7 @@ public class Login extends AbstractInjectableServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect(request.getContextPath() + "/admin/");
         } else {
-            request.setAttribute("loginFailed", new Boolean(true));
+            request.setAttribute("loginFailed", Boolean.TRUE);
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }

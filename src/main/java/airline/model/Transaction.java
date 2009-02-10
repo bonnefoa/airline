@@ -90,8 +90,7 @@ public class Transaction {
         Transaction that = (Transaction) o;
 
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        return true;
+        return !(description != null ? !description.equals(that.description) : that.description != null);
     }
 
     @Override

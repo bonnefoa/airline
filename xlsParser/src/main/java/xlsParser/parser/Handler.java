@@ -25,10 +25,6 @@ import java.sql.SQLException;
  * Handler of parser
  */
 public class Handler {
-    /**
-     * DataBase name
-     */
-    private String databaseName = "airline";
 
     /**
      * Sql file of the database
@@ -54,6 +50,7 @@ public class Handler {
     public Handler(String sqlFile, String xsl) {
         this.sqlFile = sqlFile;
         this.xslFile = xsl;
+        String databaseName = "airline";
         parser = new ParserImpl(databaseName);
     }
 

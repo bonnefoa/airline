@@ -30,7 +30,7 @@
 %>
 <jsp:include page="/admin/header.jsp"/>
 
-<form action="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/<%= rowNb %>delete" method="post">
+<form action="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/row/<%= rowNb %>/delete" method="post">
     <div>
         Voulez-vous vraiment supprimer cette ligne ?<br/>
         <ul>

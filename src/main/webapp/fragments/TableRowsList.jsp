@@ -38,7 +38,11 @@
     Collection<TableRow> rows = (Collection<TableRow>) request.getAttribute("rows");
     Table table = (Table) request.getAttribute("url.table");
 
-    if (rows != null && rows.size() == 0) {
+    if (table == null) {
+%>
+Aucune table à afficher !<br/>
+<%
+    } else if (rows != null && rows.size() == 0) {
 %>
 Aucune ligne à afficher !<br/>
 <%
@@ -60,8 +64,8 @@ Aucune ligne à afficher !<br/>
 </thead>
 <tbody>
 <%
+    int nb = 0;
     for (TableRow row : rows) {
-        int nb = 0;
 %>
 <tr>
     <%

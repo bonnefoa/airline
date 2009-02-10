@@ -57,7 +57,7 @@
     <%
         if (columns != null) {
     %>
-    <select name="select" id="select" multiple="multiple">
+    <select name="select" id="select" multiple="multiple" size="<%=columns.size()%>">
         <%
             for (TableColumn column : columns) {
                 boolean selected = (selectedFields != null && selectedFields.contains(column));
@@ -164,8 +164,9 @@ résultat :<br/>
 <%
     // TableRows prend columns en paramètre, mais il doit afficher selectedFields
     request.setAttribute("columns", selectedFields);
+    request.setAttribute("url.table", selectedTable);
 %>
-<jsp:include page="/fragments/TableRowsList.jsp"/>
+<!--jsp:include page="/fragments/TableRowsList.jsp"/-->
 </div>
 <%
     }

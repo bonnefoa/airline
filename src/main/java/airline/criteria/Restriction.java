@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,8 +62,12 @@ public class Restriction {
     }
 
     public void constraint(TableColumn columns1, String value, SqlConstraints constraints) {
-        setTables.add(columns1.getTable().getName());
-        writeRequest(columns1.toString(), constraints, '\'' + value + '\'');
+        if (!value.equals("")) {
+            setTables.add(columns1.getTable().getName());
+            writeRequest(columns1.toString(), constraints, '\'' + value + '\'');
+        }else{
+            writeRequest("1", SqlConstraints.EQ, "1");
+        }
     }
 
     private void writeRequest(String part1, SqlConstraints sqlConstraints, String part2) {
