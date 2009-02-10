@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *         http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -54,11 +54,22 @@ public class DeleteRow extends RowContextHandler {
         TableRow row = (TableRow) request.getAttribute("url.row");
         Table table = (Table) request.getAttribute("url.table");
 
+        Restriction chainedReq = null;
+
         DeleteRequest deleteRequest = new DeleteRequest(table);
         for (Map.Entry<TableColumn, String> entry : row.entrySet()) {
             Restriction restriction = new Restriction();
             restriction.constraint(entry.getKey(), entry.getValue(), SqlConstraints.EQ);
-            deleteRequest.addRestriction(restriction);
+            if (chainedReq == null) {
+                chainedReq = restriction;
+            } else {
+                Restriction temp = new Restriction();
+                temp.and(restriction, chainedReq);
+                chainedReq = temp;
+            }
+        }
+        if (chainedReq != null) {
+            deleteRequest.addRestriction(chainedReq);
         }
         try {
             airlineDAO.executeRequest(deleteRequest);
