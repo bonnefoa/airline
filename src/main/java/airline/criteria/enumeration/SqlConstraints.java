@@ -17,9 +17,7 @@
 package airline.criteria.enumeration;
 
 /**
- * User: sora
- * Date: 31 janv. 2009
- * Time: 11:45:28
+ * Sql constraints for restrictions
  */
 public enum SqlConstraints {
     GT(">"), GE(">="),

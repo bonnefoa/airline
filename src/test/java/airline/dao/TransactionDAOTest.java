@@ -17,17 +17,11 @@
 package airline.dao;
 
 import airline.BaseClass;
-import airline.criteria.enumeration.TypeRequest;
-import airline.model.Table;
 import airline.model.Transaction;
-import airline.connector.Connector;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 import com.google.inject.Inject;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
