@@ -55,11 +55,11 @@ Aucune ligne à afficher !<br/>
         }
     %>
     <td>
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/row/<%=nb%>/edit">
-            <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/row/<%=nb%>/edit">
+            <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/row/<%=nb%>/delete">
-            <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/row/<%=nb%>/delete">
+            <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>
 </tr>

@@ -27,7 +27,3 @@ public class GuiceServletContextListener implements ServletContextListener {
         servletContext.removeAttribute(Injector.class.getName());
     }
 }
-/*
-pour référence, histoire d'expliquer ça dans le rapport :
-http://www.factorypattern.com/guice-servlets/
- */

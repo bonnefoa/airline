@@ -6,23 +6,23 @@
     <meta content="application/xhtml+xml; charset=UTF-8" http-equiv="content-type"/>
     <title><%= request.getAttribute("title") %>
     </title>
-    <script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery-1.3.1.min.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
-          href="<%= request.getAttribute("baseURL") %>/css/default.css"/>
+          href="<%= request.getContextPath() %>/css/default.css"/>
 </head>
 <body>
 
 <div id="banniere">
-    <img src="<%= request.getAttribute("baseURL") %>/img/banniere.jpg" alt=""/>
+    <img src="<%= request.getContextPath() %>/img/banniere.jpg" alt=""/>
 
     <h1>AirLine</h1>
 </div>
 
 <div id="menu">
     <ul>
-        <li><a href="<%= request.getAttribute("baseURL") %>/admin/">partie admin</a></li>
-        <li><a href="<%= request.getAttribute("baseURL") %>/accueil">accueil</a></li>
-        <li><a href="<%= request.getAttribute("baseURL") %>/apropos">à propos</a></li>
+        <li><a href="<%= request.getContextPath() %>/admin/">partie admin</a></li>
+        <li><a href="<%= request.getContextPath() %>/accueil">accueil</a></li>
+        <li><a href="<%= request.getContextPath() %>/apropos">à propos</a></li>
     </ul>
 </div>
 <h1><%= request.getAttribute("title") %>

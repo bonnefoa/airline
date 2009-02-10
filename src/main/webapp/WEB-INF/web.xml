@@ -7,11 +7,6 @@
     <!--============= déclaration des filtres =============-->
     <!--===================================================-->
     <filter>
-        <!--Ajoute l'url de la racine de l'application pour toutes les vues-->
-        <filter-name>BaseURLFilter</filter-name>
-        <filter-class>airline.filter.BaseURLFilter</filter-class>
-    </filter>
-    <filter>
         <!--N'autorise que les personnes enregistrées-->
         <filter-name>adminFilter</filter-name>
         <filter-class>airline.filter.AdminFilter</filter-class>
@@ -30,11 +25,6 @@
     <!--===================================================-->
     <!--=============== mapping des filtres ===============-->
     <!--===================================================-->
-    <filter-mapping>
-        <filter-name>BaseURLFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
     <filter-mapping>
         <filter-name>adminFilter</filter-name>
         <url-pattern>/admin/*</url-pattern>

@@ -56,11 +56,11 @@
     <td><%=(column.isPrimaryKey()) ? "oui" : ""%>
     </td>
     <td>
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=edit">
-            <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=edit">
+            <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=delete">
-            <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/edit?field=<%=column.getName()%>&amp;fieldAction=delete">
+            <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>
 </tr>
@@ -69,12 +69,12 @@
 %>
 </tbody>
 </table>
-<a href="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>/edit">modifier la
+<a href="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/edit">modifier la
 table</a>
 
 <h2>contenu de la table</h2>
-<a href="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>/row/add">
-<img src="<%= request.getAttribute("baseURL") %>/img/add.png" alt=""/>
+<a href="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/row/add">
+<img src="<%= request.getContextPath() %>/img/add.png" alt=""/>
 Ajouter une ligne dans la table
 </a>
 

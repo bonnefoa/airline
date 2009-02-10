@@ -11,7 +11,7 @@
     request.setAttribute("title", "Bienvenue");
 %>
 <jsp:include page="header.jsp"/>
-<form action="<%= request.getAttribute("baseURL") %>/accueil" method="get">
+<form action="<%= request.getContextPath() %>/accueil" method="get">
     <div>
         Rechercher un avion : <br/>
         <%

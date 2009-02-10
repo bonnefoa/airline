@@ -15,7 +15,7 @@
 %>
 
 <div class="centered">
-    <img src="<%= request.getAttribute("baseURL") %>/img/404.jpg" alt=""/>
+    <img src="<%= request.getContextPath() %>/img/404.jpg" alt=""/>
 </div>
 
 <% if (session.getAttribute("user") != null) {

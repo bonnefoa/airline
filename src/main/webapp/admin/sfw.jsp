@@ -19,8 +19,8 @@
     request.setAttribute("title", "SELECT FROM WHERE");
 %>
 <jsp:include page="header.jsp"/>
-<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/sfw.js"></script>
-<form action="<%= request.getAttribute("baseURL") %>/admin/sfw" method="get">
+<script type="text/javascript" src="<%= request.getContextPath() %>/script/sfw.js"></script>
+<form action="<%= request.getContextPath() %>/admin/sfw" method="get">
 <div>
     <%
         List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");

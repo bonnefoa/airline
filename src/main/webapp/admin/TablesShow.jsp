@@ -19,8 +19,8 @@
     Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
 %>
 
-<a href="<%= request.getAttribute("baseURL") %>/admin/table/add">
-    <img src="<%= request.getAttribute("baseURL") %>/img/add.png" alt=""/>
+<a href="<%= request.getContextPath() %>/admin/table/add">
+    <img src="<%= request.getContextPath() %>/img/add.png" alt=""/>
     ajouter une table
 </a><br/>
 
@@ -44,7 +44,7 @@
     <%
     %>
     <td>
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/">
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/">
             <%= table.getName() %>
         </a>
     </td>
@@ -55,12 +55,12 @@
     <td>
         <!-- renommage : pas encore ;) -->
         <!--
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/edit">
-            <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/edit">
+            <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
         -->
-        <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/delete">
-            <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/delete">
+            <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>
 </tr>

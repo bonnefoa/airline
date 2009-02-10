@@ -20,13 +20,7 @@ import java.io.IOException;
  */
 
 public class ContextCheckFilter extends AbstractInjectableFilter {
-    private AirlineDAO airlineDAO;
-
-    @Inject
-    public void setAirlineDAO(AirlineDAO airlineDAO) {
-        this.airlineDAO = airlineDAO;
-    }
-
+    
     public void destroy() {
     }
 

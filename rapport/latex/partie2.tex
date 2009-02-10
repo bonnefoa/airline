@@ -1,0 +1,58 @@
+\subsection{architecture}
+
+Notre projet a ete architecture en respectant l'architecture standard java :
+\begin{verbatim}
+src
+ |--test  // tests unitaires
+ |--main
+ |   |--java    // code source java
+ |   |--webapp  // fichiers jsp
+\end{verbatim}
+
+\subsubsection{servlet et jsp}
+Toute la partie traitement des requetes web et envoi de la reponse au navigateur utilise une servlet comme controleur et des fichiers jsp comme vue. Le fichier web.xml permet de specifier quel servlet est appele pour quelle url. Ce fichier defini egalement les filtres a appliquer, les eventuels listeners, les fichiers a afficher par defaut, ou encore les pages d'erreur a afficher.
+
+Afin de centraliser les elements recurrents des pages (entete du html, menu de la page), des fichiers header.jsp et footer.jsp ont ete utilises.
+
+Voici le deroulement d'une requete : 
+\begin{enumerate}
+	\item le navigateur envoie une requete
+	\item les filtres verifient la validite de la demande
+	\item la servlet (controleur) interprete la requete et la traduit en appels au DAO (modele)
+	\item la servlet envoie les resultats a une page jsp (vue) qui les affiche
+\end{enumerate}
+
+\subsubsection{filtre AdminFilter}
+Pour verifier si un utilisateur est identifie par le site pour lui donner un acces a la partie admin, un filtre est utilise. Ce filtre est actif sur toute la partie /admin et redirige l'utilisateur vers la page de login s'il est inconnu.
+
+\subsubsection{injection des dependances dans les servlets}
+L'injection de dependances avec Guice ne peut pas etre faite de la facon classique, car les instances des servlets sont creees pour nous. Afin de palier ce probleme, nous utilisons le \verb|ServletContext|. Cette  interface definie un ensemble de methodes utilisables par les servlets pour communiquer avec son conteneur. Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuee). Lorsque le contexte est initialise, un injecteur est cree et stocke dans le contexte de la servlet. Lorsqu'une servlet est instanciee, elle utilise ce contexte pour recuperer l'injecteur et injecter ses dependances.
+
+\subsubsection{Respect des standards}
+Garantir la perennite d'une application web et son comportement dans un navigateur est crucial. C'est dans ce but que nous avons fait le choix d'utiliser des technologies recentes et ouvertes, ainsi qu'un encodage universel.
+
+Les pages generees sont en XHTML 1.1 avec des feuilles de style CSS. Toutes les pages et les feuilles de style ont ete validees pour le validateur du W3C, organisme qui definit notamment les standards ouverts du web. Les navigateurs evoluant vers toujours plus de respect des standards, les respecter est un enorme avantage pour la perennite de cette application.
+
+Pour eviter tout probleme d'encodage et simplifier l'internationalisation de notre application, cette derniere est entierement en encodage unicode.
+
+Le design du site a ete pense en gardant l'esprit d'ouverture et l'amour du libre qui a anime le reste du travail. Les images utilisees sont soit sous licence LGPL et issues du monde libre, soit venant d'une application web 2.0 et sous licence Creative Commons permettant la modification de l'image. Ainsi, nous sommes sur d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline, l'utilisation de ces images est parfaitement legale.
+
+\subsection{partie publique}
+Dans la partie publique l'utilisateur peut effectuer des recherches sur les avions. Puisque la recherche ne modifie pas l'etat du serveur, la methode HTTP
+
+\subsection{admin : Select From Where}
+Cette partie permet a l'utilisateur d'effectuer une requete SELECT sur la table de son choix. Elle consiste en une seule page presentant un formulaire, qui affiche les informations demandees. Des que l'utilisateur modifie un champ du formulaire, un court code javascript le detecte et recharge la page, affichant ainsi les nouvelles informations. La premiere etape est de choisir la table, puis le ou les champ(s) a afficher. Enfin, l'utilisateur peut ajouter une contrainte avec le champ where.
+
+\subsection{admin : Tables}
+
+\subsubsection{url rewriting}
+La reecriture d'URL permet d'interpreter une url et de la modifier a la volee. Cela permet d'avoir des urls plus courtes et plus comprehensibles. Exemple de reecriture d'url avec un serveur Apache :
+une url \verb|localhost/airline/user/martin/showprofile| avec le filtre \verb|RewriteRule ^airline/user/([a-zA-Z]+)/([a-z]+)$ airline/userServlet?login=$1&action=$2| deviendra \verb|localhost/airline/userServlet?login=martin&action=showprofile|. Dans le code cote serveur, tout sera comme si l'utilisateur avait appele \verb|localhost/airline/user?login=martin&action=showprofile|. L'utilisateur, de son cote, interagira avec la page \verb|localhost/airline/user/martin/showprofile|, beaucoup plus propre et parlante.
+
+Cependant, cette technique n'est pas implementee de base dans le systeme de servlet/jsp. Pour pouvoir utiliser cette technique, nous sommes donc passe par un filtre qui analyse les appels a la partie admin/table et analyse l'url appelee pour en deduire le contexte, les actions, et les entites selectionnees.
+
+\subsubsection{notions de contexte, action}
+=> RESTful
+
+\subsubsection{polymorphisme}
+\subsubsection{actions possibles}

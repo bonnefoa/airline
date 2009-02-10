@@ -8,6 +8,7 @@ import airline.model.Table;
 import airline.model.TableRow;
 import airline.model.TablesColumns;
 import airline.servlet.enumeration.MessageError;
+import airline.manager.AirlineManager;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
@@ -24,14 +25,14 @@ import java.sql.SQLException;
  * Servlet accueil
  */
 public class Accueil extends AbstractInjectableServlet {
-    private AirlineDAO airlineDAO;
+    private AirlineManager airlineDAO;
     private static final String TABLE_NAME = "AIRLINEDATA";
     private static final String FLIGHT_FIELD = "FLIGHT NUMBER";
     private static final String PILOT_FIELD = "PILOT NUMBER";
     private static final String PLANE_FIELD = "PLANE NUMBER";
 
     @Inject
-    public void setAirlineDAO(AirlineDAO airlineDAO) {
+    public void setAirlineDAO(AirlineManager airlineDAO) {
         this.airlineDAO = airlineDAO;
     }
 

@@ -31,7 +31,7 @@
     }
 
 
-    StringBuilder formAction = new StringBuilder((String) request.getAttribute("baseURL"));
+    StringBuilder formAction = new StringBuilder((String) request.getContextPath());
     formAction.append("/admin/table");
     formAction.append(table.getName());
     if (action == Action.ADD) {
@@ -44,7 +44,7 @@
         formAction.append("/edit");
     }
 %>
-<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/TableRowsAddOrEdit.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/script/TableRowsAddOrEdit.js"></script>
 <form action="<%= formAction.toString() %>" method="post">
     <div>
         <table>

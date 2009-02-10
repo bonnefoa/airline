@@ -4,6 +4,7 @@ import airline.dao.AirlineDAO;
 import airline.servlet.enumeration.Action;
 import airline.servlet.enumeration.Context;
 import airline.tables.ActionHandler;
+import airline.manager.AirlineManager;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -25,7 +26,7 @@ public abstract class ContextHandler implements ActionHandler {
     private Context context;
 
     @Inject
-    public void setAirlineDAO(AirlineDAO airlineDAO) {
+    public void setAirlineDAO(AirlineManager airlineDAO) {
         this.airlineDAO = airlineDAO;
     }
 

@@ -95,7 +95,7 @@ a.button, input[type=submit] {
     margin: 0;
     padding: 0.2em;
     background: #ddd;
-    border: solid grey 1px;
+    border: solid #888 1px;
     font-size: 1em;
 }
 

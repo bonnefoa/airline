@@ -7,11 +7,11 @@
 %>
 <jsp:include page="/admin/header.jsp"/>
 
-<form action="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>/delete" method="post">
+<form action="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/delete" method="post">
     <div>
         Voulez-vous vraiment supprimer cette table ?<br/>
         <input type="submit" value="supprimer"/>&nbsp;
-        <a class="button" href="<%= request.getAttribute("baseURL") %>/admin/table">retour</a>
+        <a class="button" href="<%= request.getContextPath() %>/admin/table">retour</a>
     </div>
 </form>
 

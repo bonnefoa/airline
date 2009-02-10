@@ -9,6 +9,7 @@ import airline.model.TableRow;
 import airline.model.TablesColumns;
 import airline.servlet.AbstractInjectableServlet;
 import airline.servlet.enumeration.MessageError;
+import airline.manager.AirlineManager;
 import com.google.inject.Inject;
 
 import javax.servlet.RequestDispatcher;
@@ -34,7 +35,7 @@ public class SFW extends AbstractInjectableServlet {
     private AirlineDAO airlineDAO;
 
     @Inject
-    public void setAirlineDAO(AirlineDAO airlineDAO) {
+    public void setAirlineDAO(AirlineManager airlineDAO) {
         this.airlineDAO = airlineDAO;
     }
 

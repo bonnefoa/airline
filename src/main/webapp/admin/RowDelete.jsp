@@ -12,7 +12,7 @@
 %>
 <jsp:include page="/admin/header.jsp"/>
 
-<form action="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>/<%= rowNb %>delete" method="post">
+<form action="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/<%= rowNb %>delete" method="post">
     <div>
         Voulez-vous vraiment supprimer cette ligne ?<br/>
         <ul>
@@ -25,7 +25,7 @@
             <%}%>
         </ul>
         <input type="submit" value="supprimer"/>&nbsp;
-        <a class="button" href="<%= request.getAttribute("baseURL") %>/admin/table/<%=table.getName()%>">retour</a>
+        <a class="button" href="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>">retour</a>
     </div>
 </form>
 

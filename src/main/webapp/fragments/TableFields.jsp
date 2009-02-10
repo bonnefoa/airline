@@ -34,12 +34,12 @@
         columns.add(editableField);
     }
 %>
-<script type="text/javascript" src="<%= request.getAttribute("baseURL") %>/script/TableFields.js"></script>
+<script type="text/javascript" src="<%= request.getContextPath() %>/script/TableFields.js"></script>
 
 <%
     if (action != Action.SHOW) {
 
-        StringBuilder formAction = new StringBuilder((String) request.getAttribute("baseURL"));
+        StringBuilder formAction = new StringBuilder((String) request.getContextPath());
         formAction.append("/admin/table");
         if (action == Action.ADD && context == Context.TABLE) { // /admin/table/add
             formAction.append("/add");
@@ -147,16 +147,16 @@
             </td>
             <% if ((action == Action.ADD && context == Context.TABLE) || (action == Action.ADD && context == Context.FIELD && editable)) {%>
             <td>
-                <img class="deleteImg" src="<%= request.getAttribute("baseURL") %>/img/delete.png"
+                <img class="deleteImg" src="<%= request.getContextPath() %>/img/delete.png"
                      alt="supprimer le champ" title="supprimer le champ"/>
             </td>
             <% } else if (action == Action.SHOW) { %>
             <td>
-                <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/edit">
-                    <img src="<%= request.getAttribute("baseURL") %>/img/edit.png" alt="modifier" title="modifier"/>
+                <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/edit">
+                    <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
                 </a>&nbsp;
-                <a href="<%= request.getAttribute("baseURL") %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/delete">
-                    <img src="<%= request.getAttribute("baseURL") %>/img/delete.png" alt="supprimer" title="supprimer"/>
+                <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/delete">
+                    <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
                 </a>
             </td>
             <% } %>
