@@ -1,0 +1,29 @@
+\subsection{Base de donnee}
+Une base de donnee hsql a ete utilisee pour ce TP. D'une part pour sa facilite d'utilisation en cours de developpement et d'autre part, pour le deploiement rapide de l'application. La connexion se fait par l'interface Connector.
+
+Une application de conversion a ete realisee pour recuperee les donnees du fichier xls.
+\subsection{XlsParser}
+Ce parseur se charge de lire le fichier xls et de remplir la base hsql. Ce parseur prend 2 parametres, un fichier sql et le fichier xls.
+\subsubsection{Le script sql}
+Le script sql va etre execute avant l'analyse et le parse du fichier xls. Ce script se charge d'initialiser la table correspondante au xls. Les tables crees doivent correspondre aux noms des feuilles. Les champs de ces colonnes doivent correspondre aux entetes des colonnes.
+\subsubsection{Le fichier xls}
+Une fois la base initialisee avec le script sql, le fichier xls sera parse. A chaque ligne, les cellules sont parsees et une requetes d'insertion en base est ecrites et executees.
+\subsubsection{Inconvenients}
+Il y a actuellement plusieurs inconvenients a cette methode. La premieres est l'absence de cle etrangere. Les insertions se faisant dans un ordre quelconque, il n'est pas evident d'avoir les tuples etrangers au moment de l'insertion. Cela pourrait se resoudre en ignorant les cles etrangeres le temps du parse du fichier xls.
+
+Le deuxieme inconvenient est le fait de devoir dropper la table avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
+\subsection{Representation des tables}
+Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. 3 modeles sont utilisees pour representees la base de donnees :
+\begin{description}
+ \item[Table] Represente une table et contient le nom, le schema et le type de la table.
+ \item[TableColumn] Represente une colomne d'une table. Elle contient le nom, la table, le type de valeur et si la colomne est une cle primaire.
+ \item[TableRow] Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String.
+\end{description}
+L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations. On a ainsi les methodes Map<String, Table> getTables(), List<TableColumn> getTablesColumns(Table tables) et List<TableRow> getTablesRows(Table nomTables);
+\subsection{Criteria}
+La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et faisant une couche d'abstraction au langage sql. 
+
+Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API presente deux composant principaux, les Requests et les Restrictions.
+\subsubsection{Les Requests}
+Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Les requests 
+\subsubsection{Les Restrictions}
