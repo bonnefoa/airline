@@ -28,7 +28,7 @@ $(function() {
 
     // validation de champs
     $("form").submit(function() {
-        if ($.trim($("input[name=tableName]").val()) == "") {
+        if ($("input[name=tableName]").size() != 0 && $.trim($("input[name=tableName]").val()) == "") {
             alert("la table doit avoir un nom !");
             return false;
         }
@@ -46,7 +46,7 @@ $(function() {
     // supression de ligne
     $("form").click(function(e) {
         if ($(e.target).is("img.deleteImg")) {
-            if ($("table tbody tr").size() > 1) {
+            if ($("table tbody tr:has(:input)").size() > 1) {
                 $(e.target).parents("tr").remove();
             }
         }

@@ -2,11 +2,14 @@ package airline.tables.context.action;
 
 import airline.servlet.enumeration.Action;
 import airline.tables.context.RowContextHandler;
+import airline.model.Table;
+import airline.model.TablesColumns;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,7 +24,10 @@ public class AddRow extends RowContextHandler {
     }
 
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Table table = (Table) request.getAttribute("url.table");
+        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        request.setAttribute("columns", columns);
+        return servletContext.getRequestDispatcher("/admin/RowAdd.jsp");
     }
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {

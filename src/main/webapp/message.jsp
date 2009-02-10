@@ -22,6 +22,15 @@
         case FIELD_DELETED:
             title = "Champ supprimé.";
             break;
+        case FIELD_EDITED:
+            title = "Champ modifié.";
+            break;
+        case FIELD_ADDED:
+            title = "Champ ajouté.";
+            break;
+        case ROW_DELETED:
+            title = "ligne supprimée.";
+            break;
     }
     request.setAttribute("title", title);
     if (session.getAttribute("user") != null) {

@@ -31,6 +31,6 @@
     </div>
 </form>
 
-<jsp:include page="fragments/TableRows.jsp"/>
+<jsp:include page="fragments/TableRowsList.jsp"/>
 
 <jsp:include page="footer.jsp"/>

@@ -79,6 +79,6 @@ Ajouter une ligne dans la table
 </a>
 
 <div>
-<jsp:include page="/fragments/TableRows.jsp"/>
+<jsp:include page="/fragments/TableRowsList.jsp"/>
 </div>
 <jsp:include page="/admin/footer.jsp"/>

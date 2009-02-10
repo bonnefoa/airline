@@ -47,6 +47,7 @@ public abstract class RowContextHandler extends ContextHandler {
             List<TableRow> rows = airlineDAO.getTablesRows(table);
             if (row < rows.size()) {
                 req.setAttribute("url.row", rows.get(row));
+                req.setAttribute("url.rowNb", row);
                 return null;
             } else {
                 return MessageError.INEXISTANT_ROW;
