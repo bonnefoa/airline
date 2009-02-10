@@ -18,7 +18,7 @@ public class ConnectorImpl implements Connector {
         try {
             Class.forName("org.hsqldb.jdbcDriver");
             //connection = DriverManager.getConnection("jdbc:hsqldb:file:forumBDD;shutdown=true", "sa", "");
-            connection = DriverManager.getConnection("jdbc:hsqldb:mem:forumBDD", "sa", "");
+            connection = DriverManager.getConnection("jdbc:hsqldb:file:db/airline", "sa", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

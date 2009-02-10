@@ -12,7 +12,7 @@ public class Handler {
     /**
      * DataBase name
      */
-    private String databaseName;
+    private String databaseName = "airline";
 
     /**
      * Sql file of the database
@@ -32,12 +32,10 @@ public class Handler {
     /**
      * Constructor with parameters
      *
-     * @param databaseName Name of the hsql database to create
      * @param sqlFile      sqlFile of the base to create
      * @param xsl          xsl file containings data
      */
-    public Handler(String databaseName, String sqlFile, String xsl) {
-        this.databaseName = databaseName;
+    public Handler(String sqlFile, String xsl) {
         this.sqlFile = sqlFile;
         this.xslFile = xsl;
         parser = new ParserImpl(databaseName);

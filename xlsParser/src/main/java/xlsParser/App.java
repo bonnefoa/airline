@@ -13,12 +13,12 @@ public class App {
     private static Handler handler;
 
     public static void main(String[] args) throws BiffException, IOException, SQLException {
-        if (args.length < 3) {
+        if (args.length < 2) {
             System.out.println("Usage :");
-            System.out.println("[databaseName] [Script de creation sql de la base] [Donnees sous format xsl] ");
+            System.out.println("[Script de creation sql de la base] [Donnees sous format xsl] ");
         } else {
             System.out.println("Parse :");
-            handler = new Handler(args[0], args[1], args[2]);
+            handler = new Handler(args[0], args[1]);
             handler.execute();
             System.out.println("Parse finit");
         }
