@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=master.tex
+lastDocument=partie1.tex
 masterDocument=
 name=rapportAirline
 pkg_extIsRegExp=false
@@ -49,14 +49,14 @@ encoding=UTF-8
 highlight=LaTeX
 line=52
 open=true
-order=3
+order=2
 
 [item:partie1.tex]
 archive=true
 column=0
 encoding=UTF-8
 highlight=LaTeX
-line=0
+line=48
 open=true
 order=0
 
@@ -66,7 +66,7 @@ column=0
 encoding=UTF-8
 highlight=LaTeX
 line=0
-open=true
+open=false
 order=1
 
 [item:partie3.tex]
@@ -76,7 +76,7 @@ encoding=UTF-8
 highlight=LaTeX
 line=0
 open=true
-order=2
+order=1
 
 [item:rapport.kilepr]
 archive=true
