@@ -5,7 +5,7 @@ kileprversion=2
 kileversion=2.0
 lastDocument=master.tex
 masterDocument=
-name=rapportForum
+name=rapportAirline
 pkg_extIsRegExp=false
 pkg_extensions=.cls .sty
 src_extIsRegExp=false
@@ -78,7 +78,7 @@ line=0
 open=true
 order=2
 
-[item:rapportdevs.kilepr]
+[item:rapport.kilepr]
 archive=true
 column=7471216
 encoding=
