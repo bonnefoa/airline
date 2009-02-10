@@ -1,0 +1,102 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage{graphicx}
+\usepackage{latexsym,a4,epsfig,times}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{verbatim}
+\hypersetup{
+  colorlinks= true,
+  linkcolor = black,
+  anchorcolor = black,
+  citecolor = black,
+  filecolor = black,
+  pagecolor = black,
+  urlcolor = black,
+  breaklinks=false,
+  pdfpagemode= UseOutlines,
+  pdfstartview={XYZ 0 1000 1.0}
+}
+\usepackage{float}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+ 
+\title{Devs}
+\author{Anthonin Bonnefoy, David Duponchel}
+
+\lstset{
+language=Java,
+basicstyle=\footnotesize,
+% numbers=left
+% numberstyle=\footnotesize
+% stepnumber=2
+% numbersep=5pt
+% backgroundcolor=\color{white}
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+frame=none,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+morecomment=[l]{//}
+}
+
+\begin{document}
+\begin{titlepage}
+~
+\vfill
+\begin{center}
+\textsc{\begin{LARGE}Compte-rendu de l'étude de cas Forum\end{LARGE}}\\[1cm]
+\end{center}
+\vfill
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Auteurs:}Anthonin \textsc{Bonnefoy}\\
+~~~~~~~~~~~~~~~David \textsc{Duponchel}\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright}
+{\today}
+\end{flushright}
+\end{minipage}\\[1cm]
+\end{titlepage}
+
+\setcounter{tocdepth}{2}
+\thispagestyle{empty}
+\tableofcontents 
+\thispagestyle{empty}
+\pagebreak
+
+%\section*{Introduction}
+%\setcounter{page}{1} 
+%\addcontentsline{toc}{section}{Introduction}
+%\input{intro}
+%\pagebreak
+
+\section{Couche d'acces aux donnees}
+\input{partie1}
+\pagebreak
+
+\section{interface utilisateur}
+\input{partie2}
+\pagebreak
+
+\section{problemes rencontres}
+\input{partie3}
+\pagebreak
+
+%\section*{Conclusion}
+%\addcontentsline{toc}{section}{Conclusion}
+%\input{conclu}
+
+%\pagebreak
+%\section*{Annexes}
+%\addcontentsline{toc}{section}{Annexes}
+%\input{annexes}
+
+\end{document}
