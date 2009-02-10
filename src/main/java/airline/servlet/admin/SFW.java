@@ -79,7 +79,7 @@ public class SFW extends AbstractInjectableServlet {
             } catch (SQLException e) {
                 request.setAttribute("error.type", MessageError.SQL_ERROR);
                 request.setAttribute("error.exception", e);
-                dispatcher = this.getServletContext().getRequestDispatcher("/error.jsp");
+                //dispatcher = this.getServletContext().getRequestDispatcher("/error.jsp");
             }
         }
 
@@ -150,9 +150,7 @@ public class SFW extends AbstractInjectableServlet {
         }
         SqlConstraints cond = null;
 
-        System.out.println("checking whereCond");
         if (whereCond != null) {
-            System.out.println("whereCond : " + whereCond);
             if (">".equals(whereCond)) {
                 cond = SqlConstraints.GT;
             } else if (">=".equals(whereCond)) {
@@ -170,7 +168,6 @@ public class SFW extends AbstractInjectableServlet {
             } else if ("ilike".equals(whereCond)) {
                 cond = SqlConstraints.ILIKE;
             }
-            System.out.println("result : " + cond);
         }
 
         String whereVal = request.getParameter("whereVal");
@@ -182,6 +179,7 @@ public class SFW extends AbstractInjectableServlet {
         if (column != null && cond != null && whereVal != null) {
             Restriction restriction = new Restriction();
             restriction.constraint(column, whereVal, cond);
+            System.out.println("col=" + column + " cond=" + cond + " val=" + whereVal);
             selectRequest.addRestriction(restriction);
 
             return true;

@@ -26,6 +26,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="airline.servlet.enumeration.MessageError" %>
+<%@ page import="java.sql.SQLException" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -157,18 +159,27 @@
 <%------------------ PARTIE RESULTATS -----------------%>
 <%-----------------------------------------------------%>
 <%
-    if (rows != null) {
+    MessageError error = (MessageError) request.getAttribute("error.type");
+    Exception e = (Exception) request.getAttribute("error.exception");
+
+    if (error != null) {
+%>
+La requete SQL n'a pas pu aboutir ! Une condition erronee ? <br/>
+Erreur SQL : <%= (e == null)?"erreur inconnue !":e.getMessage()%>
+<%
+} else if (rows != null) {
 %>
 <div>
 résultat :<br/>
-<%
+    <%
     // TableRows prend columns en paramètre, mais il doit afficher selectedFields
     request.setAttribute("columns", selectedFields);
     request.setAttribute("url.table", selectedTable);
+
 %>
-<!--jsp:include page="/fragments/TableRowsList.jsp"/-->
+<jsp:include page="/fragments/TableRowsList.jsp"/>
 </div>
-<%
-    }
+    <%
+}
 %>
 <jsp:include page="footer.jsp"/>
