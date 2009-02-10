@@ -9,11 +9,11 @@ Le script sql va etre execute avant l'analyse et le parse du fichier xls. Ce scr
 \subsubsection{Le fichier xls}
 Une fois la base initialisee avec le script sql, le fichier xls sera parse. A chaque ligne, les cellules sont parsees et une requetes d'insertion en base est ecrites et executees.
 \subsubsection{Inconvenients}
-Il y a actuellement plusieurs inconvenients a cette methode. La premieres est l'absence de cle etrangere. Les insertions se faisant dans un ordre quelconque, il n'est pas evident d'avoir les tuples etrangers au moment de l'insertion. Cela pourrait se resoudre en ignorant les cles etrangeres le temps du parse du fichier xls.
+Il y a actuellement plusieurs inconvenients a cette methode. La premiere est l'absence de cle etrangere. Les insertions se faisant dans un ordre quelconque, il n'est pas evident d'avoir les tuples etrangers au moment de l'insertion. Cela pourrait se resoudre en ignorant les cles etrangeres le temps du parse du fichier xls.
 
 Le deuxieme inconvenient est le fait de devoir dropper la table avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
 \subsection{Representation des tables}
-Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. 3 modeles sont utilisees pour representees la base de donnees :
+Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. Trois modeles sont utilises pour representees la base de donnees :
 \subsubsection{Table}
 Represente une table et contient le nom, le schema et le type de la table.
 \subsubsection{TableColumn}
@@ -33,7 +33,7 @@ La majeur partie du travail cote serveur est de traiter les requetes sql. Il eta
 
 Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API presente deux composant principaux, les Requests et les Restrictions.
 \subsubsection{Les Requests}
-Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Il suffit donc d'executer le resultat de cette methode par le SGBD. 
+Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Il suffit donc d'executer le resultat de cette methode par le SGBD.
 
 Le resultat de buildQuery est construit a partir du type de la Request et des informations de la Request. Par exemple, \texttt{DropTableRequest} contient simplement la Table a supprimer. Elle creera donc une requete de type \texttt{DROP TABLE table}. Les autres requetes traitent des cas plus complexes comme le choix des colomnes ou la modification des champs. 
 Les clauses \texttt{WHERE} des requetes sont gere par des Restrictions.
@@ -41,6 +41,8 @@ Les clauses \texttt{WHERE} des requetes sont gere par des Restrictions.
 Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}. On peut ainsi ecrire differentes contraintes:
 \begin{itemize}
  \item Les contraintes simples. Il s'agit soit de la simple comparaison entre une colomne et une valeur ou entre deux colomnes pour les jointures.
- \item Les contraintes 
+ \item Les contraintes conditionnelles. Une Restriction peut lie deux Restrictions avec les conditions OR ou AND.
 \end{itemize}
+On obtient au final une Restriction qui regroupe une arborescence de Restriction. Il suffit d'ajouter restriction.toString() a la fin de la request pour rajouter les clauses WHERE. 
 
+Ce systeme de restriction est utilise pour les requetes de selection, de suppression et de mise a jour.
