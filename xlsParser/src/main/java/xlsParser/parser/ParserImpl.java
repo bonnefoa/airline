@@ -35,10 +35,6 @@ import java.util.List;
  * Parser for xls
  */
 public class ParserImpl implements Parser {
-    /**
-     * Workbook of the xsl
-     */
-    private Workbook workbook;
 
     /**
      * Database connection
@@ -85,7 +81,7 @@ public class ParserImpl implements Parser {
         BufferedReader reader = new BufferedReader(
                 new FileReader(fileName));
         char[] buf = new char[1024];
-        int numRead = 0;
+        int numRead;
         while ((numRead = reader.read(buf)) != -1) {
             fileData.append(buf, 0, numRead);
         }
@@ -106,7 +102,7 @@ public class ParserImpl implements Parser {
         Statement statement = connection.createStatement();
         StringBuilder queryBegin;
         List<String> listColums;
-        workbook = Workbook.getWorkbook(new File(filename));
+        Workbook workbook = Workbook.getWorkbook(new File(filename));
         for (int sheetNumber = 0; sheetNumber < workbook.getNumberOfSheets(); sheetNumber++) {
             Sheet sheet = workbook.getSheet(sheetNumber);
             String table = sheet.getName();
