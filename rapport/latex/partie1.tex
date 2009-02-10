@@ -14,16 +14,33 @@ Il y a actuellement plusieurs inconvenients a cette methode. La premieres est l'
 Le deuxieme inconvenient est le fait de devoir dropper la table avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
 \subsection{Representation des tables}
 Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. 3 modeles sont utilisees pour representees la base de donnees :
-\begin{description}
- \item[Table] Represente une table et contient le nom, le schema et le type de la table.
- \item[TableColumn] Represente une colomne d'une table. Elle contient le nom, la table, le type de valeur et si la colomne est une cle primaire.
- \item[TableRow] Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String.
-\end{description}
-L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations. On a ainsi les methodes Map<String, Table> getTables(), List<TableColumn> getTablesColumns(Table tables) et List<TableRow> getTablesRows(Table nomTables);
-\subsection{Criteria}
-La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et faisant une couche d'abstraction au langage sql. 
+\subsubsection{Table}
+Represente une table et contient le nom, le schema et le type de la table.
+\subsubsection{TableColumn}
+Represente une colomne d'une table. Elle contient le nom, la table, le type de valeur et si la colomne est une cle primaire.
+\subsubsection{TableRow}
+Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String.
+\subsection{Interaction avec les tables}
+L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations et executer des requetes. 
+\subsubsection{Consultation des tables}
+On a ainsi les methodes \texttt{Map<String, Table> getTables()}, \texttt{List<TableColumn> getTablesColumns(Table table)} et \texttt{List<TableRow> getTablesRows(Table table)}. Ces trois methodes suffisent pour consulter la table.
+\subsubsection{Execution des requetes}
+Les requetes sont executee par deux methodes \texttt{Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException} et \texttt{void executeRequest(IRequest request) throws SQLException}. La premiere methode execute une requete select et retourne le resultat tandis que la deuxieme se contente d'executer la requete. Une exception est renvoyee en cas d'erreur.
+
+Les requetes sont crees a partir de modeles Request. Nous allons voir comment sont elaborees ces Request.
+\subsection{La creation des requetes sql}
+La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et faisant une couche d'abstraction au langage sql.
 
 Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API presente deux composant principaux, les Requests et les Restrictions.
 \subsubsection{Les Requests}
-Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Les requests 
+Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Il suffit donc d'executer le resultat de cette methode par le SGBD. 
+
+Le resultat de buildQuery est construit a partir du type de la Request et des informations de la Request. Par exemple, \texttt{DropTableRequest} contient simplement la Table a supprimer. Elle creera donc une requete de type \texttt{DROP TABLE table}. Les autres requetes traitent des cas plus complexes comme le choix des colomnes ou la modification des champs. 
+Les clauses \texttt{WHERE} des requetes sont gere par des Restrictions.
 \subsubsection{Les Restrictions}
+Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}. On peut ainsi ecrire differentes contraintes:
+\begin{itemize}
+ \item Les contraintes simples. Il s'agit soit de la simple comparaison entre une colomne et une valeur ou entre deux colomnes pour les jointures.
+ \item Les contraintes 
+\end{itemize}
+
