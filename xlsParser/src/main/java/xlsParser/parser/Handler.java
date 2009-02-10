@@ -40,7 +40,7 @@ public class Handler {
         this.databaseName = databaseName;
         this.sqlFile = sqlFile;
         this.xslFile = xsl;
-        parser = new Parser(databaseName);
+        parser = new ParserImpl(databaseName);
     }
 
     /**
@@ -52,6 +52,7 @@ public class Handler {
      */
     public void execute() throws IOException, BiffException, SQLException {
         parser.initTables(sqlFile);
-        parser.parseXls(sqlFile);
+        parser.parseXls(xslFile);
+        parser.disconnect();
     }
 }

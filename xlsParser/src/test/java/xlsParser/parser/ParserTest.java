@@ -15,17 +15,17 @@ public class ParserTest {
 
     @Before
     public void setUp() throws IOException, SQLException {
-        parser = new Parser("test");
+        parser = new ParserImpl("test");
     }
 
     @Test
     public void testInitTables() throws IOException, SQLException {
-        parser.initTables("xlsParser/src/main/resources/script.sql");
+        parser.initTables("src/test/resources/script.sql");
     }
 
     @Test
     public void testParseXls() throws IOException, SQLException, BiffException {
-        parser.initTables("xlsParser/src/main/resources/script.sql");
-        parser.parseXls("xlsParser/src/main/resources/AirLineData.xls");
+        parser.initTables("src/test/resources/script.sql");
+        parser.parseXls("src/test/resources/AirLineData.xls");
     }
 }
