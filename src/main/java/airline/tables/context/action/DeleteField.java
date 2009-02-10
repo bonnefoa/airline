@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.tables.context.action;
 
 import airline.servlet.enumeration.Action;
@@ -6,7 +22,7 @@ import airline.servlet.enumeration.MessageError;
 import airline.tables.context.FieldContextHandler;
 import airline.criteria.model.DeleteFieldRequest;
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -34,8 +50,8 @@ public class DeleteField extends FieldContextHandler {
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        TablesColumns column = (TablesColumns) request.getAttribute("url.field");
-        List<TablesColumns> columns  = new ArrayList<TablesColumns>();
+        TableColumn column = (TableColumn) request.getAttribute("url.field");
+        List<TableColumn> columns  = new ArrayList<TableColumn>();
         columns.add(column);
         DeleteFieldRequest deleteField = new DeleteFieldRequest(table, columns);
         try {

@@ -1,9 +1,27 @@
+<%--
+
+    Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+            http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+--%>
+
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="airline.criteria.enumeration.SqlConstraints" %>
 <%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.TableRow" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -23,11 +41,11 @@
 <form action="<%= request.getContextPath() %>/admin/sfw" method="get">
 <div>
     <%
-        List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
+        List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
         Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
         Table selectedTable = (Table) request.getAttribute("selectedTable");
-        List<TablesColumns> selectedFields = (List<TablesColumns>) request.getAttribute("selectedFields");
-        TablesColumns whereField = (TablesColumns) request.getAttribute("whereField");
+        List<TableColumn> selectedFields = (List<TableColumn>) request.getAttribute("selectedFields");
+        TableColumn whereField = (TableColumn) request.getAttribute("whereField");
         SqlConstraints whereCond = (SqlConstraints) request.getAttribute("whereCond");
         String whereVal = (String) request.getAttribute("whereVal");
         Set<TableRow> rows = (Set<TableRow>) request.getAttribute("rows");
@@ -41,7 +59,7 @@
     %>
     <select name="select" id="select" multiple="multiple">
         <%
-            for (TablesColumns column : columns) {
+            for (TableColumn column : columns) {
                 boolean selected = (selectedFields != null && selectedFields.contains(column));
         %>
         <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>
@@ -98,7 +116,7 @@
     %>
     <select name="whereField" id="whereField">
         <%
-            for (TablesColumns column : columns) {
+            for (TableColumn column : columns) {
                 boolean selected = (column == whereField);
         %>
         <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>

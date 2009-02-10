@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.tables.context.action;
 
 import airline.servlet.enumeration.Action;
@@ -5,8 +21,7 @@ import airline.servlet.enumeration.MessageError;
 import airline.servlet.enumeration.MessageAction;
 import airline.tables.context.FieldContextHandler;
 import airline.model.Table;
-import airline.model.TablesColumns;
-import airline.criteria.model.CreateTableRequest;
+import airline.model.TableColumn;
 import airline.criteria.model.CreateFieldRequest;
 
 import javax.servlet.RequestDispatcher;
@@ -34,14 +49,14 @@ public class AddField extends FieldContextHandler {
     public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
 
         Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = airlineDAO.getTablesColumns(table);
+        List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
         return servletContext.getRequestDispatcher("/admin/FieldAdd.jsp");
     }
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
-        List<TablesColumns> columns = generateColumns(request);
+        List<TableColumn> columns = generateColumns(request);
         if (columns == null) {
             request.setAttribute("error.type", MessageError.EMPTY_FIELD);
             return servletContext.getRequestDispatcher("/error.jsp");
@@ -58,7 +73,7 @@ public class AddField extends FieldContextHandler {
         }
     }
 
-    private List<TablesColumns> generateColumns(HttpServletRequest request) {
+    private List<TableColumn> generateColumns(HttpServletRequest request) {
         String[] names = request.getParameterValues("name");
         String[] types = request.getParameterValues("type");
         String[] primarys = request.getParameterValues("primary");
@@ -70,10 +85,10 @@ public class AddField extends FieldContextHandler {
                 names.length == types.length && types.length == primarys.length
                 ) {
 
-            List<TablesColumns> columns = new ArrayList<TablesColumns>();
+            List<TableColumn> columns = new ArrayList<TableColumn>();
 
             boolean allNotEmpty = true;
-            TablesColumns primaryKey = null;
+            TableColumn primaryKey = null;
 
             for (int i = 0; i < primarys.length && allNotEmpty; i++) {
 
@@ -81,7 +96,7 @@ public class AddField extends FieldContextHandler {
                 allNotEmpty = allNotEmpty && types[i] != null && types[i].length() != 0;
                 allNotEmpty = allNotEmpty && primarys[i] != null && primarys[i].length() != 0;
 
-                TablesColumns column = new TablesColumns();
+                TableColumn column = new TableColumn();
                 column.setName(names[i]);
                 try {
                     column.setDataType(Integer.parseInt(types[i]));

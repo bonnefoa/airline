@@ -1,7 +1,23 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.tables.context;
 
 import airline.model.Table;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.servlet.enumeration.Action;
 import airline.servlet.enumeration.Context;
 import airline.servlet.enumeration.MessageError;
@@ -44,8 +60,8 @@ public abstract class FieldContextHandler extends ContextHandler {
             return null;
         } else {
             String fieldName = (String) req.getAttribute("url.field");
-            List<TablesColumns> fields = airlineDAO.getTablesColumns(table);
-            for (TablesColumns field : fields) {
+            List<TableColumn> fields = airlineDAO.getTableColumns(table);
+            for (TableColumn field : fields) {
                 if (fieldName.equals(field.getName())) {
                     req.setAttribute("url.field", field);
                     return null;

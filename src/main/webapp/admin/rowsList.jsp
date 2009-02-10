@@ -1,7 +1,25 @@
+<%--
+
+    Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+            http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+--%>
+
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page import="airline.model.Table" %>
-<%@ page import="airline.model.TablesColumns" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page import="java.sql.Types" %>
 <%@ page import="java.util.List" %>
 <%--
@@ -13,7 +31,7 @@
 --%>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    List<TablesColumns> columns = (List<TablesColumns>) request.getAttribute("columns");
+    List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
     request.setAttribute("title", "Détail de la table " + table.getName());
 %>
 <jsp:include page="/admin/header.jsp"/>
@@ -31,7 +49,7 @@
 </thead>
 <tbody>
 <%
-    for (TablesColumns column : columns) {
+    for (TableColumn column : columns) {
 %>
 <tr>
     <td><%=column.getName()%>

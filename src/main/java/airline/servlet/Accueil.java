@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2009 Anthonin Bonnefoy and David Duponchel
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package airline.servlet;
 
 import airline.criteria.Restriction;
@@ -6,7 +22,7 @@ import airline.criteria.model.SelectRequest;
 import airline.dao.AirlineDAO;
 import airline.model.Table;
 import airline.model.TableRow;
-import airline.model.TablesColumns;
+import airline.model.TableColumn;
 import airline.servlet.enumeration.MessageError;
 import airline.manager.AirlineManager;
 import com.google.inject.Inject;
@@ -45,9 +61,9 @@ public class Accueil extends AbstractInjectableServlet {
         if (query != null && type != null && query.length() != 0 && type.length() != 0) {
 
             Map<String, Table> tables = airlineDAO.getTables();
-            List<TablesColumns> columns = airlineDAO.getTablesColumns(tables.get(TABLE_NAME));
+            List<TableColumn> columns = airlineDAO.getTableColumns(tables.get(TABLE_NAME));
 
-            TablesColumns column = getCorrespondingCol(type, columns);
+            TableColumn column = getCorrespondingCol(type, columns);
 
             if (column != null) {
 
@@ -75,7 +91,7 @@ public class Accueil extends AbstractInjectableServlet {
         dispatcher.forward(request, response);
     }
 
-    private TablesColumns getCorrespondingCol(String type, List<TablesColumns> columns) {
+    private TableColumn getCorrespondingCol(String type, List<TableColumn> columns) {
         String field = null;
 
         if ("flight".equals(type)) {
@@ -86,7 +102,7 @@ public class Accueil extends AbstractInjectableServlet {
             field = PLANE_FIELD;
         }
 
-        for (TablesColumns column : columns) {
+        for (TableColumn column : columns) {
             if (column.getName().equals(field)) {
                 return column;
             }
