@@ -21,7 +21,7 @@ Represente une table et contient le nom, le schema et le type de la table.
 \subsubsection{TableColumn}
 Represente une colomne d'une table. Elle contient le nom, la table, le type de valeur et si la colomne est une cle primaire.
 \subsubsection{TableRow}
-Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String.
+Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String pour une ligne.
 \subsection{Interaction avec les tables}
 L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations et d'executer des requetes. 
 \subsubsection{Consultation des tables}
@@ -31,7 +31,7 @@ Les requetes sont executee par deux methodes \texttt{Set<TableRow> executeReques
 
 Les requetes sont crees a partir de modeles Request. Nous allons voir comment sont elaborees ces Request.
 \subsection{La creation des requetes sql}
-La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et faisant une couche d'abstraction au langage sql.
+La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et presentant une couche d'abstraction au langage sql.
 
 Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API presente deux composant principaux, les Requests et les Restrictions.
 \subsubsection{Les Requests}
