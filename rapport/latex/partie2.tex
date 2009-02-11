@@ -10,7 +10,8 @@ src
 \end{verbatim}
 
 \subsubsection{Servlet et jsp}
-Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quel servlet est appelé pour quelle url. Ce fichier défini également les filtres à appliquer, les éventuels listeners, les fichiers à afficher par défaut, ou encore les pages d'erreur à afficher.
+Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quelle servlet est appelée pour quelle url. 
+Ce fichier défini également les filtres à appliquer, les éventuels listeners, les fichiers à afficher par défaut, ou encore les pages d'erreurs à afficher.
 
 Afin de centraliser les éléments récurrents des pages (entête du html, menu de la page), des fichiers header.jsp et footer.jsp ont été utilisés.
 
@@ -23,36 +24,51 @@ Voici le déroulement d'une requête :
 \end{enumerate}
 
 \subsubsection{Filtre AdminFilter}
-Pour vérifier si un utilisateur est identifié par le site quand il demande une action de modification, un filtre est utilisé. Ce filtre est actif sur toute le site et redirige l'utilisateur vers la page de login s'il n'a pas les droits nécessaires.
+Pour vérifier si un utilisateur est identifié par le site quand il demande une action de modification, un filtre est utilisé. 
+Ce filtre est actif sur tout le site et redirige l'utilisateur vers la page de login s'il n'a pas les droits nécessaires.
 
-Le mot de passe est stocké dans un fichier de propriétés. Par défaut, le login est admin et le mot de passe est adminadmin.
+Le mot de passe est stocké dans un fichier de propriétés, AuthDAO.properties. Par défaut, le login est admin et le mot de passe est adminadmin.
 
 \subsubsection{Injection des dépendances dans les servlets}
-L'injection de dépendances avec Guice ne peut pas être faite de la façon classique, car les instances des servlets sont créées pour nous. Afin de palier ce problème, nous utilisons le \verb|ServletContext|. Cette  interface définie un ensemble de méthodes utilisables par les servlets pour communiquer avec son conteneur. Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuée). Lorsque le contexte est initialisé, un injecteur est créé et stocké dans le contexte de la servlet. Lorsqu'une servlet est instanciee, elle utilise ce contexte pour récupérer l'injecteur et injecter ses dépendances.
+L'injection de dépendances avec Guice ne peut pas être faite de façon classique, car les instances des servlets sont créées par le serveur applicatif. 
+Afin de palier ce problème, nous utilisons le \verb|ServletContext|. 
+Cette  interface définie un ensemble de méthodes utilisables par les servlets pour communiquer avec son conteneur. 
+Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuée). 
+Lorsque le contexte est initialisé, un injecteur est créé et stocké dans le contexte de la servlet. 
+Lorsqu'une servlet est instanciée, elle utilise ce contexte pour récupérer l'injecteur et injecter ses dépendances.
 
 \subsubsection{Respect des standards et pérennité de airline}
 Garantir la pérennité d'une application web et son comportement dans un navigateur est crucial. C'est dans ce but que nous avons fait le choix d'utiliser des technologies récentes et ouvertes, ainsi qu'un encodage universel.
 
-Les pages générées sont en XHTML 1.1 avec des feuilles de style CSS. Toutes les pages et les feuilles de style ont été validées pour le validateur du W3C, organisme qui définit notamment les standards ouverts du web. Les navigateurs évoluant vers toujours plus de respect des standards, les respecter est un énorme avantage pour la pérennité de cette application.
+Les pages générées sont en XHTML 1.1 avec des feuilles de style CSS. Toutes les pages et les feuilles de style ont été validées pour le validateur du W3C, organisme qui définit notamment les standards ouverts du web. Les navigateurs évoluant vers toujours plus de respect des standards, les respecter présente un énorme avantage pour la pérennité de cette application.
 
 Pour éviter tout problème d'encodage et simplifier l'internationalisation de notre application, cette dernière utilise exclusivement l'encodage unicode.
 
-Le design du site a été pense en gardant l'esprit d'ouverture et l'amour du libre qui a animé le reste du travail. Les images utilisées sont soit sous licence LGPL et issues du monde libre, soit sont sous une licence Creative Commons permettant la modification de l'image. Ainsi, nous sommes sûr d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline (autorisé par sa licence libre Apache), l'utilisation de ces images est parfaitement légale.
+Le design du site a été pense en gardant l'esprit d'ouverture et l'amour du libre qui a animé le reste du travail. 
+Les images utilisées sont soit sous licence LGPL et issues du monde libre, soit sont sous une licence Creative Commons permettant la modification de l'image.
+Ainsi, nous sommes sûr d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline (autorisé par sa licence libre Apache), l'utilisation de ces images est parfaitement légale.
 
 \subsection{Select From Where}
-Cette partie permet à l'utilisateur d'effectuer une requête SELECT sur la table de son choix. Elle consiste en une seule page présentant un formulaire, qui affiche les informations demandées. Des que l'utilisateur modifie un champ du formulaire, un court code javascript le détecte et recharge la page, affichant ainsi les nouvelles informations. La première étape est de choisir la table, puis le ou les champ(s) à afficher. Enfin, l'utilisateur spécifie une contrainte avec le champ where.
+Cette partie permet à l'utilisateur d'effectuer une requête SELECT sur la table de son choix. Elle consiste en une seule page présentant un formulaire qui affiche les informations demandées. 
+Dès que l'utilisateur modifie un champ du formulaire, un court code javascript le détecte et recharge la page, affichant ainsi les nouvelles informations. La première étape est de choisir la table, puis le ou les champ(s) à afficher. Enfin, l'utilisateur spécifie une contrainte avec le champ where.
 
-Puisque ce formulaire ne modifie pas l'état de la base de données (on la consulte juste), on utilise la méthode GET au lieu de la méthode POST, conformement aux recommandations du W3C.
+Puisque ce formulaire ne modifie pas l'état de la base de données (on la consulte juste), on utilise la méthode GET au lieu de la méthode POST, conformément aux recommandations du W3C.
 
 \subsection{Tables}
 
 \subsubsection{Url rewriting}
 La réécriture d'URL permet d'interpréter une url et de la modifier à la volée. Cela permet d'avoir des urls plus courtes et plus compréhensibles. Exemple de réécriture d'url avec un serveur Apache :
 ~\\
-une url \verb|localhost/airline/user/martin/showprofile|\\
-avec le filtre \verb|RewriteRule ^airline/user/([a-zA-Z]+)/([a-z]+)$ airline/userServlet?login=$1&action=$2|\\
- deviendra \verb|localhost/airline/userServlet?login=martin&action=showprofile|.\\
-Dans le code côté serveur, tout sera comme si l'utilisateur avait appelé \verb|localhost/airline/user?login=martin&action=showprofile|. L'utilisateur, de son point de vue, interagira avec la page \verb|localhost/airline/user/martin/showprofile|, beaucoup plus propre et parlante.
+une url 
+\begin{footnotesize}\verb|localhost/airline/user/martin/showprofile|\end{footnotesize} avec le filtre \\
+\begin{footnotesize}\verb|RewriteRule ^airline/user/([a-zA-Z]+)/([a-z]+)$ airline/userServlet?login=$1&action=$2|\end{footnotesize}\\
+ deviendra \begin{footnotesize}\verb|localhost/airline/userServlet?login=martin&action=showprofile|\end{footnotesize}.\\
+Dans le code côté serveur, tout sera comme si l'utilisateur avait appelé \\
+\begin{footnotesize}\verb|localhost/airline/user?login=martin&action=showprofile|\end{footnotesize}\\
+L'utilisateur, de son point de vue, interagira avec la page \\
+\begin{footnotesize}\verb|localhost/airline/user/martin/showprofile|\end{footnotesize}
+\\
+beaucoup plus propre et parlante.
 
 Cependant, cette technique n'est pas implémentée de base dans le système de servlet/jsp. Pour pouvoir utiliser cette technique, nous sommes donc passé par un filtre qui analyse les appels à la partie admin/table et analyse l'url appelée pour en déduire le contexte, les actions, et les entités sélectionnées.
 
@@ -71,9 +87,9 @@ Ce résultat permet de profiter d'url très propres et parlantes pour l'utilisat
 
 Concrètement, voici ce qu'il se passe lorsqu'une ressource est appelée :
 \begin{itemize}
-	\item la requête passe par le filtre de réécriture d'url. L'action, le contexte, la table visée, etc sont extraites et stockés dans la requête. Si l'url est incohérente, une page d'erreur est aussitôt envoyée.
+	\item la requête passe par le filtre de réécriture d'url. L'action, le contexte, la table visée, etc... sont extraites et stockés dans la requête. Si l'url est incohérente, une page d'erreur est aussitôt envoyée.
 	\item la requête passe dans un second filtre, vérifiant la validité des informations : existence de la table, existence du champ, etc. En cas de problème, l'erreur est affichée à l'utilisateur.
-	\item la servlet est finalement appelée : elle dispose de toutes les informations nécessaires, et est sûre d'être dans un cas cohérent et vérifié.
+	\item la servlet est finalement appelée : elle dispose de toutes les informations nécessaires, et elle est sûre d'être dans un cas cohérent et vérifié.
 \end{itemize}
 
 \subsubsection{Polymorphisme}
