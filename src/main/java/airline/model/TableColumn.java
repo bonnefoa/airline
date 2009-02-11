@@ -127,6 +127,8 @@ public class TableColumn {
                 return "Integer";
             case Types.DATE:
                 return "Date";
+            case Types.TIMESTAMP:
+                return "Timestamp";                
             default:
                 return "Varchar";
         }
