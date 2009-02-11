@@ -9,16 +9,16 @@ La transcription du fichier mdb en script SQL n'est pas aisée. En effet, il n'e
 \subsubsection{Servlets}
 Un problème rencontré lors du développement avec des servlets/jsp a été les notions flous que nous avions concernant ces technologies. En particulier, on peut citer l'utilisation du ServletContext, l'utilisation d'un servlet comme contrôleur et d'un jsp comme vue, ou la façon de transmettre des données à la vue.
 
-\subsubsection{passage de paramètres ``typesafe''}
+\subsubsection{Passage de paramètres ``typesafe''}
 Lorsque l'on passe des paramètres d'une servlet à une jsp, on passe soit par la session soit par la requête. Or dans les deux cas, on récupère un objet de type Object à partir d'une chaîne de caractères. Ces deux point posent problème : si le développeur fait une faute de frappe ou si un autre développeur utilise le même nom comme ``clef'', retrouver la source du bug peut devenir cauchemardesque. Le transtypage obligatoire peut également poser problème : on suppose connaître à l'avance le type d'objet récupéré. Si ce n'est pas le cas, l'application récuperera une exception, et aucun objet exploitable.
 
-\subsubsection{composants jsp}
+\subsubsection{Composants jsp}
 Le dernier point problématique est l'absence de composants près à l'emploi, comme des formulaires, etc.
 \subsubsection{Problèmes avec les caractères spéciaux}
-Les caractères spéciaux ne sont pas traitées. Il est possible de corrompre l'application en ajoutant des lignes avec des caractères comme ' ou \.
+Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \\.
 \subsection{Les limitations}
 \subsubsection{caractères non ASCII}
-L'utilisation de lettres entre a et z ne pose ancun problème. L'utilisation de caractères accentués va poser problème avec l'encodage et la base de données. La requête SQL a alors de grandes chances d'échouer, comme avec l'utilisation de ' ou de \.
+L'utilisation de lettres entre a et z ne pose ancun problème. L'utilisation de caractères accentués va poser problème avec l'encodage et la base de données. La requête SQL a alors de grandes chances d'échouer, comme avec l'utilisation de ' ou de \\.
 
 \subsubsection{Requêtes sql limitées}
 Les requêtes sql réalisables sont limitées par l'implementation et l'interface que nous avons réalisées. Il n'est pas possible de faire des jointures entre les tables par exemple.
@@ -28,6 +28,6 @@ Par exemple, il peut taper dans la clause WHERE.
 \begin{verbatim}
  ';DROP TABLE APPAREL;
 \end{verbatim}
-Cela aura pour effet d'exécuter le DROP.
+Cela aura pour effet d'exécuter un DROP sur la table APPAREL.
 
 

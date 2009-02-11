@@ -1,4 +1,4 @@
-\subsection{architecture}
+\subsection{Architecture}
 
 Notre projet a été architecturé en respectant l'architecture standard java :
 \begin{verbatim}
@@ -9,7 +9,7 @@ src
  |   |--webapp  // fichiers jsp
 \end{verbatim}
 
-\subsubsection{servlet et jsp}
+\subsubsection{Servlet et jsp}
 Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quel servlet est appelé pour quelle url. Ce fichier défini également les filtres à appliquer, les éventuels listeners, les fichiers à afficher par défaut, ou encore les pages d'erreur à afficher.
 
 Afin de centraliser les éléments récurrents des pages (entête du html, menu de la page), des fichiers header.jsp et footer.jsp ont été utilisés.
@@ -22,12 +22,12 @@ Voici le déroulement d'une requête :
 	\item la servlet envoie les résultats à une page jsp (vue) qui les affiche
 \end{enumerate}
 
-\subsubsection{filtre AdminFilter}
+\subsubsection{Filtre AdminFilter}
 Pour vérifier si un utilisateur est identifié par le site quand il demande une action de modification, un filtre est utilisé. Ce filtre est actif sur toute le site et redirige l'utilisateur vers la page de login s'il n'a pas les droits nécessaires.
 
 Le mot de passe est stocké dans un fichier de propriétés. Par défaut, le login est admin et le mot de passe est adminadmin.
 
-\subsubsection{injection des dépendances dans les servlets}
+\subsubsection{Injection des dépendances dans les servlets}
 L'injection de dépendances avec Guice ne peut pas être faite de la façon classique, car les instances des servlets sont créées pour nous. Afin de palier ce problème, nous utilisons le \verb|ServletContext|. Cette  interface définie un ensemble de méthodes utilisables par les servlets pour communiquer avec son conteneur. Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuée). Lorsque le contexte est initialisé, un injecteur est créé et stocké dans le contexte de la servlet. Lorsqu'une servlet est instanciee, elle utilise ce contexte pour récupérer l'injecteur et injecter ses dépendances.
 
 \subsubsection{Respect des standards et pérennité de airline}
@@ -46,7 +46,7 @@ Puisque ce formulaire ne modifie pas l'état de la base de données (on la consu
 
 \subsection{Tables}
 
-\subsubsection{url rewriting}
+\subsubsection{Url rewriting}
 La réécriture d'URL permet d'interpréter une url et de la modifier à la volée. Cela permet d'avoir des urls plus courtes et plus compréhensibles. Exemple de réécriture d'url avec un serveur Apache :
 ~\\
 une url \verb|localhost/airline/user/martin/showprofile|\\
@@ -56,7 +56,7 @@ Dans le code côté serveur, tout sera comme si l'utilisateur avait appelé \ver
 
 Cependant, cette technique n'est pas implémentée de base dans le système de servlet/jsp. Pour pouvoir utiliser cette technique, nous sommes donc passé par un filtre qui analyse les appels à la partie admin/table et analyse l'url appelée pour en déduire le contexte, les actions, et les entités sélectionnées.
 
-\subsubsection{notions de contexte, action}
+\subsubsection{Notions de contexte, action}
 La notion de verbe (action à effectuer) existe déjà avec HTTP (définie par la RFC 2616). Seulement, les sites webs utilisent (les navigateurs également) exclusivement les verbes HTTP GET et POST. Ne pouvant pas utiliser les autres verbes (HEAD, PUT, DELETE, etc) on ajoute l'action demandée à la fin de l'url (par défaut show). On définie également une notion de contexte (aucun rapport avec le contexte de la servlet) pour définir ce sur quoi porte l'action. En ajoutant la réécriture d'url à ces notions, on aboutit à ça :
 \begin{itemize}
 	\item{/table/add} : ajoute une table
@@ -76,9 +76,9 @@ Concrètement, voici ce qu'il se passe lorsqu'une ressource est appelée :
 	\item la servlet est finalement appelée : elle dispose de toutes les informations nécessaires, et est sûre d'être dans un cas cohérent et vérifié.
 \end{itemize}
 
-\subsubsection{polymorphisme}
+\subsubsection{Polymorphisme}
 Pour éviter l'utilisation de nombreux blocs switch/case dans le code (il y a 2 méthodes HTTP, 4 contextes et 4 actions possibles, soit virtuellement 32 cas possibles) le polymorphisme a été utilisé. Nous avons créé des classes spécialisées dans un cas spécifique, implémentant toutes la même interface. Les instances sont créées au moment de la réécriture d'url, quand on connaît parfaitement le type de requête. Pour la vérification du contexte, le filtre a juste à appeler la méthode checkContext sur la classe stockée, sans se soucier de son type réel. De même, une fois dans la servlet, les traitements spécifiques sont implémentés dans les méthodes get et post de l'objet. Au final, le code est regroupé par type d'action et par type d'entités, et le code dans les filtres/servlet a été grandement simplifié.
 
-\subsubsection{actions possibles}
+\subsubsection{Actions possibles}
 L'application web propose de nombreuses possibilités : un utilisateur non identifié va pouvoir voir toutes les tables, leurs détails et leurs contenus.
 S'il est identifié comme administrateur, il pourra ajouter/supprimer des tables, ajouter/modifier/supprimer des champs dans une table, ajouter/modifier/supprimer une entrée dans une table.
