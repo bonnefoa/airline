@@ -1,31 +1,33 @@
-\subsection{Les problemes}
-\subsubsection{Typage des Objets recuperes}
-Il est tres difficile de gerer la genericite en partant des resultats de la requete select. Il a fallut gerer les valeurs en tant qu'objet ce qui n'est pas forcement judicieux. Mais le fait de traiter les tables de manieres dynamiques oblige a proceder de cette sorte. Il aurait ete plus facile de traiter ce cas avec un langage dynamique. Dans ce cas la, il aurait ete envisageable de creer a la volee les classes correspondantes aux tables.
-\subsubsection{Construction des requetes}
-Le langage SQL n'est pas repute pour sa simplicite d'utilisation. Les SGBD sont relationnels et le java est un langage objet, il y a donc toujours un certain nombre de difficultes pour la translation entre le SQL et le Java. La creation des query a demande un travail consequent et les possibilites offertes par le programme sont limitees.
+\subsection{Les problèmes}
+\subsubsection{Typage des Objets récupérés}
+Il est très difficile de gérer la généricité en partant des résultats de la requête select. Il a fallut gérer les valeurs en tant qu'objet ce qui n'est pas forcement judicieux. Mais le fait de traiter les tables de manière dynamique oblige à procéder de cette fqçon. Il aurait été plus facile de traiter ce cas avec un langage dynamique. Dans ce cas là, il aurait été envisageable de créer à la volée les classes correspondantes aux tables.
+\subsubsection{Construction des requêtes}
+Le langage SQL n'est pas réputé pour sa simplicité d'utilisation. Les SGBD sont relationnels et le java est un langage objet, il y a donc toujours un certain nombre de difficultés pour la correspondance entre un tuple SQL et sa représentation en Java. La création des query à demandé un travail conséquent et les possibilités offertes par le programme sont limitées.
 \subsubsection{Le traitement des mdb et xls}
-La transcription du fichier mdb en script SQL n'est pas aisee. En effet, il n'est pas possible d'exporter la base et le format mdb n'est pas facilement exploitable. De plus, les champs de la base mdb et les entetes du xls ne correspondent pas. Au final, la table cree correspond a une vue du xls.
+La transcription du fichier mdb en script SQL n'est pas aisée. En effet, il n'est pas possible d'exporter la base et le format mdb n'est pas facilement exploitable. De plus, les champs de la base mdb et les entêtes du xls ne correspondent pas. Au final, la table créée correspond à une vue du xls.
 
 \subsubsection{Servlets}
-Un probleme rencontre lors du developpement avec des servlets/jsp a ete les notions flous que nous avions concernant ces technologies. En particulier, on peut citer l'utilisation du ServletContext, l'utilisation d'un servlet comme controleur et d'un jsp comme vue, et surtout la facon de transmettre des donnees a la vue.
+Un problème rencontré lors du développement avec des servlets/jsp a été les notions flous que nous avions concernant ces technologies. En particulier, on peut citer l'utilisation du ServletContext, l'utilisation d'un servlet comme contrôleur et d'un jsp comme vue, ou la façon de transmettre des données à la vue.
 
-\subsubsection{passage de parametres ``typesafe''}
-Lorsque l'on passe des parametres d'une servlet a une jsp, on passe soit par la session soit par la requete. Or dans les deux cas, on recupere un objet de type Object a partir d'une chaine de caracteres. Ces deux point posent probleme : si le developpeur fait une faute de frappe ou si un autre developpeur utilise le meme nom comme clef, retrouver la source du bug peut devenir cauchemardesque a trouver. Le transtypage obligatoire peut egalement poser probleme : on suppose connaitre a l'avance le type d'objet recupere. Si ce n'est pas le cas, l'application recupera une exception, et aucun objet exploitable.
+\subsubsection{passage de paramètres ``typesafe''}
+Lorsque l'on passe des paramètres d'une servlet à une jsp, on passe soit par la session soit par la requête. Or dans les deux cas, on récupère un objet de type Object à partir d'une chaîne de caractères. Ces deux point posent problème : si le développeur fait une faute de frappe ou si un autre développeur utilise le même nom comme ``clef'', retrouver la source du bug peut devenir cauchemardesque. Le transtypage obligatoire peut également poser problème : on suppose connaître à l'avance le type d'objet récupéré. Si ce n'est pas le cas, l'application récuperera une exception, et aucun objet exploitable.
 
 \subsubsection{composants jsp}
-Le dernier point problematique est l'absence de composants pres a l'emploi, comme des formulaires, etc.
-\subsubsection{Problemes avec les caracteres speciaux}
-Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \.
+Le dernier point problématique est l'absence de composants près à l'emploi, comme des formulaires, etc.
+\subsubsection{Problèmes avec les caractères spéciaux}
+Les caractères spéciaux ne sont pas traitées. Il est possible de corrompre l'application en ajoutant des lignes avec des caractères comme ' ou \.
 \subsection{Les limitations}
-\subsubsection{Requetes sql limitees}
-Les requetes sql realisables sont limitees par l'implementation et l'interface que nous avons realisees. Il n'est pas possible de faire des jointures entre les tables par exemple.
-\subsubsection{La securite}
-La securitee de l'application laisse a desirer. Il n'y a aucune protection sur les requetes sql et n'importe quel utilisateur peut faire une attaque par injection sql. 
+\subsubsection{caractères non ASCII}
+L'utilisation de lettres entre a et z ne pose ancun problème. L'utilisation de caractères accentués va poser problème avec l'encodage et la base de données. La requête SQL a alors de grandes chances d'échouer, comme avec l'utilisation de ' ou de \.
+
+\subsubsection{Requêtes sql limitées}
+Les requêtes sql réalisables sont limitées par l'implementation et l'interface que nous avons réalisées. Il n'est pas possible de faire des jointures entre les tables par exemple.
+\subsubsection{La sécurité}
+La sécurité de l'application laisse à désirer. Il n'y a aucune protection sur les requêtes sql et n'importe quel utilisateur peut faire une attaque par injection sql. 
 Par exemple, il peut taper dans la clause WHERE.
 \begin{verbatim}
  ';DROP TABLE APPAREL;
 \end{verbatim}
-Cela aura pour effet d'executer le DROP.
-%Code html in page, js?
+Cela aura pour effet d'exécuter le DROP.
 
 
