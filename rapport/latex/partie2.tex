@@ -44,7 +44,7 @@ Les pages générées sont en XHTML 1.1 avec des feuilles de style CSS. Toutes l
 
 Pour éviter tout problème d'encodage et simplifier l'internationalisation de notre application, cette dernière utilise exclusivement l'encodage unicode.
 
-Le design du site a été pense en gardant l'esprit d'ouverture et l'amour du libre qui a animé le reste du travail. 
+Le design du site a été pensé en gardant l'esprit d'ouverture et l'amour du libre qui a animé le reste du travail. 
 Les images utilisées sont soit sous licence LGPL et issues du monde libre, soit sont sous une licence Creative Commons permettant la modification de l'image.
 Ainsi, nous sommes sûr d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline (autorisé par sa licence libre Apache), l'utilisation de ces images est parfaitement légale.
 
@@ -93,7 +93,12 @@ Concrètement, voici ce qu'il se passe lorsqu'une ressource est appelée :
 \end{itemize}
 
 \subsubsection{Polymorphisme}
-Pour éviter l'utilisation de nombreux blocs switch/case dans le code (il y a 2 méthodes HTTP, 4 contextes et 4 actions possibles, soit virtuellement 32 cas possibles) le polymorphisme a été utilisé. Nous avons créé des classes spécialisées dans un cas spécifique, implémentant toutes la même interface. Les instances sont créées au moment de la réécriture d'url, quand on connaît parfaitement le type de requête. Pour la vérification du contexte, le filtre a juste à appeler la méthode checkContext sur la classe stockée, sans se soucier de son type réel. De même, une fois dans la servlet, les traitements spécifiques sont implémentés dans les méthodes get et post de l'objet. Au final, le code est regroupé par type d'action et par type d'entités, et le code dans les filtres/servlet a été grandement simplifié.
+Pour éviter l'utilisation de nombreux blocs switch/case dans le code (il y a 2 méthodes HTTP, 4 contextes et 4 actions possibles, soit virtuellement 32 cas possibles) le polymorphisme a été utilisé. 
+Nous avons créé des classes spécialisées chacune dans un cas spécifique et implémentant toutes la même interface. 
+Ces classes contiennent le code nécessaire à la vérification du contexte (méthode checkContext) et à l'exécution de l'action (méthodes post et get).
+Dès lors, le filtre vérifiant le contexte a juste à appeler la méthode checkContext.
+De même, une fois dans la servlet, cette dernière a juste à appeler les méthodes get et post.
+Au final, le code est regroupé par type d'action et par type d'entités, et le code dans les filtres/servlet a été grandement simplifié.
 
 \subsubsection{Actions possibles}
 L'application web propose de nombreuses possibilités : un utilisateur non identifié va pouvoir voir toutes les tables, leurs détails et leurs contenus.
