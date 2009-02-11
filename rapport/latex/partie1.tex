@@ -48,3 +48,5 @@ Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}
 On obtient au final une Restriction qui regroupe une arborescence de Restriction. Il suffit d'ajouter restriction.toString() a la fin de la request pour rajouter les clauses WHERE. 
 
 Ce systeme de restriction est utilise pour les requetes de selection, de suppression et de mise a jour.
+\subsection{L'enregistrement des transactions}
+Les transactions sont enregistrees dans la table Transaction. Elles sont enregistrees grace au AirlineManager. Les Jsp et servlet utilisent le manager pour communiquer avec le serveur et ce manager appelle le DAO pour repondre aux requetes. C'est au moment de l'execution de requetes que la transaction est enregistree par le manager.
