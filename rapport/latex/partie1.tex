@@ -9,7 +9,7 @@ Le script sql va être exécuté avant l'analyse et le parse du fichier xls. Ce 
 \subsubsection{Le fichier xls}
 Une fois la base initialisée avec le script sql, le fichier xls sera parsé. A chaque ligne, les cellules sont parsées et une requête d'insertion en base est écrite et exécutée.
 
-Au final, une base données hsql est créée avec toute les données du xls ajoutées dedans. Cette base de données est créée dans le répertoire db et peut être utilisée comme base de données pour l'application.
+Au final, une base de données hsql est créée avec toute les données du xls ajoutées dedans. Cette base de données est créée dans le répertoire db et peut être utilisée comme base de données pour l'application.
 \subsubsection{Inconvénients}
 Il y a actuellement plusieurs inconvénients à cette méthode. La première est l'absence de clé étrangère. Les insertions se faisant dans un ordre quelconque, il n'est pas évident d'avoir les tuples étrangers au moment de l'insertion. Cela pourrait se résoudre en ignorant les clés étrangères le temps du parse du fichier xls.
 
