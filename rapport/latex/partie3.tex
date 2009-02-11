@@ -15,4 +15,12 @@ Lorsque l'on passe des parametres d'une servlet a une jsp, on passe soit par la 
 \subsubsection{composants jsp}
 Le dernier point problematique est l'absence de composants pres a l'emploi, comme des formulaires, etc.
 \subsection{Les limitations}
-\subsubsection{}
+\subsubsection{Requetes sql limitees}
+Les requetes sql realisables sont limitees par l'implementation et l'interface que nous avons realisees. Il n'est pas possible de faire des jointures entre les tables par exemple.
+\subsubsection{La securite}
+La securitee de l'application laisse a desirer. Il n'y a aucune protection sur les requetes sql et n'importe quel utilisateur peut faire une attaque par injection sql. 
+Par exemple, il peut taper dans la clause WHERE.
+\begin{verbatim}
+ ';DROP TABLE APPAREL;
+\end{verbatim}
+Cela aura pour effet d'executer le DROP.
