@@ -55,6 +55,8 @@
     <%-----------------------------------------------------%>
     <%------------------- PARTIE SELECT -------------------%>
     <%-----------------------------------------------------%>
+    Le select permet de sélectionner plusieurs champs à la fois ! Utilisez la touche Ctrl pour en choisir plusieurs.<br/>
+    <br/>
     SELECT
     <%
         if (columns != null) {
@@ -64,7 +66,7 @@
             for (TableColumn column : columns) {
                 boolean selected = (selectedFields != null && selectedFields.contains(column));
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>
+        <option<% if (selected) { %> selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(column.getName()) %>
         </option>
         <%
             }
@@ -93,7 +95,7 @@
             for (Table table : tables.values()) {
                 boolean selected = (selectedTable == table);
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= table.getName()%>
+        <option<% if (selected) { %> selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(table.getName())%>
         </option>
         <%
             }
@@ -121,7 +123,7 @@
             for (TableColumn column : columns) {
                 boolean selected = (column == whereField);
         %>
-        <option<% if (selected) { %> selected="selected"<%}%>><%= column.getName() %>
+        <option<% if (selected) { %> selected="selected"<%}%>><%= StringEscapeUtils.escapeHtml(column.getName()) %>
         </option>
         <%
             }

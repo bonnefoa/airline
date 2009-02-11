@@ -31,6 +31,7 @@
 <%@ page import="airline.servlet.enumeration.Action" %>
 <%@ page import="java.sql.Types" %>
 <%@ page import="airline.util.SQLConversion" %>
+<%@ page import="java.net.URLEncoder" %>
 <%--
     Affiche le contenu d'une table.
     @param columns : les colonnes de la table à afficher.
@@ -55,7 +56,7 @@
 
     StringBuilder formAction = new StringBuilder(request.getContextPath());
     formAction.append("/table/");
-    formAction.append(table.getName());
+    formAction.append(URLEncoder.encode(table.getName(), "UTF-8"));
     if (action == Action.ADD) {
         formAction.append("/row/add");
     } else if (action == Action.EDIT) {
@@ -73,7 +74,7 @@
             <%
                 for (TableColumn column : columns) {
             %>
-            <th><%= column.getName() %>
+            <th><%= StringEscapeUtils.escapeHtml(column.getName()) %>
             </th>
             <%
                 }
@@ -92,9 +93,9 @@
             <td>
                 <%
                     String type = SQLConversion.sqlTypeToString(column.getDataType());
-                    String val = row.get(column);
+                    String val = StringEscapeUtils.escapeHtml(row.get(column));
                 %>
-                <input name="<%=column.getName()%>" class="<%=type%>" value="<%=(val == null) ? "" : val%>"/>
+                <input name="<%=StringEscapeUtils.escapeHtml(column.getName())%>" class="<%=type%>" value="<%=(val == null) ? "" : val%>"/>
             </td>
             <%
                 }

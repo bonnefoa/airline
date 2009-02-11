@@ -17,15 +17,17 @@
 --%>
 
 <%@ page import="airline.model.Table" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    request.setAttribute("title", "Suppression de la table " + table.getName());
+    request.setAttribute("title", "Suppression de la table " + StringEscapeUtils.escapeHtml(table.getName()));
 %>
 <jsp:include page="/header.jsp"/>
 
-<form action="<%= request.getContextPath() %>/table/<%=table.getName()%>/delete" method="post">
+<form action="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>/delete" method="post">
     <div>
         Voulez-vous vraiment supprimer cette table ?<br/>
         <input type="submit" value="supprimer"/>&nbsp;

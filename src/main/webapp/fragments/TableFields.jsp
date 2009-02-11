@@ -28,6 +28,8 @@
 <%@ page import="airline.util.SQLConversion" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%--
     Affiche ou modifie les colonnes d'une table.
     @param columns : les colonnes de la table.
@@ -61,23 +63,23 @@
 <%
     if (action != Action.SHOW) {
 
-        StringBuilder formAction = new StringBuilder((String) request.getContextPath());
+        StringBuilder formAction = new StringBuilder(request.getContextPath());
         formAction.append("/table");
         if (action == Action.ADD && context == Context.TABLE) { // /table/add
             formAction.append("/add");
         } else if (action == Action.ADD && context == Context.FIELD) { // EDIT : /table/tablename/field/add
             formAction.append('/');
-            formAction.append(table.getName());
+            formAction.append(URLEncoder.encode(table.getName(), "UTF-8"));
             formAction.append("/field/add");
         } else if (action == Action.EDIT && context == Context.FIELD) { // EDIT : /table/tablename/field/fieldname/edit
             formAction.append('/');
-            formAction.append(table.getName());
+            formAction.append(URLEncoder.encode(table.getName(), "UTF-8"));
             formAction.append("/field/");
-            formAction.append(editableField.getName());
+            formAction.append(URLEncoder.encode(editableField.getName(), "UTF-8"));
             formAction.append("/edit");
         } else if (action == Action.EDIT && context == Context.TABLE) { // EDIT : /table/tablename/edit
             formAction.append('/');
-            formAction.append(table.getName());
+            formAction.append(URLEncoder.encode(table.getName(), "UTF-8"));
             formAction.append("/edit");
         }
 %>
@@ -95,7 +97,7 @@
     <%
     } else {
     %>
-    <%=(table != null && table.getName() != null) ? table.getName() : ""%>
+    <%=(table != null && table.getName() != null) ? StringEscapeUtils.escapeHtml(table.getName()) : ""%>
     <%
         }
     %>
@@ -128,7 +130,7 @@
                 <% if (editable) { %>
                 <input name="name" value="<%= (column.getName() == null) ? "" : column.getName() %>"/>
                 <% } else { %>
-                <%= (column.getName() == null) ? "" : column.getName() %>
+                <%= (column.getName() == null) ? "" : StringEscapeUtils.escapeHtml(column.getName()) %>
                 <% } %>
             </td>
             <td>
@@ -142,7 +144,7 @@
                         for(Map.Entry<Integer, String> entry : SQLConversion.getTypeList().entrySet()) {
                             %>
                     <option value="<%=entry.getKey()%>" <%if(entry.getKey().equals(type)){%>selected="selected"<%}%>>
-                        <%=entry.getValue()%>
+                        <%=StringEscapeUtils.escapeHtml(entry.getValue())%>
                     </option>
                     <%
                         }
