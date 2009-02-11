@@ -1,52 +1,52 @@
-\subsection{Base de donnee}
-Une base de donnee hsql a ete utilisee pour ce TP pour plusieurs raisons. D'une part pour sa facilite d'utilisation en cours de developpement et d'autre part, pour le deploiement rapide de l'application. La connexion se fait par l'interface Connector.
+\subsection{Base de données}
+Une base de données hsql a été utilisée pour ce TP pour plusieurs raisons. D'une part pour sa facilité d'utilisation en cours de développement et d'autre part, pour le déploiement rapide de l'application. La connexion se fait par l'interface Connector.
 
-Une application de conversion a ete realisee pour recuperee les donnees du fichier xls.
+Une application de conversion a été réalisée pour récupérer les données du fichier xls.
 \subsection{Application de conversion, le XlsParser}
-Ce parseur se charge de lire le fichier xls et de remplir la base hsql. Ce parseur prend 2 parametres, un fichier sql et le fichier xls.
+Ce parseur se charge de lire le fichier xls et de remplir la base hsql. Ce parseur prend 2 paramètres, un fichier sql et le fichier xls.
 \subsubsection{Le script sql}
-Le script sql va etre execute avant l'analyse et le parse du fichier xls. Ce script se charge d'initialiser la table correspondante au xls. Les tables crees doivent correspondre aux noms des feuilles. Les champs de ces colonnes doivent correspondre aux entetes des colonnes.
+Le script sql va être exécuté avant l'analyse et le parse du fichier xls. Ce script se charge d'initialiser la table correspondante au xls. Les tables créées doivent correspondre aux noms des feuilles. Les champs de ces colonnes doivent correspondre aux entêtes des colonnes.
 \subsubsection{Le fichier xls}
-Une fois la base initialisee avec le script sql, le fichier xls sera parse. A chaque ligne, les cellules sont parsees et une requetes d'insertion en base est ecrites et executees.
+Une fois la base initialisée avec le script sql, le fichier xls sera parsé. A chaque ligne, les cellules sont parsées et une requête d'insertion en base est écrite et exécutée.
 
-Au final, une base donnee hsql est cree avec toute les donnees du xls ajoutees dedans. Cette base de donnee est cree dans le repertoire db et peut etre utilisee comme base de donnee pour l'application.
-\subsubsection{Inconvenients}
-Il y a actuellement plusieurs inconvenients a cette methode. La premiere est l'absence de cle etrangere. Les insertions se faisant dans un ordre quelconque, il n'est pas evident d'avoir les tuples etrangers au moment de l'insertion. Cela pourrait se resoudre en ignorant les cles etrangeres le temps du parse du fichier xls.
+Au final, une base données hsql est créée avec toute les données du xls ajoutées dedans. Cette base de données est créée dans le répertoire db et peut être utilisée comme base de données pour l'application.
+\subsubsection{Inconvénients}
+Il y a actuellement plusieurs inconvénients à cette méthode. La première est l'absence de clé étrangère. Les insertions se faisant dans un ordre quelconque, il n'est pas évident d'avoir les tuples étrangers au moment de l'insertion. Cela pourrait se résoudre en ignorant les clés étrangères le temps du parse du fichier xls.
 
-Le deuxieme inconvenient est le fait de devoir dropper les tables concernees avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
-\subsection{Representation des tables}
-Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. Trois modeles sont utilises pour representees la base de donnees :
+Le deuxième inconvénient est le fait de devoir supprimer les tables concernées avant d'effectuer les insertions, les problèmes de clés primaires étant délicat a résoudre. De plus, c'est la manière la plus simple pour être sûr d'être synchronisé par rapport au xls.
+\subsection{Représentation des tables}
+Le serveur inspecte la base de données et récupère des informations sur les tables présentes. Trois modèles sont utilisés pour représenter la base de données :
 \subsubsection{Table}
-Represente une table et contient le nom, le schema et le type de la table.
+Représente une table et contient le nom, le schéma et le type de la table.
 \subsubsection{TableColumn}
-Represente une colomne d'une table. Elle contient le nom, la table, le type de valeur et si la colomne est une cle primaire.
+Représente une colonne d'une table. Elle contient le nom, la table, le type de valeur et si la colonne est une clé primaire.
 \subsubsection{TableRow}
-Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String pour une ligne.
+Représente une ligne d'une table. Pour plus de facilité, les valeurs des champs sont considérées comme étant des String. Ce modèle lie donc à chaque colonne de la table un String pour une ligne.
 \subsection{Interaction avec les tables}
-L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations et d'executer des requetes. 
+L'interface AirlineDAO est un Data Access Object (DAO) permettant de récupérer toutes ces informations et d'exécuter des requêtes. 
 \subsubsection{Consultation des tables}
-On a ainsi les methodes \texttt{Map<String, Table> getTables()}, \texttt{List<TableColumn> getTablesColumns(Table table)} et \texttt{List<TableRow> getTablesRows(Table table)}. Ces trois methodes suffisent pour consulter la table.
-\subsubsection{Execution des requetes}
-Les requetes sont executee par deux methodes \texttt{Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException} et \texttt{void executeRequest(IRequest request) throws SQLException}. La premiere methode execute une requete select et retourne le resultat tandis que la deuxieme se contente d'executer la requete. Une exception est renvoyee en cas d'erreur.
+On a ainsi les méthodes \texttt{Map<String, Table> getTables()}, \texttt{List<TableColumn> getTablesColumns(Table table)} et \texttt{List<TableRow> getTablesRows(Table table)}. Ces trois méthodes suffisent pour consulter la table.
+\subsubsection{Exécution des requêtes}
+Les requêtes sont exécutées par deux méthodes \texttt{Set<TableRow> executeRequest(SelectRequest selectRequest) throws SQLException} et \texttt{void executeRequest(IRequest request) throws SQLException}. La première méthode exécute une requête select et retourne le résultat tandis que la deuxième se contente d'exécuter la requête. Une exception est renvoyée en cas d'erreur.
 
-Les requetes sont crees a partir de modeles Request. Nous allons voir comment sont elaborees ces Request.
-\subsection{La creation des requetes sql}
-La majeur partie du travail cote serveur est de traiter les requetes sql. Il etait interessant de developper une API permettant de generer des requetes dynamiquement et presentant une couche d'abstraction au langage sql.
+Les requêtes sont crées à partir de modèles Request. Nous allons voir comment sont élaborées ces Request.
+\subsection{La création des requêtes sql}
+La majeur partie du travail sur l'accès et la manipulation des données est de traiter les requêtes sql. Il était intéressant de développer une API permettant de générer des requêtes dynamiquement et présentant une couche d'abstraction au langage sql.
 
-Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API presente deux composant principaux, les Requests et les Restrictions.
+Pour cela, nous nous sommes inspirées de l'API Criteria de Hibernate. Une API similaire sera introduite dans la prochaine version de JPA. Cette API présente deux composant principaux, les Requests et les Restrictions.
 \subsubsection{Les Requests}
-Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Il suffit donc d'executer le resultat de cette methode par le SGBD.
+Les Request représentent les requêtes a exécuter. Elles implémentent l'interface Request qui possède la méthode buildQuery(). Il suffit donc d'exécuter le résultat de cette méthode par le SGBD.
 
-Le resultat de buildQuery est construit a partir du type de la Request et de ses informations. Par exemple, \texttt{DropTableRequest} contient simplement la table a supprimer. Elle creera donc une requete de type \texttt{DROP TABLE table}. Les autres requetes traitent des cas plus complexes comme le choix des colomnes ou la modification des champs. 
-Les clauses \texttt{WHERE} des requetes sont gere par des Restrictions.
+Le résultat de buildQuery est construit à partir du type de la Request et de ses informations. Par exemple, \texttt{DropTableRequest} contient simplement la table à supprimer. Elle créera donc une requête de type \texttt{DROP TABLE table}. Les autres requêtes traitent des cas plus complexes comme le choix des colonnes ou la modification des champs. 
+Les clauses \texttt{WHERE} des requêtes sont gérés par des Restrictions.
 \subsubsection{Les Restrictions}
-Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}. On peut ainsi ecrire differentes contraintes:
+Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}. On peut ainsi écrire différentes contraintes:
 \begin{itemize}
- \item Les contraintes simples. Il s'agit soit de la simple comparaison entre une colomne et une valeur ou entre deux colomnes pour les jointures.
- \item Les contraintes conditionnelles. Une Restriction peut lie deux Restrictions avec les conditions OR ou AND.
+ \item Les contraintes simples. Il s'agit soit de la simple comparaison entre une colonne et une valeur ou entre deux colonnes pour les jointures.
+ \item Les contraintes conditionnelles. Une Restriction peut lier deux autre Restrictions avec les conditions OR ou AND.
 \end{itemize}
-On obtient au final une Restriction qui regroupe une arborescence de Restriction. Il suffit d'ajouter restriction.toString() a la fin de la request pour rajouter les clauses WHERE. 
+On obtient au final une Restriction qui regroupe une arborescence de Restriction. Il suffit d'ajouter restriction.toString() à la fin de la request pour rajouter les clauses WHERE. 
 
-Ce systeme de restriction est utilise pour les requetes de selection, de suppression et de mise a jour.
+Ce système de restriction est utilisé pour les requêtes de sélection, de suppression et de mise à jour.
 \subsection{L'enregistrement des transactions}
-Les transactions sont enregistrees dans la table Transaction. Elles sont enregistrees grace au AirlineManager. Les Jsp et servlet utilisent le manager pour communiquer avec le serveur et ce manager appelle le DAO pour repondre aux requetes. C'est au moment de l'execution de requetes que la transaction est enregistree par le manager.
+Les transactions sont enregistrées dans la table Transaction. Elles sont enregistrées grâce au AirlineManager. Les Jsp et servlet utilisent le manager pour communiquer avec le serveur et ce manager appelle le DAO pour répondre aux requêtes. C'est au moment de l'exécution de requêtes que la transaction est enregistrée par le manager.

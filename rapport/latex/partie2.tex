@@ -1,6 +1,6 @@
 \subsection{architecture}
 
-Notre projet a ete architecture en respectant l'architecture standard java :
+Notre projet a été architecture en respectant l'architecture standard java :
 \begin{verbatim}
 src
  |--test  // tests unitaires
@@ -10,20 +10,20 @@ src
 \end{verbatim}
 
 \subsubsection{servlet et jsp}
-Toute la partie traitement des requetes web et envoi de la reponse au navigateur utilise une servlet comme controleur et des fichiers jsp comme vue. Le fichier web.xml permet de specifier quel servlet est appele pour quelle url. Ce fichier defini egalement les filtres a appliquer, les eventuels listeners, les fichiers a afficher par defaut, ou encore les pages d'erreur a afficher.
+Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quel servlet est appelé pour quelle url. Ce fichier défini également les filtres a appliquer, les éventuels listeners, les fichiers a afficher par défaut, ou encore les pages d'erreur a afficher.
 
-Afin de centraliser les elements recurrents des pages (entete du html, menu de la page), des fichiers header.jsp et footer.jsp ont ete utilises.
+Afin de centraliser les éléments récurrents des pages (entête du html, menu de la page), des fichiers header.jsp et footer.jsp ont été utilises.
 
-Voici le deroulement d'une requete : 
+Voici le déroulement d'une requête : 
 \begin{enumerate}
-	\item le navigateur envoie une requete
-	\item les filtres verifient la validite de la demande
-	\item la servlet (controleur) interprete la requete et la traduit en appels au DAO (modele)
-	\item la servlet envoie les resultats a une page jsp (vue) qui les affiche
+	\item le navigateur envoie une requête
+	\item les filtres vérifient la validité de la demande
+	\item la servlet (contrôleur) interprète la requête et la traduit en appels au DAO (modèle)
+	\item la servlet envoie les résultats a une page jsp (vue) qui les affiche
 \end{enumerate}
 
 \subsubsection{filtre AdminFilter}
-Pour verifier si un utilisateur est identifie par le site pour lui donner un acces a la partie admin, un filtre est utilise. Ce filtre est actif sur toute la partie /admin et redirige l'utilisateur vers la page de login s'il est inconnu.
+Pour vérifier si un utilisateur est identifie par le site pour lui donner un accès a la partie admin, un filtre est utilise. Ce filtre est actif sur toute la partie /admin et redirige l'utilisateur vers la page de login s'il est inconnu.
 
 Le mot de passe est stocke dans un fichier de proprietes. Par defaut, le login est admin et le mot de passe est adminadmin.
 
