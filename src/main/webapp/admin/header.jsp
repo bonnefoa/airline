@@ -32,7 +32,11 @@
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
           href="<%= request.getContextPath() %>/css/admin.css"/>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
-          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.all.css"/>
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.core.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.datepicker.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.theme.css"/>
 </head>
 <body>
 

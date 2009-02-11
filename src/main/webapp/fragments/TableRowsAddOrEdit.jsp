@@ -30,6 +30,7 @@
 <%@ page import="airline.servlet.enumeration.Context" %>
 <%@ page import="airline.servlet.enumeration.Action" %>
 <%@ page import="java.sql.Types" %>
+<%@ page import="airline.util.SQLConversion" %>
 <%--
     Affiche le contenu d'une table.
     @param columns : les colonnes de la table à afficher.
@@ -53,12 +54,12 @@
     }
 
     StringBuilder formAction = new StringBuilder(request.getContextPath());
-    formAction.append("/admin/table");
+    formAction.append("/admin/table/");
     formAction.append(table.getName());
     if (action == Action.ADD) {
-        formAction.append("/field/add");
+        formAction.append("/row/add");
     } else if (action == Action.EDIT) {
-        formAction.append("/field/");
+        formAction.append("/row/");
         formAction.append(rowNb);
         formAction.append("/edit");
     }
@@ -76,10 +77,11 @@
             </th>
             <%
                 }
-
+            %>
+            <%--
                 if (action == Action.ADD) {%>
             <th>supprimer une ligne</th>
-            <% } %>
+            <% } --%>
         </tr>
         </thead>
         <tbody>
@@ -89,22 +91,15 @@
             %>
             <td>
                 <%
-                    String type = "VARCHAR";
+                    String type = SQLConversion.sqlTypeToString(column.getDataType());
                     String val = row.get(column);
-                    switch (column.getDataType()) {
-                        case Types.INTEGER:
-                            type = "INTEGER";
-                            break;
-                        case Types.DATE:
-                            type = "DATE";
-                            break;
-                    }
                 %>
-                <input class="<%=type%>" value="<%=(val == null) ? "" : val%>"/>
+                <input name="<%=column.getName()%>" class="<%=type%>" value="<%=(val == null) ? "" : val%>"/>
             </td>
             <%
                 }
-
+            %>
+            <%--
                 if (action == Action.ADD) {%>
             <td>
                 <img class="deleteImg" src="<%= request.getContextPath() %>/img/delete.png"
@@ -112,12 +107,13 @@
             </td>
             <%
                 }
-            %>
+            --%>
         </tr>
         </tbody>
     </table>
-    <% if (action == Action.ADD) {%>
+    <%-- if (action == Action.ADD) {%>
     <a href="#" id="addRow" class="button">Ajouter une ligne</a>
-    <% } %>
+    <% } --%>
+    <input type="submit"/>
 </div>
 </form>

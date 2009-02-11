@@ -49,6 +49,12 @@
         case ROW_DELETED:
             title = "ligne supprimée.";
             break;
+        case ROW_ADDED:
+            title = "Ligne ajoutée.";
+            break;
+        case ROW_EDITED:
+            title = "Ligne modifiée.";
+            break;
     }
     request.setAttribute("title", title);
     if (session.getAttribute("user") != null) {

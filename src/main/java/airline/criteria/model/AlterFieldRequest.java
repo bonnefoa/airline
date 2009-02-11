@@ -18,6 +18,7 @@ package airline.criteria.model;
 
 import airline.model.Table;
 import airline.model.TableColumn;
+import airline.util.SQLConversion;
 
 import java.util.Map;
 
@@ -75,7 +76,7 @@ public class AlterFieldRequest implements IRequest {
                 res.append(" ALTER COLUMN ");
                 res.append(newColumns.getName());
                 res.append(' ');
-                res.append(newColumns.getSqlStringDataType());
+                res.append(SQLConversion.sqlTypeToString(newColumns.getDataType()));
                 res.append(';');
             }
         }

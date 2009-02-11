@@ -18,6 +18,7 @@ package airline.criteria.model;
 
 import airline.model.Table;
 import airline.model.TableColumn;
+import airline.util.SQLConversion;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class CreateFieldRequest implements IRequest {
             res.append(" ADD ");
             res.append(tablesColumnse.getName());
             res.append(' ');
-            res.append(tablesColumnse.getSqlStringDataType());
+            res.append(SQLConversion.sqlTypeToString(tablesColumnse.getDataType()));
             res.append(';');
         }
         return res.toString();

@@ -24,5 +24,5 @@ package airline.servlet.enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public enum MessageAction {
-    TABLE_DELETED, FIELD_DELETED, FIELD_EDITED, FIELD_ADDED, ROW_DELETED, TABLE_CREATED
+    TABLE_DELETED, FIELD_DELETED, FIELD_EDITED, FIELD_ADDED, ROW_DELETED, ROW_ADDED, ROW_EDITED, TABLE_CREATED
 }

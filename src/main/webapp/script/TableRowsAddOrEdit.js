@@ -26,7 +26,8 @@ $(function() {
     });
 
     // datepicker
-    $(":input.DATE").datepicker();
+    $(":input.TIMESTAMP").datepicker({ dateFormat: 'yy-mm-dd' });
+    $(":input.DATE").datepicker({ dateFormat: 'yy-mm-dd' });
 
     // supression de ligne
     $("form").click(function(e) {
@@ -35,6 +36,20 @@ $(function() {
                 $(e.target).parents("tr").remove();
             }
         }
+    });
+
+    // verification
+    $("form").submit(function(e) {
+        var ok = true;
+        $(":input.INTEGER").each(function(){
+            ok = ok && parseInt(this.value) != NaN;
+        });
+
+        if(!ok) {
+            alert("les champs entiers ne doivent contenir que des entiers !");
+        }
+
+        return ok;
     });
 
 });

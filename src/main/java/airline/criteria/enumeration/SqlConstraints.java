@@ -23,7 +23,7 @@ public enum SqlConstraints {
     GT(">"), GE(">="),
     LT("<"), LE("<="),
     EQ("="), NEQ("!="),
-    LIKE("like"), ILIKE("ilike");
+    LIKE("like"), ILIKE("ilike"), IS("is");
 
     private String sqlValue;
 

@@ -115,22 +115,4 @@ public class TableColumn {
     public String toString() {
         return table.getName() + "." + name;
     }
-
-    /**
-     * Return the sql type to write in request
-     *
-     * @return Sql type for sql request
-     */
-    public String getSqlStringDataType() {
-        switch (dataType) {
-            case Types.INTEGER:
-                return "Integer";
-            case Types.DATE:
-                return "Date";
-            case Types.TIMESTAMP:
-                return "Timestamp";                
-            default:
-                return "Varchar";
-        }
-    }
 }
