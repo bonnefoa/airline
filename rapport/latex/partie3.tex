@@ -1,15 +1,31 @@
-\subsection{Typage des Objets recuperes}
+\subsection{Les problemes}
+\subsubsection{Typage des Objets recuperes}
 Il est tres difficile de gerer la genericite en partant des resultats de la requete select. Il a fallut gerer les valeurs en tant qu'objet ce qui n'est pas forcement judicieux. Mais le fait de traiter les tables de manieres dynamiques oblige a proceder de cette sorte. Il aurait ete plus facile de traiter ce cas avec un langage dynamique. Dans ce cas la, il aurait ete envisageable de creer a la volee les classes correspondantes aux tables.
-\subsection{Construction des requetes}
+\subsubsection{Construction des requetes}
 Le langage SQL n'est pas repute pour sa simplicite d'utilisation. Les SGBD sont relationnels et le java est un langage objet, il y a donc toujours un certain nombre de difficultes pour la translation entre le SQL et le Java. La creation des query a demande un travail consequent et les possibilites offertes par le programme sont limitees.
-\subsection{Le traitement des mdb et xls}
+\subsubsection{Le traitement des mdb et xls}
 La transcription du fichier mdb en script SQL n'est pas aisee. En effet, il n'est pas possible d'exporter la base et le format mdb n'est pas facilement exploitable. De plus, les champs de la base mdb et les entetes du xls ne correspondent pas. Au final, la table cree correspond a une vue du xls.
 
-\subsection{Servlets}
+\subsubsection{Servlets}
 Un probleme rencontre lors du developpement avec des servlets/jsp a ete les notions flous que nous avions concernant ces technologies. En particulier, on peut citer l'utilisation du ServletContext, l'utilisation d'un servlet comme controleur et d'un jsp comme vue, et surtout la facon de transmettre des donnees a la vue.
 
-\subsection{passage de parametres ``typesafe''}
+\subsubsection{passage de parametres ``typesafe''}
 Lorsque l'on passe des parametres d'une servlet a une jsp, on passe soit par la session soit par la requete. Or dans les deux cas, on recupere un objet de type Object a partir d'une chaine de caracteres. Ces deux point posent probleme : si le developpeur fait une faute de frappe ou si un autre developpeur utilise le meme nom comme clef, retrouver la source du bug peut devenir cauchemardesque a trouver. Le transtypage obligatoire peut egalement poser probleme : on suppose connaitre a l'avance le type d'objet recupere. Si ce n'est pas le cas, l'application recupera une exception, et aucun objet exploitable.
 
-\subsection{composants jsp}
+\subsubsection{composants jsp}
 Le dernier point problematique est l'absence de composants pres a l'emploi, comme des formulaires, etc.
+\subsubsection{Problemes avec les caracteres speciaux}
+Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \.
+\subsection{Les limitations}
+\subsubsection{Requetes sql limitees}
+Les requetes sql realisables sont limitees par l'implementation et l'interface que nous avons realisees. Il n'est pas possible de faire des jointures entre les tables par exemple.
+\subsubsection{La securite}
+La securitee de l'application laisse a desirer. Il n'y a aucune protection sur les requetes sql et n'importe quel utilisateur peut faire une attaque par injection sql. 
+Par exemple, il peut taper dans la clause WHERE.
+\begin{verbatim}
+ ';DROP TABLE APPAREL;
+\end{verbatim}
+Cela aura pour effet d'executer le DROP.
+%Code html in page, js?
+
+
