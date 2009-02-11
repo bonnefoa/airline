@@ -1,0 +1,14 @@
+\subsection{Utilisation}
+Le lancement de l'application peut se faire en 2 temps.
+\subsubsection{Recuperation des donnees du xls}
+La premiere etape facultative consiste a extraire les informations du xls. Pour cela, il faut lancer le jar xlsParser.jar avec script.sql et AirLineData.xls en parametre. 
+\begin{verbatim}
+ java -jar xlsParser.jar script.sql AirLineData.xls
+\end{verbatim}
+Un repertoire db sera cree contenant le resultat.
+\subsubsection{Lancement du serveur avec l'application}
+L'application peut etre lance simplement en executant le jar glassfish-web.jar avec le war de l'application en parametre. 
+\begin{verbatim}
+ java -jar glassfish-web.jar airline.war
+\end{verbatim}
+Si le repertoire db est present, la base presente sera utilisee. Sinon, il creera sa propre base.

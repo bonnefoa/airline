@@ -1,17 +1,19 @@
 \subsection{Base de donnee}
-Une base de donnee hsql a ete utilisee pour ce TP. D'une part pour sa facilite d'utilisation en cours de developpement et d'autre part, pour le deploiement rapide de l'application. La connexion se fait par l'interface Connector.
+Une base de donnee hsql a ete utilisee pour ce TP pour plusieurs raisons. D'une part pour sa facilite d'utilisation en cours de developpement et d'autre part, pour le deploiement rapide de l'application. La connexion se fait par l'interface Connector.
 
 Une application de conversion a ete realisee pour recuperee les donnees du fichier xls.
-\subsection{XlsParser}
+\subsection{Application de conversion, le XlsParser}
 Ce parseur se charge de lire le fichier xls et de remplir la base hsql. Ce parseur prend 2 parametres, un fichier sql et le fichier xls.
 \subsubsection{Le script sql}
 Le script sql va etre execute avant l'analyse et le parse du fichier xls. Ce script se charge d'initialiser la table correspondante au xls. Les tables crees doivent correspondre aux noms des feuilles. Les champs de ces colonnes doivent correspondre aux entetes des colonnes.
 \subsubsection{Le fichier xls}
 Une fois la base initialisee avec le script sql, le fichier xls sera parse. A chaque ligne, les cellules sont parsees et une requetes d'insertion en base est ecrites et executees.
+
+Au final, une base donnee hsql est cree avec toute les donnees du xls ajoutees dedans. Cette base de donnee est cree dans le repertoire db et peut etre utilisee comme base de donnee pour l'application.
 \subsubsection{Inconvenients}
 Il y a actuellement plusieurs inconvenients a cette methode. La premiere est l'absence de cle etrangere. Les insertions se faisant dans un ordre quelconque, il n'est pas evident d'avoir les tuples etrangers au moment de l'insertion. Cela pourrait se resoudre en ignorant les cles etrangeres le temps du parse du fichier xls.
 
-Le deuxieme inconvenient est le fait de devoir dropper la table avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
+Le deuxieme inconvenient est le fait de devoir dropper les tables concernees avant d'effectuer les insertions. Les problemes de cles primaires etant delicat a resoudre. De plus, c'est la maniere la plus simple pour etre sur d'etre synchronisee par rapport au xls.
 \subsection{Representation des tables}
 Le serveur inspecte la base de donnees et recupere des informations sur les tables presentes. Trois modeles sont utilises pour representees la base de donnees :
 \subsubsection{Table}
@@ -21,7 +23,7 @@ Represente une colomne d'une table. Elle contient le nom, la table, le type de v
 \subsubsection{TableRow}
 Represente une ligne d'une table. Pour plus de facilite, les valeurs des champs sont considerees comme etant des String. Ce modele lie donc a chaque TableColumn de la table un String.
 \subsection{Interaction avec les tables}
-L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations et executer des requetes. 
+L'interface AirlineDAO est un Data Access Object (DAO) permettant de recuperer toutes ces informations et d'executer des requetes. 
 \subsubsection{Consultation des tables}
 On a ainsi les methodes \texttt{Map<String, Table> getTables()}, \texttt{List<TableColumn> getTablesColumns(Table table)} et \texttt{List<TableRow> getTablesRows(Table table)}. Ces trois methodes suffisent pour consulter la table.
 \subsubsection{Execution des requetes}
@@ -35,7 +37,7 @@ Pour cela, nous nous sommes inspirees de l'API Criteria de Hibernate. Une API si
 \subsubsection{Les Requests}
 Les Request representent les requetes a executer. Elles implementent l'interface Request qui possede la methode buildQuery(). Il suffit donc d'executer le resultat de cette methode par le SGBD.
 
-Le resultat de buildQuery est construit a partir du type de la Request et des informations de la Request. Par exemple, \texttt{DropTableRequest} contient simplement la Table a supprimer. Elle creera donc une requete de type \texttt{DROP TABLE table}. Les autres requetes traitent des cas plus complexes comme le choix des colomnes ou la modification des champs. 
+Le resultat de buildQuery est construit a partir du type de la Request et de ses informations. Par exemple, \texttt{DropTableRequest} contient simplement la table a supprimer. Elle creera donc une requete de type \texttt{DROP TABLE table}. Les autres requetes traitent des cas plus complexes comme le choix des colomnes ou la modification des champs. 
 Les clauses \texttt{WHERE} des requetes sont gere par des Restrictions.
 \subsubsection{Les Restrictions}
 Les Restrictions sont des contraintes qui symbolisent les clauses \texttt{WHERE}. On peut ainsi ecrire differentes contraintes:
