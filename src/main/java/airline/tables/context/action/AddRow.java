@@ -17,15 +17,20 @@
 package airline.tables.context.action;
 
 import airline.servlet.enumeration.Action;
+import airline.servlet.enumeration.MessageAction;
+import airline.servlet.enumeration.MessageError;
 import airline.tables.context.RowContextHandler;
 import airline.model.Table;
 import airline.model.TableColumn;
+import airline.criteria.model.InsertRequest;
+import airline.criteria.model.CreateFieldRequest;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.sql.SQLException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,6 +52,21 @@ public class AddRow extends RowContextHandler {
     }
 
     public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Table table = (Table) request.getAttribute("url.table");
+        List<TableColumn> columns = airlineDAO.getTableColumns(table);
+        InsertRequest req = new InsertRequest();
+        for(TableColumn column : columns) {
+            req.addNewEntry(column, request.getParameter(column.getName()));
+        }
+        
+        try {
+            airlineDAO.executeRequest(req);
+            request.setAttribute("action.done", MessageAction.ROW_ADDED);
+            return servletContext.getRequestDispatcher("/message.jsp");
+        } catch (SQLException e) {
+            request.setAttribute("error.type", MessageError.SQL_ERROR);
+            request.setAttribute("error.exception", e);
+            return servletContext.getRequestDispatcher("/error.jsp");
+        }
     }
 }

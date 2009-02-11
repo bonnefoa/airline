@@ -30,6 +30,7 @@
 <%@ page import="airline.servlet.enumeration.Context" %>
 <%@ page import="airline.servlet.enumeration.Action" %>
 <%@ page import="java.sql.Types" %>
+<%@ page import="airline.util.SQLConversion" %>
 <%--
     Affiche le contenu d'une table.
     @param columns : les colonnes de la table à afficher.
@@ -43,69 +44,76 @@
     Action action = (Action) request.getAttribute("url.action");
     Table table = (Table) request.getAttribute("url.table");
     TableRow row = (TableRow) request.getAttribute("url.row");
-    int rowNb = (Integer) request.getAttribute("url.rowNb");
+    Integer rowNb = (Integer) request.getAttribute("url.rowNb");
+
+    if (rowNb == null) {
+        rowNb = 0;
+    }
     if (row == null) {
         row = new TableRow();
     }
 
-
-    StringBuilder formAction = new StringBuilder((String) request.getContextPath());
-    formAction.append("/admin/table");
+    StringBuilder formAction = new StringBuilder(request.getContextPath());
+    formAction.append("/admin/table/");
     formAction.append(table.getName());
     if (action == Action.ADD) {
-        formAction.append("/field/add");
+        formAction.append("/row/add");
     } else if (action == Action.EDIT) {
-        formAction.append('/');
-        formAction.append(table.getName());
-        formAction.append("/field/");
+        formAction.append("/row/");
         formAction.append(rowNb);
         formAction.append("/edit");
     }
 %>
 <script type="text/javascript" src="<%= request.getContextPath() %>/script/TableRowsAddOrEdit.js"></script>
 <form action="<%= formAction.toString() %>" method="post">
-    <div>
-        <table>
-            <thead>
-            <tr>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <%
+                for (TableColumn column : columns) {
+            %>
+            <th><%= column.getName() %>
+            </th>
+            <%
+                }
+            %>
+            <%--
+                if (action == Action.ADD) {%>
+            <th>supprimer une ligne</th>
+            <% } --%>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <%
+                for (TableColumn column : columns) {
+            %>
+            <td>
                 <%
-                    for (TableColumn column : columns) {
+                    String type = SQLConversion.sqlTypeToString(column.getDataType());
+                    String val = row.get(column);
                 %>
-                <th><%= column.getName() %>
-                </th>
-                <%
-                    }
-                %>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <%
-                    for (TableColumn column : columns) {
-                %>
-                <td>
-                    <%
-                        switch (column.getDataType()) {
-                            case Types.INTEGER:
-                    %><input class="INTEGER" value="<%=row.get(column)%>"/><%
-                        break;
-                    case Types.DATE:
-                %><input class="DATE" value="<%=row.get(column)%>"/><%
-                        break;
-                    default:
-                %><input class="VARCHAR" value="<%=row.get(column)%>"/><%
-                            break;
-                    }
-                %>
-                </td>
-                <%
-                    }
-                %>
-            </tr>
-            </tbody>
-        </table>
-        <% if (action == Action.ADD) {%>
-        <input type="submit" id="addRow" value="Ajouter une ligne"/>
-        <% } %>
-    </div>
+                <input name="<%=column.getName()%>" class="<%=type%>" value="<%=(val == null) ? "" : val%>"/>
+            </td>
+            <%
+                }
+            %>
+            <%--
+                if (action == Action.ADD) {%>
+            <td>
+                <img class="deleteImg" src="<%= request.getContextPath() %>/img/delete.png"
+                     alt="supprimer la ligne" title="supprimer la ligne"/>
+            </td>
+            <%
+                }
+            --%>
+        </tr>
+        </tbody>
+    </table>
+    <%-- if (action == Action.ADD) {%>
+    <a href="#" id="addRow" class="button">Ajouter une ligne</a>
+    <% } --%>
+    <input type="submit"/>
+</div>
 </form>

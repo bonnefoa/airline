@@ -42,15 +42,15 @@ public class InsertRequest implements IRequest {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Insert INTO ");
         stringBuilder.append(keys.iterator().next().getTable().getName());
-        stringBuilder.append("(");
+        stringBuilder.append('(');
         for (TableColumn columns : keys) {
             stringBuilder.append(columns.getName());
             stringBuilder.append(",");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        stringBuilder.append(")");
+        stringBuilder.append(')');
         stringBuilder.append(" VALUES");
-        stringBuilder.append("(");
+        stringBuilder.append('(');
         for (String s : columnsStringMap.values()) {
             stringBuilder.append('\'');
             stringBuilder.append(s);
@@ -58,6 +58,7 @@ public class InsertRequest implements IRequest {
             stringBuilder.append(',');
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.append(')');
         return stringBuilder.toString();
     }
 }

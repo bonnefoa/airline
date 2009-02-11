@@ -14,3 +14,42 @@
  * limitations under the License.
  */
 
+$(function() {
+    // duplique une ligne
+    $("#addRow").click(function() {
+        var line = $("table tbody tr:last").clone();
+        line.find(":input").val("");
+        $("table tbody").append(line);
+        line.find(":input:first").focus();
+
+        return false;
+    });
+
+    // datepicker
+    $(":input.TIMESTAMP").datepicker({ dateFormat: 'yy-mm-dd' });
+    $(":input.DATE").datepicker({ dateFormat: 'yy-mm-dd' });
+
+    // supression de ligne
+    $("form").click(function(e) {
+        if ($(e.target).is("img.deleteImg")) {
+            if ($("table tbody tr:has(:input)").size() > 1) {
+                $(e.target).parents("tr").remove();
+            }
+        }
+    });
+
+    // verification
+    $("form").submit(function(e) {
+        var ok = true;
+        $(":input.INTEGER").each(function(){
+            ok = ok && parseInt(this.value) != NaN;
+        });
+
+        if(!ok) {
+            alert("les champs entiers ne doivent contenir que des entiers !");
+        }
+
+        return ok;
+    });
+
+});

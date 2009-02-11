@@ -143,7 +143,7 @@ public class AirlineDAOImpl implements AirlineDAO {
                 tableRow = new TableRow();
                 for (TableColumn columnsEntry : tablesColumns) {
                     Object obj = result.getObject(columnsEntry.getName());
-                    tableRow.put(columnsEntry, obj.toString());
+                    tableRow.put(columnsEntry, (obj != null) ? obj.toString() : null);
                 }
                 res.add(tableRow);
             }

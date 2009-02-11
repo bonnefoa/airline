@@ -25,6 +25,9 @@
 <%@ page import="java.sql.Types" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
+<%@ page import="airline.util.SQLConversion" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Iterator" %>
 <%--
     Affiche ou modifie les colonnes d'une table.
     @param columns : les colonnes de la table.
@@ -47,8 +50,8 @@
     if (action == Action.ADD && context == Context.TABLE) {
         columns.add(new TableColumn()); // affiche une vide
     }
-    if(action == Action.ADD && context == Context.FIELD) {
-        editableField =new TableColumn();
+    if (action == Action.ADD && context == Context.FIELD) {
+        editableField = new TableColumn();
         columns.add(editableField);
     }
 %>
@@ -133,24 +136,19 @@
                     if (editable) {
                 %>
                 <select name="type">
-                    <option value="<%=Types.VARCHAR%>" <%if(type == Types.VARCHAR){%>selected="selected"<%}%>>VARCHAR
+                    <%
+                        Map<Integer, String> lists = SQLConversion.getTypeList();
+                        for(Map.Entry<Integer, String> entry : SQLConversion.getTypeList().entrySet()) {
+                            %>
+                    <option value="<%=entry.getKey()%>" <%if(entry.getKey().equals(type)){%>selected="selected"<%}%>>
+                        <%=entry.getValue()%>
                     </option>
-                    <option value="<%=Types.INTEGER%>" <%if(type == Types.INTEGER){%>selected="selected"<%}%>>INTEGER
-                    </option>
-                    <option value="<%=Types.DATE%>" <%if(type == Types.DATE){%>selected="selected"<%}%>>DATE</option>
+                    <%
+                        }
+                    %>
                 </select>
                 <% } else {
-                    switch (type) {
-                        case Types.DATE:
-                            out.print("DATE");
-                            break;
-                        case Types.INTEGER:
-                            out.print("INTEGER");
-                            break;
-                        default:
-                            out.print("VARCHAR");
-                            break;
-                    }
+                    out.print(SQLConversion.sqlTypeToString(type));
                 } %>
             </td>
             <td>

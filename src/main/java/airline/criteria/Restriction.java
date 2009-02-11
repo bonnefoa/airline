@@ -62,7 +62,10 @@ public class Restriction {
     }
 
     public void constraint(TableColumn columns1, String value, SqlConstraints constraints) {
-        if (!value.equals("")) {
+        if (value == null) {
+            setTables.add(columns1.getTable().getName());
+            writeRequest(columns1.toString(), SqlConstraints.IS, "NULL");
+        } else if (!"".equals(value)) {
             setTables.add(columns1.getTable().getName());
             writeRequest(columns1.toString(), constraints, '\'' + value + '\'');
         }else{

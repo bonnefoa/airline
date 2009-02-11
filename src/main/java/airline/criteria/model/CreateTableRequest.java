@@ -18,6 +18,7 @@ package airline.criteria.model;
 
 import airline.model.Table;
 import airline.model.TableColumn;
+import airline.util.SQLConversion;
 
 import java.sql.Types;
 import java.util.List;
@@ -47,17 +48,7 @@ public class CreateTableRequest implements IRequest {
         for (TableColumn tablesColumnse : tablesColumnses) {
             res.append(tablesColumnse.getName());
             res.append(' ');
-            switch (tablesColumnse.getDataType()) {
-                case Types.INTEGER:
-                    res.append("Integer");
-                    break;
-                case Types.DATE:
-                    res.append("Date");
-                    break;
-                default:
-                    res.append("Varchar");
-                    break;
-            }
+            res.append(SQLConversion.sqlTypeToString(tablesColumnse.getDataType()));
             res.append(',');
 
             if (tablesColumnse.isPrimaryKey()) {
