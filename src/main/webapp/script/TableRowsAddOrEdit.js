@@ -14,3 +14,27 @@
  * limitations under the License.
  */
 
+$(function() {
+    // duplique une ligne
+    $("#addRow").click(function() {
+        var line = $("table tbody tr:last").clone();
+        line.find(":input").val("");
+        $("table tbody").append(line);
+        line.find(":input:first").focus();
+
+        return false;
+    });
+
+    // datepicker
+    $(":input.DATE").datepicker();
+
+    // supression de ligne
+    $("form").click(function(e) {
+        if ($(e.target).is("img.deleteImg")) {
+            if ($("table tbody tr:has(:input)").size() > 1) {
+                $(e.target).parents("tr").remove();
+            }
+        }
+    });
+
+});

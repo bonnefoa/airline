@@ -28,13 +28,6 @@ $(function() {
     });
 
     // une seule clef primaire autorisee
-    /*
-     $("form").click(function(e) {
-     if ($(e.target).is(":checkbox")) {
-     return $(":checkbox:checked").not(e.target).size() == 0;
-     }
-     });
-     */
     $("form").change(function(e) {
         if ($(e.target).is(":input[name=primary]")) {
             $(":input[name=primary]").val("off");

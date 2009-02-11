@@ -24,7 +24,8 @@
     <meta content="application/xhtml+xml; charset=UTF-8" http-equiv="content-type"/>
     <title><%= request.getAttribute("title") %>
     </title>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/ui/minified/ui.core.min.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
           href="<%= request.getContextPath() %>/css/default.css"/>
 </head>
