@@ -14,6 +14,8 @@ Lorsque l'on passe des parametres d'une servlet a une jsp, on passe soit par la 
 
 \subsubsection{composants jsp}
 Le dernier point problematique est l'absence de composants pres a l'emploi, comme des formulaires, etc.
+\subsubsection{Problemes avec les caracteres speciaux}
+Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \.
 \subsection{Les limitations}
 \subsubsection{Requetes sql limitees}
 Les requetes sql realisables sont limitees par l'implementation et l'interface que nous avons realisees. Il n'est pas possible de faire des jointures entre les tables par exemple.
@@ -24,3 +26,6 @@ Par exemple, il peut taper dans la clause WHERE.
  ';DROP TABLE APPAREL;
 \end{verbatim}
 Cela aura pour effet d'executer le DROP.
+%Code html in page, js?
+
+
