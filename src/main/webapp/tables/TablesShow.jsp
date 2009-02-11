@@ -21,6 +21,8 @@
 <%@ page import="airline.model.Table" %>
 <%@ page import="airline.model.User" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%--
   Created by IntelliJ IDEA.
   User: dev
@@ -34,7 +36,7 @@
 <jsp:include page="/header.jsp"/>
 
 <%
-    Map<String, Table> tables = (Map<String, Table>) request.getAttribute("/tables");
+    Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
     boolean logged = session.getAttribute("user") != null;
 %>
 
@@ -75,25 +77,19 @@
     <%
     %>
     <td>
-        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/">
-            <%= table.getName() %>
+        <a href="<%= request.getContextPath() %>/table/<%= URLEncoder.encode(table.getName(), "UTF-8")%>/">
+            <%= StringEscapeUtils.escapeHtml(table.getName()) %>
         </a>
     </td>
-    <td><%=table.getSchema() %>
+    <td><%=StringEscapeUtils.escapeHtml(table.getSchema()) %>
     </td>
-    <td><%=table.getType() %>
+    <td><%=StringEscapeUtils.escapeHtml(table.getType()) %>
     </td>
     <%
         if (logged) {
     %>
     <td>
-        <!-- renommage : pas encore ;) -->
-        <!--
-        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/edit">
-            <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
-        </a>&nbsp;
-        -->
-        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/delete">
+        <a href="<%= request.getContextPath() %>/table/<%= URLEncoder.encode(table.getName(), "UTF-8")%>/delete">
             <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>

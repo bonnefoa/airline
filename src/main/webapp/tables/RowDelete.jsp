@@ -20,6 +20,8 @@
 <%@ page import="airline.model.TableRow" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="airline.model.TableColumn" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
@@ -30,7 +32,7 @@
 %>
 <jsp:include page="/header.jsp"/>
 
-<form action="<%= request.getContextPath() %>/table/<%=table.getName()%>/row/<%= rowNb %>/delete" method="post">
+<form action="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>/row/<%= rowNb %>/delete" method="post">
     <div>
         Voulez-vous vraiment supprimer cette ligne ?<br/>
         <ul>
@@ -38,12 +40,12 @@
                 for (Map.Entry<TableColumn, String> entry : row.entrySet()) {
             %>
             <li>
-                <%=entry.getKey().getName() %> : <%= entry.getValue() %>
+                <%=StringEscapeUtils.escapeHtml(entry.getKey().getName()) %> : <%= StringEscapeUtils.escapeHtml(entry.getValue()) %>
             </li>
             <%}%>
         </ul>
         <input type="submit" value="supprimer"/>&nbsp;
-        <a class="button" href="<%= request.getContextPath() %>/table/<%=table.getName()%>">retour</a>
+        <a class="button" href="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>">retour</a>
     </div>
 </form>
 

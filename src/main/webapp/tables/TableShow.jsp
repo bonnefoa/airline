@@ -17,12 +17,14 @@
 --%>
 
 <%@ page import="airline.model.Table" %>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
     boolean logged = session.getAttribute("user") != null;
-    request.setAttribute("title", "Table " + table.getName());
+    request.setAttribute("title", "Table " + StringEscapeUtils.escapeHtml(table.getName()));
 %>
 <jsp:include page="/header.jsp"/>
 <h2>champs de la table</h2>
@@ -30,9 +32,9 @@
 <%
     if (logged) {
 %>
-<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/field/add">ajouter un champ</a><br/>
+<a href="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>/field/add">ajouter un champ</a><br/>
 <br/>
-<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/delete">supprimer cette table</a>
+<a href="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>/delete">supprimer cette table</a>
 <%
     }
 %>
@@ -41,7 +43,7 @@
 <%
     if (logged) {
 %>
-<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/row/add">ajouter une ligne</a><br/>
+<a href="<%= request.getContextPath() %>/table/<%=URLEncoder.encode(table.getName(), "UTF-8")%>/row/add">ajouter une ligne</a><br/>
 <%
     }
 %>

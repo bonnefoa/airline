@@ -27,6 +27,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="java.net.URLEncoder" %>
 <%--
     Affiche le contenu d'une table.
     @param columns : les colonnes de la table à afficher.
@@ -55,7 +56,7 @@ Aucune ligne à afficher !<br/>
     <%
         for (TableColumn column : columns) {
     %>
-    <th><%= column.getName() %>
+    <th><%= StringEscapeUtils.escapeHtml(column.getName()) %>
     </th>
     <%
         }
@@ -78,7 +79,7 @@ Aucune ligne à afficher !<br/>
     <%
         for (TableColumn column : columns) {
     %>
-    <td><%= row.get(column) %>
+    <td><%= StringEscapeUtils.escapeHtml(row.get(column)) %>
     </td>
     <%
         }
@@ -87,10 +88,10 @@ Aucune ligne à afficher !<br/>
         if (logged) {
     %>
     <td>
-        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/row/<%=nb%>/edit">
+        <a href="<%= request.getContextPath() %>/table/<%= URLEncoder.encode(table.getName(), "UTF-8")%>/row/<%=nb%>/edit">
             <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
-        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/row/<%=nb%>/delete">
+        <a href="<%= request.getContextPath() %>/table/<%= URLEncoder.encode(table.getName(), "UTF-8")%>/row/<%=nb%>/delete">
             <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>

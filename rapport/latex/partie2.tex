@@ -1,6 +1,6 @@
 \subsection{architecture}
 
-Notre projet a été architecture en respectant l'architecture standard java :
+Notre projet a été architecturé en respectant l'architecture standard java :
 \begin{verbatim}
 src
  |--test  // tests unitaires
@@ -10,71 +10,75 @@ src
 \end{verbatim}
 
 \subsubsection{servlet et jsp}
-Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quel servlet est appelé pour quelle url. Ce fichier défini également les filtres a appliquer, les éventuels listeners, les fichiers a afficher par défaut, ou encore les pages d'erreur a afficher.
+Toute la partie traitement des requêtes web et envoi de la réponse au navigateur utilise une servlet comme contrôleur et des fichiers jsp comme vue. Le fichier web.xml permet de spécifier quel servlet est appelé pour quelle url. Ce fichier défini également les filtres à appliquer, les éventuels listeners, les fichiers à afficher par défaut, ou encore les pages d'erreur à afficher.
 
-Afin de centraliser les éléments récurrents des pages (entête du html, menu de la page), des fichiers header.jsp et footer.jsp ont été utilises.
+Afin de centraliser les éléments récurrents des pages (entête du html, menu de la page), des fichiers header.jsp et footer.jsp ont été utilisés.
 
 Voici le déroulement d'une requête : 
 \begin{enumerate}
 	\item le navigateur envoie une requête
 	\item les filtres vérifient la validité de la demande
 	\item la servlet (contrôleur) interprète la requête et la traduit en appels au DAO (modèle)
-	\item la servlet envoie les résultats a une page jsp (vue) qui les affiche
+	\item la servlet envoie les résultats à une page jsp (vue) qui les affiche
 \end{enumerate}
 
 \subsubsection{filtre AdminFilter}
-Pour vérifier si un utilisateur est identifie par le site pour lui donner un accès a la partie admin, un filtre est utilise. Ce filtre est actif sur toute la partie /admin et redirige l'utilisateur vers la page de login s'il est inconnu.
+Pour vérifier si un utilisateur est identifié par le site quand il demande une action de modification, un filtre est utilisé. Ce filtre est actif sur toute le site et redirige l'utilisateur vers la page de login s'il n'a pas les droits nécessaires.
 
-Le mot de passe est stocke dans un fichier de proprietes. Par defaut, le login est admin et le mot de passe est adminadmin.
+Le mot de passe est stocké dans un fichier de propriétés. Par défaut, le login est admin et le mot de passe est adminadmin.
 
-\subsubsection{injection des dependances dans les servlets}
-L'injection de dependances avec Guice ne peut pas etre faite de la facon classique, car les instances des servlets sont creees pour nous. Afin de palier ce probleme, nous utilisons le \verb|ServletContext|. Cette  interface definie un ensemble de methodes utilisables par les servlets pour communiquer avec son conteneur. Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuee). Lorsque le contexte est initialise, un injecteur est cree et stocke dans le contexte de la servlet. Lorsqu'une servlet est instanciee, elle utilise ce contexte pour recuperer l'injecteur et injecter ses dependances.
+\subsubsection{injection des dépendances dans les servlets}
+L'injection de dépendances avec Guice ne peut pas être faite de la façon classique, car les instances des servlets sont créées pour nous. Afin de palier ce problème, nous utilisons le \verb|ServletContext|. Cette  interface définie un ensemble de méthodes utilisables par les servlets pour communiquer avec son conteneur. Il existe un seul contexte par application web (et un seul par JVM par application web dans le cas d'une application web distribuée). Lorsque le contexte est initialisé, un injecteur est créé et stocké dans le contexte de la servlet. Lorsqu'une servlet est instanciee, elle utilise ce contexte pour récupérer l'injecteur et injecter ses dépendances.
 
-\subsubsection{Respect des standards}
-Garantir la perennite d'une application web et son comportement dans un navigateur est crucial. C'est dans ce but que nous avons fait le choix d'utiliser des technologies recentes et ouvertes, ainsi qu'un encodage universel.
+\subsubsection{Respect des standards et pérennité de airline}
+Garantir la pérennité d'une application web et son comportement dans un navigateur est crucial. C'est dans ce but que nous avons fait le choix d'utiliser des technologies récentes et ouvertes, ainsi qu'un encodage universel.
 
-Les pages generees sont en XHTML 1.1 avec des feuilles de style CSS. Toutes les pages et les feuilles de style ont ete validees pour le validateur du W3C, organisme qui definit notamment les standards ouverts du web. Les navigateurs evoluant vers toujours plus de respect des standards, les respecter est un enorme avantage pour la perennite de cette application.
+Les pages générées sont en XHTML 1.1 avec des feuilles de style CSS. Toutes les pages et les feuilles de style ont été validées pour le validateur du W3C, organisme qui définit notamment les standards ouverts du web. Les navigateurs évoluant vers toujours plus de respect des standards, les respecter est un énorme avantage pour la pérennité de cette application.
 
-Pour eviter tout probleme d'encodage et simplifier l'internationalisation de notre application, cette derniere utilise exclusivement l'encodage unicode.
+Pour éviter tout problème d'encodage et simplifier l'internationalisation de notre application, cette dernière utilise exclusivement l'encodage unicode.
 
-Le design du site a ete pense en gardant l'esprit d'ouverture et l'amour du libre qui a anime le reste du travail. Les images utilisees sont soit sous licence LGPL et issues du monde libre, soit sont sous une licence Creative Commons permettant la modification de l'image. Ainsi, nous sommes sur d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline, l'utilisation de ces images est parfaitement legale.
+Le design du site a été pense en gardant l'esprit d'ouverture et l'amour du libre qui a animé le reste du travail. Les images utilisées sont soit sous licence LGPL et issues du monde libre, soit sont sous une licence Creative Commons permettant la modification de l'image. Ainsi, nous sommes sûr d'utiliser des images en respectant l'auteur et les conditions d'utilisations. A moins de commercialiser airline (autorisé par sa licence libre Apache), l'utilisation de ces images est parfaitement légale.
 
 \subsection{Select From Where}
-Cette partie permet a l'utilisateur d'effectuer une requete SELECT sur la table de son choix. Elle consiste en une seule page presentant un formulaire, qui affiche les informations demandees. Des que l'utilisateur modifie un champ du formulaire, un court code javascript le detecte et recharge la page, affichant ainsi les nouvelles informations. La premiere etape est de choisir la table, puis le ou les champ(s) a afficher. Enfin, l'utilisateur peut ajouter une contrainte avec le champ where.
+Cette partie permet à l'utilisateur d'effectuer une requête SELECT sur la table de son choix. Elle consiste en une seule page présentant un formulaire, qui affiche les informations demandées. Des que l'utilisateur modifie un champ du formulaire, un court code javascript le détecte et recharge la page, affichant ainsi les nouvelles informations. La première étape est de choisir la table, puis le ou les champ(s) à afficher. Enfin, l'utilisateur spécifie une contrainte avec le champ where.
 
-Puisque ce formulaire ne modifie pas l'etat de la base de donnees (on la consulte juste), on utilise la methode GET au lieu de la methode POST, conformement aux recommendations du W3C.
+Puisque ce formulaire ne modifie pas l'état de la base de données (on la consulte juste), on utilise la méthode GET au lieu de la méthode POST, conformement aux recommandations du W3C.
 
 \subsection{Tables}
 
 \subsubsection{url rewriting}
-La reecriture d'URL permet d'interpreter une url et de la modifier a la volee. Cela permet d'avoir des urls plus courtes et plus comprehensibles. Exemple de reecriture d'url avec un serveur Apache :
-une url \verb|localhost/airline/user/martin/showprofile| avec le filtre \verb|RewriteRule ^airline/user/([a-zA-Z]+)/([a-z]+)$ airline/userServlet?login=$1&action=$2| deviendra \verb|localhost/airline/userServlet?login=martin&action=showprofile|. Dans le code cote serveur, tout sera comme si l'utilisateur avait appele \verb|localhost/airline/user?login=martin&action=showprofile|. L'utilisateur, de son cote, interagira avec la page \verb|localhost/airline/user/martin/showprofile|, beaucoup plus propre et parlante.
+La réécriture d'URL permet d'interpréter une url et de la modifier à la volée. Cela permet d'avoir des urls plus courtes et plus compréhensibles. Exemple de réécriture d'url avec un serveur Apache :
+~\\
+une url \verb|localhost/airline/user/martin/showprofile|\\
+avec le filtre \verb|RewriteRule ^airline/user/([a-zA-Z]+)/([a-z]+)$ airline/userServlet?login=$1&action=$2|\\
+ deviendra \verb|localhost/airline/userServlet?login=martin&action=showprofile|.\\
+Dans le code côté serveur, tout sera comme si l'utilisateur avait appelé \verb|localhost/airline/user?login=martin&action=showprofile|. L'utilisateur, de son point de vue, interagira avec la page \verb|localhost/airline/user/martin/showprofile|, beaucoup plus propre et parlante.
 
-Cependant, cette technique n'est pas implementee de base dans le systeme de servlet/jsp. Pour pouvoir utiliser cette technique, nous sommes donc passe par un filtre qui analyse les appels a la partie admin/table et analyse l'url appelee pour en deduire le contexte, les actions, et les entites selectionnees.
+Cependant, cette technique n'est pas implémentée de base dans le système de servlet/jsp. Pour pouvoir utiliser cette technique, nous sommes donc passé par un filtre qui analyse les appels à la partie admin/table et analyse l'url appelée pour en déduire le contexte, les actions, et les entités sélectionnées.
 
 \subsubsection{notions de contexte, action}
-La notion de verbe (action a effectuer) existe deja avec HTTP (definie par la RFC 2616). Seulement, les sites webs utilisent (les navigateurs egalement) exclusivement les verbes HTTP GET et POST. Ne pouvant pas utiliser les autres verbes (HEAD, PUT, DELETE, etc) on ajoute l'action demandee a la fin de l'url (par defaut show). On definie egalement une notion de contexte (aucun rapport avec le contexte de la servlet) pour definir ce sur quoi porte l'action. En ajoutant la reecriture d'url a ces notions, on aboutit a ca :
+La notion de verbe (action à effectuer) existe déjà avec HTTP (définie par la RFC 2616). Seulement, les sites webs utilisent (les navigateurs également) exclusivement les verbes HTTP GET et POST. Ne pouvant pas utiliser les autres verbes (HEAD, PUT, DELETE, etc) on ajoute l'action demandée à la fin de l'url (par défaut show). On définie également une notion de contexte (aucun rapport avec le contexte de la servlet) pour définir ce sur quoi porte l'action. En ajoutant la réécriture d'url à ces notions, on aboutit à ça :
 \begin{itemize}
 	\item{/table/add} : ajoute une table
-	\item{/table/FOOBAR} : affiche (show par defaut) la table foobar
+	\item{/table/FOOBAR} : affiche (show par défaut) la table foobar
 	\item{/table/FOOBAR/field/ID/edit} : modifie la colonne id de la table foobar
-	\item{/table/FOOBAR/row/4/delete} :  supprime la 4eme ligne de la table foobar
+	\item{/table/FOOBAR/row/4/delete} :  supprime la 4ème ligne de la table foobar
 \end{itemize}
 
-La methode GET est utilisee pour afficher le detail de l'operation ou faire l'affichage demande, tandis que la methode POST est utilisee pour effectuer l'action demandee si cela modifie le serveur.
+La méthode GET est utilisée pour afficher le détail de l'opération ou faire l'affichage demandé, tandis que la méthode POST est utilisée pour effectuer l'action demandée si cela modifie le serveur.
 
-Ce resultat permet de profiter d'url tres propre et parlantes pour l'utilisateur, mais permettra egalement de faciliter le developpement d'un service web a partir du code existant. En effet, un web service RESTful utilise ces notions : l'action correspond a la methode HTTP, et la notion de contexte correspond a une ressource web. Tout est donc pret ou presque pour ajouter ces fonctionnalites.
+Ce résultat permet de profiter d'url très propres et parlantes pour l'utilisateur, mais permettra également de faciliter le développement d'un service web à partir du code existant. En effet, un web service RESTful utilise ces notions : l'action correspond a la méthode HTTP, et la notion de contexte correspond a une ressource web. Tout est donc prêt ou presque pour ajouter ces fonctionnalités.
 
-Concretement, voici ce qu'il se passe lorsqu'une ressource est appelee :
+Concrètement, voici ce qu'il se passe lorsqu'une ressource est appelée :
 \begin{itemize}
-	\item la requete passe par le filtre de reecriture d'url. L'action, le contexte, la table visee, etc sont extraites et stockes dans la requete. Si l'url est incoherente, une page d'erreur est aussitot envoyee.
-	\item la requete passe dans un second filtre, verifiant la validite des informations : existence de la table, existence du champ, etc. En cas de probleme, l'erreur est affichee a l'utilisateur.
-	\item la servlet est finalement appelee : elle dispose de toutes les informations necessaires, et est sure d'etre dans un cas coherent et verifie.
+	\item la requête passe par le filtre de réécriture d'url. L'action, le contexte, la table visée, etc sont extraites et stockés dans la requête. Si l'url est incohérente, une page d'erreur est aussitôt envoyée.
+	\item la requête passe dans un second filtre, vérifiant la validité des informations : existence de la table, existence du champ, etc. En cas de problème, l'erreur est affichée à l'utilisateur.
+	\item la servlet est finalement appelée : elle dispose de toutes les informations nécessaires, et est sûre d'être dans un cas cohérent et vérifié.
 \end{itemize}
 
 \subsubsection{polymorphisme}
-Pour eviter l'utilisation de nombreux blocs switch/case dans le code (il y a 2 methodes HTTP, 4 contextes et 4 actions possibles, soit virtuellement 32 cas possibles) le polymorphisme a ete utilise. Nous avons creer des classes specialisees dans un cas specifique, implementant toutes la meme interface. Les instances sont creees au moment de la reecriture d'url, quand on connait parfaitement le type de requete. Pour la verification du contexte, le filtre a juste a appeler la methode checkContext sur la classe stockee, sans se soucier de son type reel. De meme, une fois dans la servlet, les traitements specifiques sont implementes dans les methodes get et post de l'objet. Au final, le code est regroupe par type d'action et par type d'entites, et le code dans les filtres/servlet a ete grandement simplifie.
+Pour éviter l'utilisation de nombreux blocs switch/case dans le code (il y a 2 méthodes HTTP, 4 contextes et 4 actions possibles, soit virtuellement 32 cas possibles) le polymorphisme a été utilisé. Nous avons créé des classes spécialisées dans un cas spécifique, implémentant toutes la même interface. Les instances sont créées au moment de la réécriture d'url, quand on connaît parfaitement le type de requête. Pour la vérification du contexte, le filtre a juste à appeler la méthode checkContext sur la classe stockée, sans se soucier de son type réel. De même, une fois dans la servlet, les traitements spécifiques sont implémentés dans les méthodes get et post de l'objet. Au final, le code est regroupé par type d'action et par type d'entités, et le code dans les filtres/servlet a été grandement simplifié.
 
 \subsubsection{actions possibles}
-L'application web propose de nombreuses possibilites : un utilisateur non identifie va pouvoir voir toutes les tables, leurs details et leurs contenus.
-S'il est identifie comme administrateur, il pourra ajouter/supprimer des tables, ajouter/modifier/supprimer des champs dans une table, ajouter/modifier/supprimer une entree dans une table.
+L'application web propose de nombreuses possibilités : un utilisateur non identifié va pouvoir voir toutes les tables, leurs détails et leurs contenus.
+S'il est identifié comme administrateur, il pourra ajouter/supprimer des tables, ajouter/modifier/supprimer des champs dans une table, ajouter/modifier/supprimer une entrée dans une table.
