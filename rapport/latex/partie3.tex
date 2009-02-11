@@ -9,13 +9,13 @@ La transcription du fichier mdb en script SQL n'est pas aisee. En effet, il n'es
 \subsubsection{Servlets}
 Un probleme rencontre lors du developpement avec des servlets/jsp a ete les notions flous que nous avions concernant ces technologies. En particulier, on peut citer l'utilisation du ServletContext, l'utilisation d'un servlet comme controleur et d'un jsp comme vue, et surtout la facon de transmettre des donnees a la vue.
 
-\subsubsection{passage de parametres ``typesafe''}
+\subsubsection{Passage de parametres ``typesafe''}
 Lorsque l'on passe des parametres d'une servlet a une jsp, on passe soit par la session soit par la requete. Or dans les deux cas, on recupere un objet de type Object a partir d'une chaine de caracteres. Ces deux point posent probleme : si le developpeur fait une faute de frappe ou si un autre developpeur utilise le meme nom comme clef, retrouver la source du bug peut devenir cauchemardesque a trouver. Le transtypage obligatoire peut egalement poser probleme : on suppose connaitre a l'avance le type d'objet recupere. Si ce n'est pas le cas, l'application recupera une exception, et aucun objet exploitable.
 
-\subsubsection{composants jsp}
+\subsubsection{Composants jsp}
 Le dernier point problematique est l'absence de composants pres a l'emploi, comme des formulaires, etc.
 \subsubsection{Problemes avec les caracteres speciaux}
-Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \.
+Les caracteres speciaux ne sont pas traitees. Il est possible de corrompre l'application en ajoutant des lignes avec des caracteres comme ' ou \\.
 \subsection{Les limitations}
 \subsubsection{Requetes sql limitees}
 Les requetes sql realisables sont limitees par l'implementation et l'interface que nous avons realisees. Il n'est pas possible de faire des jointures entre les tables par exemple.
@@ -25,7 +25,7 @@ Par exemple, il peut taper dans la clause WHERE.
 \begin{verbatim}
  ';DROP TABLE APPAREL;
 \end{verbatim}
-Cela aura pour effet d'executer le DROP.
+Cela aura pour effet d'executer un DROP sur la table APPAREL.
 %Code html in page, js?
 
 

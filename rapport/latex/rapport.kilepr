@@ -44,7 +44,7 @@ order=2
 
 [item:master.tex]
 archive=true
-column=10
+column=25
 encoding=UTF-8
 highlight=LaTeX
 line=88
@@ -57,7 +57,7 @@ column=187
 encoding=ISO 8859-1
 highlight=LaTeX
 line=37
-open=true
+open=false
 order=0
 
 [item:partie2.tex]
@@ -71,12 +71,12 @@ order=1
 
 [item:partie3.tex]
 archive=true
-column=0
+column=145
 encoding=UTF-8
 highlight=LaTeX
-line=6
+line=17
 open=true
-order=1
+order=0
 
 [item:rapport.kilepr]
 archive=true
