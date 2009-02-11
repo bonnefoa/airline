@@ -7,11 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dev
- * Date: 11 févr. 2009
- * Time: 14:07:24
- * To change this template use File | Settings | File Templates.
+ * Conversion entre un SqlTypes et un string.
  */
 public class SQLConversion {
 
@@ -135,8 +131,8 @@ public class SQLConversion {
 
     public static Map<Integer, String> getTypeList() {
         Map<Integer, String> map = new HashMap<Integer, String>();
+        
         map.put(Types.VARCHAR, "VARCHAR");
-
         map.put(Types.BIT, "BIT");
         map.put(Types.TINYINT, "TINYINT");
         map.put(Types.SMALLINT, "SMALLINT");

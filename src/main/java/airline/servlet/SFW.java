@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package airline.servlet.admin;
+package airline.servlet;
 
 import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
@@ -39,11 +39,7 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dev
- * Date: Feb 4, 2009
- * Time: 9:21:39 AM
- * To change this template use File | Settings | File Templates.
+ * page Select From Where
  */
 public class SFW extends AbstractInjectableServlet {
     private Map<String, Table> tables;
@@ -72,7 +68,7 @@ public class SFW extends AbstractInjectableServlet {
             canDoRequest = false;
         }
 
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/sfw.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/sfw.jsp");
         if (canDoRequest) {
             try {
                 doRequest(selectRequest, request);
@@ -86,11 +82,22 @@ public class SFW extends AbstractInjectableServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Execute une requete et stocke son resultat dans "rows"
+     * @param selectRequest La requete a executer.
+     * @param request la requete HTTP dans laquelle stocker le resultat.
+     * @throws SQLException Si la requete a echoue.
+     */
     private void doRequest(SelectRequest selectRequest, HttpServletRequest request) throws SQLException {
         Set<TableRow> result = airlineDAO.executeRequest(selectRequest);
         request.setAttribute("rows", result);
     }
 
+    /**
+     * Gere le champ FROM
+     * @param request La requete HTTP
+     * @return La table FROM, null si introuvable.
+     */
     private Table handleFrom(HttpServletRequest request) {
         request.setAttribute("tables", tables);
 
@@ -104,6 +111,12 @@ public class SFW extends AbstractInjectableServlet {
         }
     }
 
+    /**
+     * Gere le champ SELECT
+     * @param selectRequest la requete a remplir.
+     * @param request La requete HTTP
+     * @return true si tout c'est bien deroule.
+     */
     private boolean handleSelect(SelectRequest selectRequest, HttpServletRequest request) {
 
         String[] params = request.getParameterValues("select");
@@ -127,6 +140,12 @@ public class SFW extends AbstractInjectableServlet {
         return !selected.isEmpty();
     }
 
+    /**
+     * Gere le champ WHERE
+     * @param selectRequest la requete a remplir.
+     * @param request La requete HTTP
+     * @return true si tout c'est bien deroule.
+     */
     private boolean handleWhere(SelectRequest selectRequest, HttpServletRequest request) {
 
         String whereField = request.getParameter("whereField");
@@ -167,6 +186,8 @@ public class SFW extends AbstractInjectableServlet {
                 cond = SqlConstraints.LIKE;
             } else if ("ilike".equals(whereCond)) {
                 cond = SqlConstraints.ILIKE;
+            } else if ("is".equals(whereCond)) {
+                cond = SqlConstraints.IS;
             }
         }
 

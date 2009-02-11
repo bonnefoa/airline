@@ -29,12 +29,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Agit comme une réécriture d'url dans la partie /admin/table
+ * Agit comme une réécriture d'url dans la partie /table
  * en ajoutant les attributs suivant dans la requête :
  * url.action : l'action demandée par l'utilisateur
  * url.table : la table demandée par l'utilisateur
  * url.row : le tuple demandé par l'utilisateur
- * <p/>
  * Afin d'éviter toute ambiguité, les noms de table/tuple seront suivis d'un slash ('/')
  * tandis que les éventuels verbes d'action ne le seront pas.
  */
@@ -60,25 +59,25 @@ public class TableURLRewritingFilter implements Filter {
         Context context = null;
         ActionHandler handler = null;
 
-        // /admin/table
-        // /admin/table/
-        Pattern tablesPattern = Pattern.compile("^/admin/table(/)?$");
+        // /table
+        // /table/
+        Pattern tablesPattern = Pattern.compile("^/table(/)?$");
 
-        // /admin/table/add
-        // /admin/table/---/
-        // /admin/table/---/edit
-        // /admin/table/---/delete
-        Pattern tablePattern = Pattern.compile("^/admin/table/(add|([^/]+)/(delete|edit)?)$");
+        // /table/add
+        // /table/---/
+        // /table/---/edit
+        // /table/---/delete
+        Pattern tablePattern = Pattern.compile("^/table/(add|([^/]+)/(delete|edit)?)$");
 
-        // /admin/table/---/row/add
-        // /admin/table/---/row/---/edit
-        // /admin/table/---/row/---/delete
-        Pattern rowPattern = Pattern.compile("^/admin/table/([^/]+)/row/(add|(\\d+)/(edit|delete))$");
+        // /table/---/row/add
+        // /table/---/row/---/edit
+        // /table/---/row/---/delete
+        Pattern rowPattern = Pattern.compile("^/table/([^/]+)/row/(add|(\\d+)/(edit|delete))$");
 
-        // /admin/table/---/field/add
-        // /admin/table/---/field/---/edit
-        // /admin/table/---/field/---/delete
-        Pattern fieldPattern = Pattern.compile("^/admin/table/([^/]+)/field/(add|([^/]+)/(edit|delete))$");
+        // /table/---/field/add
+        // /table/---/field/---/edit
+        // /table/---/field/---/delete
+        Pattern fieldPattern = Pattern.compile("^/table/([^/]+)/field/(add|([^/]+)/(edit|delete))$");
 
         Matcher tablesMatcher = tablesPattern.matcher(url);
         Matcher tableMatcher = tablePattern.matcher(url);

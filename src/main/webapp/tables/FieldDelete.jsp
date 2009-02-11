@@ -17,14 +17,22 @@
 --%>
 
 <%@ page import="airline.model.Table" %>
+<%@ page import="airline.model.TableColumn" %>
 <%@ page contentType="application/xhtml+xml; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    request.setAttribute("title", "Ajout d'une ligne a la table " + table.getName());
+    TableColumn column = (TableColumn) request.getAttribute("url.field");
+    request.setAttribute("title", "Suppression de la colonne " + column.getName() +  " de la table " + table.getName());
 %>
-<jsp:include page="/admin/header.jsp"/>
+<jsp:include page="/header.jsp"/>
 
-<jsp:include page="/fragments/TableRowsAddOrEdit.jsp"/>
+<form action="<%= request.getContextPath() %>/table/<%=table.getName()%>/field/<%=column.getName()%>/delete" method="post">
+    <div>
+        Voulez-vous vraiment supprimer ce champ ?<br/>
+        <input type="submit" value="supprimer"/>&nbsp;
+        <a class="button" href="<%= request.getContextPath() %>/table/<%=table.getName()%>/">retour</a>
+    </div>
+</form>
 
-<jsp:include page="/admin/footer.jsp"/>
+<jsp:include page="/footer.jsp"/>

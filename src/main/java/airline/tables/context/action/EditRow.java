@@ -23,14 +23,12 @@ import airline.tables.context.RowContextHandler;
 import airline.model.Table;
 import airline.model.TableColumn;
 import airline.model.TableRow;
-import airline.criteria.model.InsertRequest;
 import airline.criteria.model.UpdateRequest;
 import airline.criteria.UpdateSetter;
 import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -49,14 +47,14 @@ public class EditRow extends RowContextHandler {
         init(Action.EDIT);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
-        return servletContext.getRequestDispatcher("/admin/RowEdit.jsp");
+        return servletContext.getRequestDispatcher("/tables/RowEdit.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         TableRow row = (TableRow) request.getAttribute("url.row");
         List<TableColumn> columns = airlineDAO.getTableColumns(table);

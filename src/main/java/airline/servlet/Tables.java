@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package airline.servlet.admin;
+package airline.servlet;
 
 import airline.servlet.AbstractInjectableServlet;
 import airline.servlet.enumeration.MessageError;
@@ -27,18 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dev
- * Date: Feb 4, 2009
- * Time: 9:28:22 AM
- * To change this template use File | Settings | File Templates.
+ * Gere les entites
  */
 public class Tables extends AbstractInjectableServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionHandler handler = (ActionHandler) request.getAttribute("url.handler");
 
-        RequestDispatcher dispatcher = handler.post(this.getServletContext(), request, response);
+        RequestDispatcher dispatcher = handler.post(request, response);
 
         if (dispatcher == null) {
             request.setAttribute("error.type", MessageError.UNIMPLEMENTED_METHOD);
@@ -50,7 +46,7 @@ public class Tables extends AbstractInjectableServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ActionHandler handler = (ActionHandler) request.getAttribute("url.handler");
 
-        RequestDispatcher dispatcher = handler.get(this.getServletContext(), request, response);
+        RequestDispatcher dispatcher = handler.get(request, response);
 
         if (dispatcher == null) {
             request.setAttribute("error.type", MessageError.UNIMPLEMENTED_METHOD);

@@ -54,7 +54,7 @@
     }
 
     StringBuilder formAction = new StringBuilder(request.getContextPath());
-    formAction.append("/admin/table/");
+    formAction.append("/table/");
     formAction.append(table.getName());
     if (action == Action.ADD) {
         formAction.append("/row/add");

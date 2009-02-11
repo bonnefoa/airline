@@ -24,11 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 8, 2009
- * Time: 3:26:50 PM
- * To change this template use File | Settings | File Templates.
+ * Classe representant un filtre injectable (dependance)
  */
 public abstract class AbstractInjectableFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {

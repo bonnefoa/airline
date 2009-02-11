@@ -24,24 +24,64 @@
     <meta content="application/xhtml+xml; charset=UTF-8" http-equiv="content-type"/>
     <title><%= request.getAttribute("title") %>
     </title>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/jquery-1.3.1.min.js"></script>
-    <script type="text/javascript" src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/ui/minified/ui.core.min.js"></script>
+    <script type="text/javascript"
+            src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript"
+            src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/ui/minified/ui.core.min.js"></script>
+    <script type="text/javascript"
+            src="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/ui/minified/ui.datepicker.min.js"></script>
     <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
           href="<%= request.getContextPath() %>/css/default.css"/>
+    <%
+        if (session.getAttribute("user") != null) {
+    %>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/css/admin.css"/>
+    <%
+        }
+    %>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.core.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.datepicker.css"/>
+    <link rel="stylesheet" media="screen" type="text/css" title="style par défaut"
+          href="<%= request.getContextPath() %>/script/jquery.ui-1.6rc6/themes/base/ui.theme.css"/>
 </head>
 <body>
 
 <div id="banniere">
+    <%
+        if (session.getAttribute("user") != null) {
+    %>
+    <img src="<%= request.getContextPath() %>/img/banniere_admin.jpg" alt=""/>
+    <%
+    } else {
+    %>
     <img src="<%= request.getContextPath() %>/img/banniere.jpg" alt=""/>
+    <%
+        }
+    %>
 
     <h1>AirLine</h1>
 </div>
 
 <div id="menu">
     <ul>
-        <li><a href="<%= request.getContextPath() %>/admin/">partie admin</a></li>
         <li><a href="<%= request.getContextPath() %>/accueil">accueil</a></li>
+        <li><a href="<%= request.getContextPath() %>/sfw">requête SFW</a></li>
+        <li><a href="<%= request.getContextPath() %>/table">afficher les tables</a></li>
         <li><a href="<%= request.getContextPath() %>/apropos">à propos</a></li>
+        <%
+            if (session.getAttribute("user") != null) {
+        %>
+        <li><a href="<%= request.getContextPath() %>/logout">déconnexion</a></li>
+        <%
+        } else {
+        %>
+        <li><a href="<%= request.getContextPath() %>/login">connexion</a></li>
+        <%
+            }
+        %>
     </ul>
 </div>
 <h1><%= request.getAttribute("title") %>

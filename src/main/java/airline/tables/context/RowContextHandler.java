@@ -27,11 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 9, 2009
- * Time: 1:47:29 AM
- * To change this template use File | Settings | File Templates.
+ * Un gestionnaire d'action sur des lignes.
  */
 public abstract class RowContextHandler extends ContextHandler {
 
@@ -42,9 +38,9 @@ public abstract class RowContextHandler extends ContextHandler {
     /**
      * Vérifie le contexte Row.
      * Ce contexte correspond aux cas suivants :
-     * /admin/table/---/row/add
-     * /admin/table/---/row/---/edit
-     * /admin/table/---/row/---/delete
+     * /table/---/row/add
+     * /table/---/row/---/edit
+     * /table/---/row/---/delete
      * On vérifie donc l'existence de la table et la validité du tuple.
      */
     public MessageError checkContext(ServletRequest req) {

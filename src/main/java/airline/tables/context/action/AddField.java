@@ -25,7 +25,6 @@ import airline.model.TableColumn;
 import airline.criteria.model.CreateFieldRequest;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -46,15 +45,15 @@ public class AddField extends FieldContextHandler {
         init(Action.ADD);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
 
         Table table = (Table) request.getAttribute("url.table");
         List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
-        return servletContext.getRequestDispatcher("/admin/FieldAdd.jsp");
+        return servletContext.getRequestDispatcher("/tables/FieldAdd.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         List<TableColumn> columns = generateColumns(request);
         if (columns == null) {

@@ -23,8 +23,8 @@
     Table table = (Table) request.getAttribute("url.table");
     request.setAttribute("title", "Modification de la table " + table.getName());
 %>
-<jsp:include page="/admin/header.jsp"/>
+<jsp:include page="/header.jsp"/>
 
 <jsp:include page="/fragments/TableFields.jsp"/>
 
-<jsp:include page="/admin/footer.jsp"/>
+<jsp:include page="/footer.jsp"/>

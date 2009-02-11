@@ -21,16 +21,10 @@
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    request.setAttribute("title", "Suppression de la table " + table.getName());
+    request.setAttribute("title", "Modification de la table " + table.getName());
 %>
-<jsp:include page="/admin/header.jsp"/>
+<jsp:include page="/header.jsp"/>
 
-<form action="<%= request.getContextPath() %>/admin/table/<%=table.getName()%>/delete" method="post">
-    <div>
-        Voulez-vous vraiment supprimer cette table ?<br/>
-        <input type="submit" value="supprimer"/>&nbsp;
-        <a class="button" href="<%= request.getContextPath() %>/admin/table">retour</a>
-    </div>
-</form>
+<jsp:include page="/fragments/TableFields.jsp"/>
 
-<jsp:include page="/admin/footer.jsp"/>
+<jsp:include page="/footer.jsp"/>

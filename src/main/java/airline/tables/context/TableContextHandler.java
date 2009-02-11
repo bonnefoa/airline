@@ -25,11 +25,7 @@ import javax.servlet.ServletRequest;
 import java.util.Map;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 9, 2009
- * Time: 1:47:29 AM
- * To change this template use File | Settings | File Templates.
+ * Un gestionnaire d'action sur une table.
  */
 public abstract class TableContextHandler extends ContextHandler {
 
@@ -40,9 +36,9 @@ public abstract class TableContextHandler extends ContextHandler {
     /**
      * Vérifie le contexte Table.
      * Ce contexte correspond aux cas suivants :
-     * /admin/table/add
-     * /admin/table/---/
-     * /admin/table/---/delete
+     * /table/add
+     * /table/---/
+     * /table/---/delete
      * On vérifie donc juste l'existence de la table.
      */
     public MessageError checkContext(ServletRequest req) {

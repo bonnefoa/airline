@@ -23,7 +23,6 @@ import airline.model.TableColumn;
 import airline.model.TableRow;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -40,16 +39,16 @@ public class ShowTable extends TableContextHandler {
         init(Action.SHOW);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         List<TableColumn> columns = airlineDAO.getTableColumns(table);
         List<TableRow> rows = airlineDAO.getTablesRows(table);
         request.setAttribute("columns", columns);
         request.setAttribute("rows", rows);
-        return servletContext.getRequestDispatcher("/admin/TableShow.jsp");
+        return servletContext.getRequestDispatcher("/tables/TableShow.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 }

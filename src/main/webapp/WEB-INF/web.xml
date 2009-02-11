@@ -44,18 +44,18 @@
     <!--=============== mapping des filtres ===============-->
     <!--===================================================-->
     <filter-mapping>
-        <filter-name>adminFilter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
+        <filter-name>TableURLRewritingFilter</filter-name>
+        <url-pattern>/table/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>TableURLRewritingFilter</filter-name>
-        <url-pattern>/admin/table/*</url-pattern>
+        <filter-name>adminFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
         <filter-name>ExistingTablesFilter</filter-name>
-        <url-pattern>/admin/table/*</url-pattern>
+        <url-pattern>/table/*</url-pattern>
     </filter-mapping>
 
     <!--===================================================-->
@@ -75,10 +75,6 @@
     </servlet>
 
     <servlet>
-        <servlet-name>AdminIndex</servlet-name>
-        <servlet-class>airline.servlet.admin.Index</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>airline.servlet.Login</servlet-class>
     </servlet>
@@ -88,11 +84,11 @@
     </servlet>
     <servlet>
         <servlet-name>SFW</servlet-name>
-        <servlet-class>airline.servlet.admin.SFW</servlet-class>
+        <servlet-class>airline.servlet.SFW</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Tables</servlet-name>
-        <servlet-class>airline.servlet.admin.Tables</servlet-class>
+        <servlet-class>airline.servlet.Tables</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>APropos</servlet-name>
@@ -123,23 +119,18 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>AdminIndex</servlet-name>
-        <url-pattern>/admin/</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>SFW</servlet-name>
-        <url-pattern>/admin/sfw</url-pattern>
+        <url-pattern>/sfw</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>Tables</servlet-name>
-        <url-pattern>/admin/table/*</url-pattern>
+        <url-pattern>/table/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>Tables</servlet-name>
-        <url-pattern>/admin/table</url-pattern>
+        <url-pattern>/table</url-pattern>
     </servlet-mapping>
 
     <!--====================================================-->

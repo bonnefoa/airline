@@ -23,7 +23,7 @@
 
     if (session.getAttribute("user") != null) {
 %>
-<jsp:include page="/admin/header.jsp"/>
+<jsp:include page="/header.jsp"/>
 <%
 } else {
 %>
@@ -35,14 +35,4 @@
 <div class="centered">
     <img src="<%= request.getContextPath() %>/img/404.jpg" alt=""/>
 </div>
-
-<% if (session.getAttribute("user") != null) {
-%>
-<jsp:include page="/admin/footer.jsp"/>
-<%
-} else {
-%>
 <jsp:include page="/footer.jsp"/>
-<%
-    }
-%>

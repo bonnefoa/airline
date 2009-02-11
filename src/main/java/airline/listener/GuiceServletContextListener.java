@@ -25,11 +25,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 7, 2009
- * Time: 11:07:32 PM
- * To change this template use File | Settings | File Templates.
+ * A la creation du conteneur de servlets, on instancie un injecteur de dependance.
  */
 public class GuiceServletContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {

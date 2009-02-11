@@ -27,11 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dev
- * Date: 3 févr. 2009
- * Time: 21:49:08
- * To change this template use File | Settings | File Templates.
+ * page de login
  */
 public class Login extends AbstractInjectableServlet {
     private AuthDAO auth;
@@ -49,7 +45,7 @@ public class Login extends AbstractInjectableServlet {
 
         if (auth.logIn(user)) {
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/admin/");
+            response.sendRedirect(request.getContextPath());
         } else {
             request.setAttribute("loginFailed", Boolean.TRUE);
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");

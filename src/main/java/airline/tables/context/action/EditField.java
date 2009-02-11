@@ -25,7 +25,6 @@ import airline.model.TableColumn;
 import airline.criteria.model.AlterFieldRequest;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -45,14 +44,14 @@ public class EditField extends FieldContextHandler {
         init(Action.EDIT);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         List<TableColumn> columns = airlineDAO.getTableColumns(table);
         request.setAttribute("columns", columns);
-        return servletContext.getRequestDispatcher("/admin/FieldEdit.jsp");
+        return servletContext.getRequestDispatcher("/tables/FieldEdit.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         Map<TableColumn, TableColumn> columnsMap = new HashMap<TableColumn, TableColumn>();
         TableColumn oldField = (TableColumn) request.getAttribute("url.field");

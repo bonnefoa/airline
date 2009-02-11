@@ -28,11 +28,7 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 7, 2009
- * Time: 1:39:52 PM
- * To change this template use File | Settings | File Templates.
+ * Appelle la verification du contexte.
  */
 
 public class ContextCheckFilter extends AbstractInjectableFilter {

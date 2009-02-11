@@ -17,11 +17,7 @@
 package airline.servlet.enumeration;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 7, 2009
- * Time: 10:23:37 PM
- * To change this template use File | Settings | File Templates.
+ * Les messages envoyables par la servlet a message.jsp
  */
 public enum MessageAction {
     TABLE_DELETED, FIELD_DELETED, FIELD_EDITED, FIELD_ADDED, ROW_DELETED, ROW_ADDED, ROW_EDITED, TABLE_CREATED

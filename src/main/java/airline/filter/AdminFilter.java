@@ -18,6 +18,8 @@ package airline.filter;
 
 import airline.dao.AuthDAO;
 import airline.model.User;
+import airline.servlet.enumeration.Context;
+import airline.servlet.enumeration.Action;
 import com.google.inject.Inject;
 
 import javax.servlet.*;
@@ -26,11 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dev
- * Date: 3 févr. 2009
- * Time: 20:55:08
- * To change this template use File | Settings | File Templates.
+ * Verifie si l'utilisateur a bien les droits necessaires pour faire l'action demandee.
  */
 public class AdminFilter extends AbstractInjectableFilter {
     private AuthDAO auth;
@@ -48,7 +46,12 @@ public class AdminFilter extends AbstractInjectableFilter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        if (auth.isLoggedIn((User) session.getAttribute("user"))) {
+
+        Action action = (Action) request.getAttribute("url.action");
+        User user = (User) session.getAttribute("user");
+        boolean isLogged = auth.isLoggedIn(user);
+
+        if (action == null || isLogged || action == Action.SHOW) {
             chain.doFilter(request, response);
         } else {
             RequestDispatcher dispatcher = filterConfig.getServletContext().getRequestDispatcher("/login.jsp");

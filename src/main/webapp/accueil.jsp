@@ -28,27 +28,8 @@
 <%
     request.setAttribute("title", "Bienvenue");
 %>
-<jsp:include page="header.jsp"/>
-<form action="<%= request.getContextPath() %>/accueil" method="get">
-    <div>
-        Rechercher un avion : <br/>
-        <%
-            String type = request.getParameter("type");
-            String query = request.getParameter("q");
-            if (query == null) {
-                query = "";
-            }
-        %>
-        <input name="q" value="<%= query %>"/>
-        <select name="type">
-            <option value="flight"<% if ("flight".equals(type)) { %> selected="selected"<%}%>>n° de vol</option>
-            <option value="pilot"<% if ("pilot".equals(type)) { %> selected="selected"<%}%>>n° de pilote</option>
-            <option value="plane"<% if ("plane".equals(type)) { %> selected="selected"<%}%>>n° d'avion</option>
-        </select><br/>
-        <input type="submit"/>
-    </div>
-</form>
+<jsp:include page="/header.jsp"/>
 
-<jsp:include page="fragments/TableRowsList.jsp"/>
+Bienvenue !
 
-<jsp:include page="footer.jsp"/>
+<jsp:include page="/footer.jsp"/>

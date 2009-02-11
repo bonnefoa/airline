@@ -37,12 +37,13 @@
     Collection<TableColumn> columns = (Collection<TableColumn>) request.getAttribute("columns");
     Collection<TableRow> rows = (Collection<TableRow>) request.getAttribute("rows");
     Table table = (Table) request.getAttribute("url.table");
+    boolean logged = session.getAttribute("user") != null;
 
     if (table == null) {
 %>
 Aucune table à afficher !<br/>
 <%
-    } else if (rows != null && rows.size() == 0) {
+} else if (rows != null && rows.size() == 0) {
 %>
 Aucune ligne à afficher !<br/>
 <%
@@ -59,7 +60,13 @@ Aucune ligne à afficher !<br/>
     <%
         }
     %>
+    <%
+        if (logged) {
+    %>
     <th>Action</th>
+    <%
+        }
+    %>
 </tr>
 </thead>
 <tbody>
@@ -76,14 +83,20 @@ Aucune ligne à afficher !<br/>
     <%
         }
     %>
+    <%
+        if (logged) {
+    %>
     <td>
-        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/row/<%=nb%>/edit">
+        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/row/<%=nb%>/edit">
             <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
-        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/row/<%=nb%>/delete">
+        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/row/<%=nb%>/delete">
             <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>
+    <%
+        }
+    %>
 </tr>
 <%
         nb++;

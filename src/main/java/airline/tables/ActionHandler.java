@@ -25,18 +25,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 9, 2009
- * Time: 1:44:57 AM
- * To change this template use File | Settings | File Templates.
+ * Un gestionnaire d'action sur une entite.
+ * Il sera utilise pour verifier son contexte, et appliquer les methodes HTTP demandees.
  */
 public interface ActionHandler {
+
+    /**
+     * Initialise l'objet.
+     * @param servletContext Le ServletContext.
+     */
     void init(ServletContext servletContext);
 
+    /**
+     * Verifie que le contexte courant est coherent avec l'action demandee.
+     * @param request La requete HTTP.
+     * @return Un type d'erreur, null si tout s'est bien deroule.
+     */
     MessageError checkContext(ServletRequest request);
 
-    RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response);
+    /**
+     * Applique la methode HTTP GET sur l'element.
+     * @param request La requete HTTP.
+     * @param response La reponse HTTP.
+     * @return Le dispatcher a utiliser si l'action aboutit effectivement.
+     */
+    RequestDispatcher get(HttpServletRequest request, HttpServletResponse response);
 
-    RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response);
+    /**
+     * Applique la methode HTTP POST sur l'element.
+     * @param request La requete HTTP.
+     * @param response La reponse HTTP.
+     * @return Le dispatcher a utiliser si l'action aboutit effectivement.
+     */
+    RequestDispatcher post(HttpServletRequest request, HttpServletResponse response);
 }

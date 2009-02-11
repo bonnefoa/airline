@@ -38,9 +38,9 @@
 <%
     request.setAttribute("title", "SELECT FROM WHERE");
 %>
-<jsp:include page="header.jsp"/>
+<jsp:include page="/header.jsp"/>
 <script type="text/javascript" src="<%= request.getContextPath() %>/script/sfw.js"></script>
-<form action="<%= request.getContextPath() %>/admin/sfw" method="get">
+<form action="<%= request.getContextPath() %>/sfw" method="get">
 <div>
     <%
         List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
@@ -182,4 +182,4 @@ résultat :<br/>
     <%
 }
 %>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="/footer.jsp"/>

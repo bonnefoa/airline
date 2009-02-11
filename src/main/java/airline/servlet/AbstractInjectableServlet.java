@@ -23,6 +23,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+/**
+ * Classe representant une servlet injectable (dependance)
+ */
 public abstract class AbstractInjectableServlet extends HttpServlet {
 
     @Override

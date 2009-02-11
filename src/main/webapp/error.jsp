@@ -57,17 +57,8 @@
             break;
     }
     request.setAttribute("title", title);
-
-    if (session.getAttribute("user") != null) {
-%>
-<jsp:include page="/admin/header.jsp"/>
-<%
-} else {
 %>
 <jsp:include page="/header.jsp"/>
-<%
-    }
-%>
 
 <%
     Exception e = (Exception) request.getAttribute("error.exception");
@@ -86,14 +77,4 @@ Le détail de l'erreur suit :
 <%
     }
 %>
-
-<% if (session.getAttribute("user") != null) {
-%>
-<jsp:include page="/admin/footer.jsp"/>
-<%
-} else {
-%>
 <jsp:include page="/footer.jsp"/>
-<%
-    }
-%>

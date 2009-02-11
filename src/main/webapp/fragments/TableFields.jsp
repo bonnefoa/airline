@@ -42,6 +42,7 @@
     Context context = (Context) request.getAttribute("url.context");
     List<TableColumn> columns = (List<TableColumn>) request.getAttribute("columns");
     TableColumn editableField = (TableColumn) request.getAttribute("url.field");
+    boolean logged = session.getAttribute("user") != null;
 
     if (columns == null) {
         columns = new ArrayList<TableColumn>();
@@ -61,20 +62,20 @@
     if (action != Action.SHOW) {
 
         StringBuilder formAction = new StringBuilder((String) request.getContextPath());
-        formAction.append("/admin/table");
-        if (action == Action.ADD && context == Context.TABLE) { // /admin/table/add
+        formAction.append("/table");
+        if (action == Action.ADD && context == Context.TABLE) { // /table/add
             formAction.append("/add");
-        } else if (action == Action.ADD && context == Context.FIELD) { // EDIT : /admin/table/tablename/field/add
+        } else if (action == Action.ADD && context == Context.FIELD) { // EDIT : /table/tablename/field/add
             formAction.append('/');
             formAction.append(table.getName());
             formAction.append("/field/add");
-        } else if (action == Action.EDIT && context == Context.FIELD) { // EDIT : /admin/table/tablename/field/fieldname/edit
+        } else if (action == Action.EDIT && context == Context.FIELD) { // EDIT : /table/tablename/field/fieldname/edit
             formAction.append('/');
             formAction.append(table.getName());
             formAction.append("/field/");
             formAction.append(editableField.getName());
             formAction.append("/edit");
-        } else if (action == Action.EDIT && context == Context.TABLE) { // EDIT : /admin/table/tablename/edit
+        } else if (action == Action.EDIT && context == Context.TABLE) { // EDIT : /table/tablename/edit
             formAction.append('/');
             formAction.append(table.getName());
             formAction.append("/edit");
@@ -110,9 +111,9 @@
             <th>nom</th>
             <th>type</th>
             <th>clef primaire</th>
-            <% if (action == Action.ADD) {%>
+            <% if (action == Action.ADD && logged) {%>
             <th>supprimer le champ</th>
-            <% } else if (action == Action.SHOW) {%>
+            <% } else if (action == Action.SHOW && logged) {%>
             <th>action</th>
             <% } %>
         </tr>
@@ -161,17 +162,17 @@
                 <%= (column.isPrimaryKey()) ? "oui" : "" %>
                 <% } %>
             </td>
-            <% if ((action == Action.ADD && context == Context.TABLE) || (action == Action.ADD && context == Context.FIELD && editable)) {%>
+            <% if (logged && ((action == Action.ADD && context == Context.TABLE) || (action == Action.ADD && context == Context.FIELD && editable))) {%>
             <td>
                 <img class="deleteImg" src="<%= request.getContextPath() %>/img/delete.png"
                      alt="supprimer le champ" title="supprimer le champ"/>
             </td>
-            <% } else if (action == Action.SHOW) { %>
+            <% } else if (action == Action.SHOW && logged) { %>
             <td>
-                <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/edit">
+                <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/field/<%=column.getName()%>/edit">
                     <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
                 </a>&nbsp;
-                <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/field/<%=column.getName()%>/delete">
+                <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/field/<%=column.getName()%>/delete">
                     <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
                 </a>
             </td>
@@ -191,7 +192,9 @@
     %>
 
     <% if (action == Action.ADD) {%>
-    <input type="submit" id="addField" value="Ajouter un champ"/>
+    <a id="addField" href="#" class="button"><img src="<%= request.getContextPath() %>/img/add.png" alt=""/>Ajouter un champ</a>
+    <br/>
+    <br/>
     <% } %>
     <%if (action != Action.SHOW) {%>
     <input type="submit"/>

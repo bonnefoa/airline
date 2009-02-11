@@ -25,7 +25,6 @@ import airline.model.TableColumn;
 import airline.criteria.model.CreateTableRequest;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -47,11 +46,11 @@ public class AddTable extends TableContextHandler {
         init(Action.ADD);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return servletContext.getRequestDispatcher("/admin/TableAdd.jsp");
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
+        return servletContext.getRequestDispatcher("/tables/TableAdd.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
 
         Table table = generateTable(request);
         List<TableColumn> columns = generateColumns(request);

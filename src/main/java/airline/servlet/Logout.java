@@ -25,11 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 7, 2009
- * Time: 12:19:30 AM
- * To change this template use File | Settings | File Templates.
+ * Page de logout
  */
 public class Logout extends AbstractInjectableServlet {
     private AuthDAO auth;

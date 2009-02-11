@@ -134,8 +134,8 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/");
-        tests.add("/admin/table");
+        tests.add("/table/");
+        tests.add("/table");
 
         //fails.add("");
 
@@ -164,11 +164,11 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/add");
+        tests.add("/table/add");
 
-        fails.add("/admin/table/graou/add");
-        fails.add("/admin/table/delete");
-        fails.add("/admin/table/edit");
+        fails.add("/table/graou/add");
+        fails.add("/table/delete");
+        fails.add("/table/edit");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -194,9 +194,9 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/");
+        tests.add("/table/graou/");
 
-        fails.add("/admin/table/graou");
+        fails.add("/table/graou");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -222,10 +222,10 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/delete");
+        tests.add("/table/graou/delete");
 
-        fails.add("/admin/table/graou/show");
-        fails.add("/admin/table/graou/add");
+        fails.add("/table/graou/show");
+        fails.add("/table/graou/add");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -253,10 +253,10 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/edit");
+        tests.add("/table/graou/edit");
 
-        fails.add("/admin/table/graou/show");
-        fails.add("/admin/table/graou/add");
+        fails.add("/table/graou/show");
+        fails.add("/table/graou/add");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -282,11 +282,11 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/row/add");
+        tests.add("/table/graou/row/add");
 
-        fails.add("/admin/table/graou/row/1234/add");
-        fails.add("/admin/table/graou/row/edit");
-        fails.add("/admin/table/graou/row/delete");
+        fails.add("/table/graou/row/1234/add");
+        fails.add("/table/graou/row/edit");
+        fails.add("/table/graou/row/delete");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -312,9 +312,9 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/row/1234/edit");
+        tests.add("/table/graou/row/1234/edit");
 
-        fails.add("/admin/table/graou/row/l2EA/edit");
+        fails.add("/table/graou/row/l2EA/edit");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -340,9 +340,9 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/row/1234/delete");
+        tests.add("/table/graou/row/1234/delete");
 
-        fails.add("/admin/table/graou/row/l2EA/delete");
+        fails.add("/table/graou/row/l2EA/delete");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -368,11 +368,11 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/field/add");
+        tests.add("/table/graou/field/add");
 
-        fails.add("/admin/table/graou/field/1234/add");
-        fails.add("/admin/table/graou/field/edit");
-        fails.add("/admin/table/graou/field/delete");
+        fails.add("/table/graou/field/1234/add");
+        fails.add("/table/graou/field/edit");
+        fails.add("/table/graou/field/delete");
 
         for (String test : tests) {
             req.setServletPath(test);
@@ -398,7 +398,7 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/field/fieldName/edit");
+        tests.add("/table/graou/field/fieldName/edit");
 
         //fails.add("");
 
@@ -426,7 +426,7 @@ public class TableURLRewritingFilterTest {
         List<String> tests = new ArrayList<String>();
         List<String> fails = new ArrayList<String>();
 
-        tests.add("/admin/table/graou/field/fieldName/delete");
+        tests.add("/table/graou/field/fieldName/delete");
 
         //fails.add("");
 

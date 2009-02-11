@@ -59,7 +59,7 @@
     request.setAttribute("title", title);
     if (session.getAttribute("user") != null) {
 %>
-<jsp:include page="/admin/header.jsp"/>
+<jsp:include page="/header.jsp"/>
 <%
 } else {
 %>
@@ -67,13 +67,4 @@
 <%
     }
 %>
-<% if (session.getAttribute("user") != null) {
-%>
-<jsp:include page="/admin/footer.jsp"/>
-<%
-} else {
-%>
 <jsp:include page="/footer.jsp"/>
-<%
-    }
-%>

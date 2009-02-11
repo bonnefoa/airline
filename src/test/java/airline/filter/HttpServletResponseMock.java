@@ -46,10 +46,12 @@ public class HttpServletResponseMock implements HttpServletResponse {
         return null;
     }
 
+    @Deprecated
     public String encodeUrl(String url) {
         return null;
     }
 
+    @Deprecated
     public String encodeRedirectUrl(String url) {
         return null;
     }
@@ -84,6 +86,7 @@ public class HttpServletResponseMock implements HttpServletResponse {
     public void setStatus(int sc) {
     }
 
+    @Deprecated
     public void setStatus(int sc, String sm) {
     }
 

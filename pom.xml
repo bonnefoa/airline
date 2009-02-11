@@ -86,6 +86,7 @@
                 </includes>
                 <excludes>
                     <exclude>target/**</exclude>
+                    <exclude>src/main/webapp/script/jquery.ui-1.6rc6/**</exclude>
                 </excludes>
                 <useDefaultExcludes>true</useDefaultExcludes>
                 <properties>
@@ -164,7 +165,7 @@
     </pluginRepositories>
 
     <properties>
-        <glassfish.home>/home/sora/programme/glassfish</glassfish.home>
+        <glassfish.home>/home/common/programme/glassfish</glassfish.home>
         <domain.username>admin</domain.username>
         <domain.password>adminadmin</domain.password>
     </properties>

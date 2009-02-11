@@ -23,11 +23,7 @@ import airline.servlet.enumeration.MessageError;
 import javax.servlet.ServletRequest;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 9, 2009
- * Time: 1:47:29 AM
- * To change this template use File | Settings | File Templates.
+ * Un gestionnaire d'action sur l'ensemble des tables.
  */
 public abstract class TablesContextHandler extends ContextHandler {
 

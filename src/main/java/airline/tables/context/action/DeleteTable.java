@@ -24,7 +24,6 @@ import airline.model.Table;
 import airline.criteria.model.DropTableRequest;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -41,11 +40,11 @@ public class DeleteTable extends TableContextHandler {
         init(Action.DELETE);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return servletContext.getRequestDispatcher("/admin/TableDelete.jsp");
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
+        return servletContext.getRequestDispatcher("/tables/TableDelete.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         try {
             airlineDAO.executeRequest(new DropTableRequest(table));

@@ -37,76 +37,10 @@ import java.util.Map;
 import java.util.Set;
 import java.sql.SQLException;
 
-/**
- * Servlet accueil
- */
 public class Accueil extends AbstractInjectableServlet {
-    private AirlineManager airlineDAO;
-    private static final String TABLE_NAME = "AIRLINEDATA";
-    private static final String FLIGHT_FIELD = "FLIGHT NUMBER";
-    private static final String PILOT_FIELD = "PILOT NUMBER";
-    private static final String PLANE_FIELD = "PLANE NUMBER";
-
-    @Inject
-    public void setAirlineDAO(AirlineManager airlineDAO) {
-        this.airlineDAO = airlineDAO;
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String query = request.getParameter("q");
-        String type = request.getParameter("type");
-
-        if (query != null && type != null && query.length() != 0 && type.length() != 0) {
-
-            Map<String, Table> tables = airlineDAO.getTables();
-            List<TableColumn> columns = airlineDAO.getTableColumns(tables.get(TABLE_NAME));
-
-            TableColumn column = getCorrespondingCol(type, columns);
-
-            if (column != null) {
-
-                SelectRequest selectRequest = new SelectRequest();
-                Restriction restriction = new Restriction();
-                restriction.constraint(column, query, SqlConstraints.EQ);
-                selectRequest.addRestriction(restriction);
-                Set<TableRow> result = null;
-                try {
-                    result = airlineDAO.executeRequest(selectRequest);
-                } catch (SQLException e) {
-
-                    request.setAttribute("error.type", MessageError.SQL_ERROR);
-                    request.setAttribute("error.exception", e);
-                    this.getServletContext().getRequestDispatcher("/error.jsp");
-                    return;
-                }
-
-                request.setAttribute("columns", columns);
-                request.setAttribute("rows", result);
-            }
-        }
-
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/accueil.jsp");
         dispatcher.forward(request, response);
-    }
-
-    private TableColumn getCorrespondingCol(String type, List<TableColumn> columns) {
-        String field = null;
-
-        if ("flight".equals(type)) {
-            field = FLIGHT_FIELD;
-        } else if ("pilot".equals(type)) {
-            field = PILOT_FIELD;
-        } else if ("plane".equals(type)) {
-            field = PLANE_FIELD;
-        }
-
-        for (TableColumn column : columns) {
-            if (column.getName().equals(field)) {
-                return column;
-            }
-        }
-        return null;
     }
 }

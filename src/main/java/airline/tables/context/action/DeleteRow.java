@@ -28,7 +28,6 @@ import airline.criteria.Restriction;
 import airline.criteria.enumeration.SqlConstraints;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -46,11 +45,11 @@ public class DeleteRow extends RowContextHandler {
         init(Action.DELETE);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return servletContext.getRequestDispatcher("/admin/RowDelete.jsp");
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
+        return servletContext.getRequestDispatcher("/tables/RowDelete.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         TableRow row = (TableRow) request.getAttribute("url.row");
         Table table = (Table) request.getAttribute("url.table");
 

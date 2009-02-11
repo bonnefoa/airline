@@ -133,6 +133,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
         return false;
     }
 
+    @Deprecated
     public boolean isRequestedSessionIdFromUrl() {
         return false;
     }
@@ -230,6 +231,7 @@ public class HttpServletRequestMock implements HttpServletRequest {
         return null;
     }
 
+    @Deprecated
     public String getRealPath(String path) {
         return null;
     }

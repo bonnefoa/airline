@@ -17,11 +17,10 @@
 package airline.servlet.enumeration;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 8, 2009
- * Time: 2:47:17 PM
- * To change this template use File | Settings | File Templates.
+ * Les contextes disponibles pour la manipulation des entites.
+ * Dans la phrase decrivant une action, c'est le COD :
+ * SHOW TABLES -> contexte TABLES
+ * ADD TABLE -> contexte TABLE
  */
 public enum Context {
     TABLES, TABLE, ROW, FIELD

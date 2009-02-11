@@ -25,7 +25,6 @@ import airline.model.Table;
 import airline.model.TableColumn;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -44,11 +43,11 @@ public class DeleteField extends FieldContextHandler {
         init(Action.DELETE);
     }
 
-    public RequestDispatcher get(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
-        return servletContext.getRequestDispatcher("/admin/FieldDelete.jsp");
+    public RequestDispatcher get(HttpServletRequest request, HttpServletResponse response) {
+        return servletContext.getRequestDispatcher("/tables/FieldDelete.jsp");
     }
 
-    public RequestDispatcher post(ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+    public RequestDispatcher post(HttpServletRequest request, HttpServletResponse response) {
         Table table = (Table) request.getAttribute("url.table");
         TableColumn column = (TableColumn) request.getAttribute("url.field");
         List<TableColumn> columns  = new ArrayList<TableColumn>();

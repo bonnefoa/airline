@@ -21,10 +21,29 @@
 <%@ page pageEncoding="UTF-8" %>
 <%
     Table table = (Table) request.getAttribute("url.table");
-    request.setAttribute("title", "Modification de la table " + table.getName());
+    boolean logged = session.getAttribute("user") != null;
+    request.setAttribute("title", "Table " + table.getName());
 %>
-<jsp:include page="/admin/header.jsp"/>
-
+<jsp:include page="/header.jsp"/>
+<h2>champs de la table</h2>
 <jsp:include page="/fragments/TableFields.jsp"/>
+<%
+    if (logged) {
+%>
+<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/field/add">ajouter un champ</a><br/>
+<br/>
+<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/delete">supprimer cette table</a>
+<%
+    }
+%>
 
-<jsp:include page="/admin/footer.jsp"/>
+<h2>contenu de la table</h2>
+<%
+    if (logged) {
+%>
+<a href="<%= request.getContextPath() %>/table/<%=table.getName()%>/row/add">ajouter une ligne</a><br/>
+<%
+    }
+%>
+<jsp:include page="/fragments/TableRowsList.jsp"/>
+<jsp:include page="/footer.jsp"/>

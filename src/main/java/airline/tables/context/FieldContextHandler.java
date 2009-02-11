@@ -27,11 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tetradavid
- * Date: Feb 9, 2009
- * Time: 1:47:29 AM
- * To change this template use File | Settings | File Templates.
+ * Un gestionnaire d'action sur des Champs.
  */
 public abstract class FieldContextHandler extends ContextHandler {
 
@@ -42,9 +38,9 @@ public abstract class FieldContextHandler extends ContextHandler {
     /**
      * Vérifie le contexte Row.
      * Ce contexte correspond aux cas suivants :
-     * /admin/table/---/field/add
-     * /admin/table/---/field/---/edit
-     * /admin/table/---/field/---/delete
+     * /table/---/field/add
+     * /table/---/field/---/edit
+     * /table/---/field/---/delete
      * On vérifie donc l'existence de la table et la validité de la colonne.
      */
     public MessageError checkContext(ServletRequest req) {

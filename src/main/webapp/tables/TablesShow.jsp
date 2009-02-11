@@ -31,16 +31,23 @@
 <%
     request.setAttribute("title", "Liste des tables");
 %>
-<jsp:include page="header.jsp"/>
+<jsp:include page="/header.jsp"/>
 
 <%
-    Map<String, Table> tables = (Map<String, Table>) request.getAttribute("tables");
+    Map<String, Table> tables = (Map<String, Table>) request.getAttribute("/tables");
+    boolean logged = session.getAttribute("user") != null;
 %>
 
-<a href="<%= request.getContextPath() %>/admin/table/add">
+<%
+    if (logged) {
+%>
+<a href="<%= request.getContextPath() %>/table/add">
     <img src="<%= request.getContextPath() %>/img/add.png" alt=""/>
     ajouter une table
 </a><br/>
+<%
+    }
+%>
 
 <%
     if (tables != null && tables.size() != 0) {
@@ -51,7 +58,13 @@
     <th>nom</th>
     <th>schema</th>
     <th>type</th>
+    <%
+        if (logged) {
+    %>
     <th>actions</th>
+    <%
+        }
+    %>
 </tr>
 </thead>
 <tbody>
@@ -62,7 +75,7 @@
     <%
     %>
     <td>
-        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/">
+        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/">
             <%= table.getName() %>
         </a>
     </td>
@@ -70,17 +83,23 @@
     </td>
     <td><%=table.getType() %>
     </td>
+    <%
+        if (logged) {
+    %>
     <td>
         <!-- renommage : pas encore ;) -->
         <!--
-        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/edit">
+        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/edit">
             <img src="<%= request.getContextPath() %>/img/edit.png" alt="modifier" title="modifier"/>
         </a>&nbsp;
         -->
-        <a href="<%= request.getContextPath() %>/admin/table/<%= table.getName()%>/delete">
+        <a href="<%= request.getContextPath() %>/table/<%= table.getName()%>/delete">
             <img src="<%= request.getContextPath() %>/img/delete.png" alt="supprimer" title="supprimer"/>
         </a>
     </td>
+    <%
+        }
+    %>
 </tr>
 <%
     }
@@ -95,4 +114,4 @@ Aucune table n'est disponible !
 <%
     }
 %>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="/footer.jsp"/>
