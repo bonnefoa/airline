@@ -66,7 +66,8 @@ public class AirlineManagerImpl implements AirlineManager {
 
     public void executeRequest(IRequest request) throws SQLException {
         airlineDAO.executeRequest(request);
-        Transaction transaction = new Transaction(request.buildQuery(), new Date());
+
+        Transaction transaction = new Transaction(request.buildQuery().replaceAll("'","\'"), new Date());
         transactionDAO.addTransaction(transaction);
     }
 
